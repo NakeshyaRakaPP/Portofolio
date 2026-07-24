@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redesign Website E-Commerce — Case Study | RAKA.</title>
+    <meta name="description" content="Studi kasus redesign checkout flow website e-commerce oleh Nakeshya Raka Putra Priyatna. Problem, process, solution, dan result lengkap.">
+    <link rel="canonical" href="https://raka-portfolio.example.com/case-study-ecommerce.html">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://raka-portfolio.example.com/case-study-ecommerce.html">
+    <meta property="og:title" content="Redesign Website E-Commerce — Case Study | RAKA.">
+    <meta property="og:description" content="Checkout flow dipangkas dari 5 langkah menjadi 2 langkah — studi kasus lengkap problem hingga result.">
+    <meta property="og:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
+    <meta property="og:locale" content="id_ID">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Redesign Website E-Commerce — Case Study | RAKA.">
+    <meta name="twitter:description" content="Checkout flow dipangkas dari 5 langkah menjadi 2 langkah — studi kasus lengkap problem hingga result.">
+    <meta name="twitter:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/case-study.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="is-loading">
+
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-logo">RAKA<span>.</span></div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav class="navbar navbar-expand-lg fixed-top scrolled reveal in-down" data-delay="0">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">RAKA<span>.</span></a>
+            <div class="ms-auto">
+                <button id="theme-toggle" class="btn btn-outline-light rounded-circle theme-toggle-btn" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="case-hero">
+        <div class="container">
+            <a href="index.html#works" class="case-back-link reveal in-left" data-delay="0">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Selected Works
+            </a>
+
+            <div class="case-eyebrow reveal in-up mt-4" data-delay="100">Case Study — 02 // Software Architecture & Dev</div>
+            <h1 class="case-title reveal in-up" data-delay="200">Redesign Website E-Commerce</h1>
+
+            <div class="case-meta reveal in-up" data-delay="300">
+                <div class="case-meta-item"><span>Role</span> UI/UX Engineer &amp; System Analyst</div>
+                <div class="case-meta-item"><span>Timeline</span> 6 Weeks</div>
+                <div class="case-meta-item"><span>Focus</span> Checkout Flow, Conversion</div>
+                <div class="case-meta-item"><span>Tools</span> Figma, Miro, HTML/CSS</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 reveal in-left" data-delay="0">
+                    <div class="case-step-num">01 // PROBLEM</div>
+                    <h2>Checkout Was Losing Customers</h2>
+                    <p>
+                        The existing checkout flow spanned five separate steps — cart, shipping details, address
+                        confirmation, payment method, and final review — before a customer could complete a purchase.
+                        Analytics showed a steep drop-off between step two and three, and support tickets frequently
+                        mentioned confusion about where the process actually ended.
+                    </p>
+                    <p>
+                        The core issue wasn't visual polish, it was structural: too many decision points spread too
+                        thin, with no clear signal to the customer of how much was left to do.
+                    </p>
+                </div>
+                <div class="col-lg-6 reveal in-right" data-delay="150">
+                    <div class="case-visual">Wireframe — Original 5-Step Checkout Flow</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 order-lg-2 reveal in-right" data-delay="0">
+                    <div class="case-step-num">02 // PROCESS</div>
+                    <h2>Mapping the Flow Before Touching the UI</h2>
+                    <p>
+                        Before any screen was designed, the full flow was mapped as a flowchart to identify which
+                        steps could merge without losing necessary information. Shipping and address confirmation
+                        were combined into a single form with smart defaults, and payment method selection moved
+                        inline with the review step.
+                    </p>
+                    <p>
+                        Each revision was tested against the same question: does this step ask the customer for
+                        something the system could reasonably infer or remember instead?
+                    </p>
+                </div>
+                <div class="col-lg-6 order-lg-1 reveal in-left" data-delay="150">
+                    <div class="case-visual">Flowchart — Consolidating 5 Steps Into 2</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 reveal in-left" data-delay="0">
+                    <div class="case-step-num">03 // SOLUTION</div>
+                    <h2>A Two-Step Checkout With Persistent Progress</h2>
+                    <p>
+                        The final design condensed the flow into two steps: <strong>Details</strong> (shipping,
+                        address, and contact merged into one form) and <strong>Payment &amp; Review</strong>
+                        (method selection with an inline order summary). A persistent progress indicator at the
+                        top removed any ambiguity about how far along the customer was.
+                    </p>
+                    <p>
+                        Modular form components were built so the same layout could be reused across mobile and
+                        desktop breakpoints without duplicating logic.
+                    </p>
+                </div>
+                <div class="col-lg-6 reveal in-right" data-delay="150">
+                    <div class="case-visual">Mockup — Final Two-Step Checkout UI</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="reveal in-up" data-delay="0">
+                <div class="case-step-num">04 // IMPLEMENTATION</div>
+                <h2>From Mockup to Working Front-End</h2>
+                <p>
+                    The approved design was translated into a responsive front-end build, with each form field,
+                    button state, and the progress indicator implemented as reusable components rather than
+                    one-off markup — so the same checkout logic could be dropped into other flows later.
+                </p>
+            </div>
+            <div class="case-visual case-visual-tall reveal in-scale" data-delay="100">
+                Screenshot — Live Checkout Implementation
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section case-section-noborder">
+        <div class="container">
+            <div class="reveal in-up" data-delay="0">
+                <div class="case-step-num">05 // RESULT</div>
+                <h2>Fewer Steps, Clearer Path to Purchase</h2>
+                <p>
+                    By cutting the checkout from five steps to two and giving customers a persistent sense of
+                    progress, the redesigned flow removed the two biggest points of confusion identified in the
+                    original audit.
+                </p>
+                <p>
+                    <strong>Insight:</strong> most checkout friction wasn't about UI polish at all — it came from
+                    asking for information the system already had, or could reasonably infer. Once that principle
+                    became the design filter, cutting steps was a natural consequence rather than a compromise.
+                </p>
+            </div>
+            <div class="case-result-grid">
+                <div class="case-result-item reveal in-scale" data-delay="0">
+                    <h3 class="stat-number">5 → 2</h3>
+                    <p class="stat-label">Checkout Steps</p>
+                </div>
+                <div class="case-result-item reveal in-scale" data-delay="100">
+                    <h3 class="stat-number">1</h3>
+                    <p class="stat-label">Unified Form</p>
+                </div>
+                <div class="case-result-item reveal in-scale" data-delay="200">
+                    <h3 class="stat-number">100%</h3>
+                    <p class="stat-label">Responsive Reuse</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="case-nav-footer reveal in-up" data-delay="0">
+        <a href="case-study-relaska.html" class="btn btn-outline-primary">
+            Next Case Study: Proyek RELASKA <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-cta reveal in-up" data-delay="0">
+                <h3>Let's Build Something Together.</h3>
+                <a href="index.html#contact" class="footer-cta-btn">Start a Conversation <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+
+            <div class="footer-bottom reveal in-up" data-delay="100">
+                <div class="footer-brand">RAKA<span>.</span></div>
+                <p class="footer-note">Designing systems, not just screens. Thanks for scrolling this far — see you on the next project.</p>
+
+                <div class="footer-links">
+                    <a href="index.html#hero-section">About</a>
+                    <a href="index.html#works">Projects</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <p class="footer-copyright">&copy; 2026 Nakeshya Raka Putra Priyatna. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main-subpage.js"></script>
+</body>
+</html>

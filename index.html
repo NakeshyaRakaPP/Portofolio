@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raka — System Thinker | Visual System Architect & UI/UX Engineer</title>
+    <meta name="description" content="Portfolio Nakeshya Raka Putra Priyatna — System Thinker, Visual System Architect, dan UI/UX Engineer. Membangun design system dan produk digital yang menyatukan logika teknis dengan estetika.">
+    <link rel="canonical" href="https://raka-portfolio.example.com/index.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://raka-portfolio.example.com/index.html">
+    <meta property="og:title" content="Raka — System Thinker | Visual System Architect & UI/UX Engineer">
+    <meta property="og:description" content="Membangun design system dan produk digital yang menyatukan logika teknis dengan estetika. Lihat studi kasus dan karya visual Raka.">
+    <meta property="og:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Raka — System Thinker | Visual System Architect & UI/UX Engineer">
+    <meta name="twitter:description" content="Membangun design system dan produk digital yang menyatukan logika teknis dengan estetika.">
+    <meta name="twitter:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
+
+    <!-- JSON-LD: Person schema untuk rich result -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nakeshya Raka Putra Priyatna",
+        "alternateName": "Raka",
+        "jobTitle": "Visual System Architect & UI/UX Engineer",
+        "description": "System Thinker yang membangun design system dan produk digital, menyatukan logika teknis dengan estetika.",
+        "url": "https://raka-portfolio.example.com/",
+        "sameAs": []
+    }
+    </script>
+
+    <!-- OPTIMASI: Preload gambar hero (LCP) agar tidak menunggu di antrean loading -->
+    <link rel="preload" as="image" href="img/foto-raka-transparan.png" fetchpriority="high">
+
+    <!-- OPTIMASI: Preconnect & Link Font dipindah kesini agar loading lebih cepat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- BARU: Tambahkan Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/case-study.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="is-loading">
+
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-logo">RAKA<span>.</span></div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav class="navbar navbar-expand-lg fixed-top reveal in-down" data-delay="0">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#hero-section">RAKA<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero-section">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#works">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-3">
+                         <button id="theme-toggle" class="btn btn-outline-light rounded-circle theme-toggle-btn" aria-label="Toggle Dark Mode">
+                            🌙
+                        </button>
+                    </li>
+                    <div class="nav-indicator"></div> <!-- Elemen Garis Peluncur -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero-section">
+        <div class="hero-bg-layer" data-parallax="0.015" data-parallax-scroll="0.06"></div>
+
+        <h1 class="hero-title-big reveal in-zoom" data-delay="0" data-parallax="0.03" data-parallax-scroll="0.16">
+            SYSTEM THINKER
+        </h1>
+
+        <!-- KOLOM KIRI -->
+        <div class="hero-side-info left-info" data-parallax="0" data-parallax-scroll="0.45">
+            
+            <div class="status-badge mb-3 reveal in-left" data-delay="800">
+                <span class="status-dot"></span> Available for work
+            </div>
+            
+            <div class="reveal in-left" data-delay="1000">
+                <h2 class="hero-name-big">Hi, I'm <span class="name-underline">Nakeshya Raka <br> Putra Priyatna</span></h2>
+                <p class="hero-role-small">A Visual System Architect & UI/UX Engineer.</p>
+            </div>
+
+            <div class="hero-cta-group reveal in-left" data-delay="1100">
+                <a href="#works" class="btn btn-hero-primary">View Projects</a>
+                <a href="cv-raka.pdf" class="btn btn-hero-outline" download>Download CV</a>
+                <a href="#contact" class="btn btn-hero-outline">Contact Me</a>
+            </div>
+
+        </div>
+    
+        <!-- KOLOM KANAN (Pisah tugas antara hero-side-info dan reveal) -->
+        <div class="hero-side-info right-info" data-parallax="0" data-parallax-scroll="0.75">
+            
+            <!-- Class reveal dipindah ke div baru di dalamnya -->
+            <div class="reveal in-right" data-delay="1000">
+                <p class="hero-desc-long">
+                    I Bridge <strong>Creative Aesthetics</strong> With <strong>Technical Logic</strong>, Utilizing 
+                    <strong>System Thinking</strong> To Architect <strong>User Experiences</strong>. My Expertise 
+                    Is Building <strong>Scalable Design Systems</strong> And <strong>Modular UI Components</strong> 
+                    That Align Directly With <strong>Back-End Structures &nbsp;&nbsp;&nbsp;&nbsp;And Data Logic</strong>, Ensuring 
+                    Maximum Efficiency And &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Long-Term Maintainability. 
+                </p>
+            </div>
+
+        </div>
+
+        <!-- 1. BUNGKUSAN (PARENT): Diurus oleh CSS untuk efek masuk (reveal) -->
+            <div class="reveal in-up hero-profile-wrapper" data-delay="200">
+                
+                <!-- 2. GAMBAR INTI (CHILD): Diurus oleh JS untuk efek Parallax (mouse follow) -->
+                <img src="img/foto-raka-transparan.png" 
+                    alt="Raka Profile" 
+                    class="hero-profile-img" 
+                    fetchpriority="high"
+                    loading="eager"
+                    decoding="async"
+                    data-parallax="0.08"
+                    data-parallax-scroll="0.38">
+                    
+            </div>
+
+             <div class="marquee-wrapper">
+                <div class="marquee-content">
+                    <span>CREATIVE TECHNOLOGIST &nbsp;•&nbsp; SYSTEM ANALYST &nbsp;•&nbsp; UI/UX ENGINEER &nbsp;•&nbsp; VISUAL ARCHITECT &nbsp;•&nbsp; LOGIC & ALGORITHMS &nbsp;&nbsp;&nbsp;</span>
+                    <span>CREATIVE TECHNOLOGIST &nbsp;•&nbsp; SYSTEM ANALYST &nbsp;•&nbsp; UI/UX ENGINEER &nbsp;•&nbsp; VISUAL ARCHITECT &nbsp;•&nbsp; LOGIC & ALGORITHMS &nbsp;&nbsp;&nbsp;</span>
+                </div>
+            </div>
+    </header>
+
+    <div class="section-divider"></div>
+
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item text-center reveal in-up" data-delay="0">
+                        <h3 class="stat-number"><span class="stat-count" data-count="10">0</span><span class="stat-suffix">+</span></h3>
+                        <p class="stat-label">Projects</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item text-center reveal in-up" data-delay="100">
+                        <h3 class="stat-number"><span class="stat-count" data-count="3">0</span><span class="stat-suffix">+</span></h3>
+                        <p class="stat-label">Years Designing</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item text-center reveal in-up" data-delay="200">
+                        <h3 class="stat-number"><span class="stat-count" data-count="15">0</span><span class="stat-suffix">+</span></h3>
+                        <p class="stat-label">Logo Designs</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item stat-tags text-center reveal in-up" data-delay="300">
+                        <h3 class="stat-number">UI &nbsp;•&nbsp; System Analysis &nbsp;•&nbsp; Front-End</h3>
+                        <p class="stat-label">Core Focus</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ======================================= -->
+    <!-- ABOUT ME SECTION                         -->
+    <!-- ======================================= -->
+    <section id="about" class="about-section" lang="id">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4 reveal in-left" data-delay="0">
+                    <div class="about-eyebrow">// ABOUT ME</div>
+                    <h2 class="about-heading">Cara Berpikir, Bukan Hanya Cara Kerja.</h2>
+                </div>
+                <div class="col-lg-8 reveal in-right" data-delay="150">
+                    <p class="about-paragraph">
+                        Semua bermula dari kebiasaan yang mungkin agak "aneh": setiap kali menemukan sistem yang
+                        rumit — entah itu alur checkout, birokrasi kampus, atau bahkan game strategi — saya lebih
+                        penasaran dengan <em>kenapa</em> sistemnya begitu, dibanding sekadar memakainya. Kebiasaan
+                        itu yang akhirnya membawa saya ke persimpangan antara desain dan logika: satu kaki di dunia
+                        visual (Figma, komposisi, warna), satu kaki lagi di dunia struktur (database, arsitektur
+                        sistem, alur data).
+                    </p>
+                    <p class="about-paragraph">
+                        Saya menyebut diri saya <strong>System Thinker</strong> bukan karena gelar atau gaya-gayaan,
+                        tapi karena itulah proses kerja saya yang sebenarnya: sebelum menyentuh warna atau layout,
+                        saya memetakan masalahnya dulu — siapa penggunanya, data apa yang mengalir, keputusan apa
+                        yang harus diambil di setiap titik. Desain yang bagus, menurut saya, adalah desain yang
+                        sudah "beres" secara logika sebelum dia terlihat cantik.
+                    </p>
+                    <p class="about-paragraph">
+                        Pendekatan itu yang saya bawa ke setiap proyek: mulai dari flowchart dan ERD, baru turun
+                        ke wireframe, mockup, dan akhirnya implementasi. Hasil akhirnya bukan cuma tampil rapi,
+                        tapi juga masuk akal secara sistem — dan itu yang menurut saya membedakan "tampilan yang
+                        indah" dari "produk yang benar-benar bekerja."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ======================================= -->
+    <!-- SKILLS / TECH STACK SECTION               -->
+    <!-- ======================================= -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <div class="project-category-header reveal in-left" data-delay="0">
+                <span class="cat-num">// STACK</span>
+                <h3>Tools & Technologies</h3>
+            </div>
+
+            <div class="skills-grid reveal in-up" data-delay="100">
+                <div class="skill-chip"><i class="bi bi-server" aria-hidden="true"></i> Laravel</div>
+                <div class="skill-chip"><i class="bi bi-bootstrap-fill" aria-hidden="true"></i> Bootstrap</div>
+                <div class="skill-chip"><i class="bi bi-filetype-java" aria-hidden="true"></i> Java</div>
+                <div class="skill-chip"><i class="bi bi-database" aria-hidden="true"></i> MySQL</div>
+                <div class="skill-chip"><i class="bi bi-vector-pen" aria-hidden="true"></i> Figma</div>
+                <div class="skill-chip"><i class="bi bi-badge-3d" aria-hidden="true"></i> Blender</div>
+                <div class="skill-chip"><i class="bi bi-diagram-3" aria-hidden="true"></i> RapidMiner</div>
+                <div class="skill-chip"><i class="bi bi-code-slash" aria-hidden="true"></i> HTML / CSS / JS</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section id="works" class="works-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 display-4 fw-bold reveal in-scale works-heading" data-delay="0">
+                SELECTED WORKS
+            </h2>
+
+            <!-- BAGIAN 1: VISUAL (LOGOS) -->
+            <div class="mb-5">
+                <div class="project-category-header reveal in-left" data-delay="0">
+                    <span class="cat-num">01 //</span>
+                    <h3>Visual Identity Systems</h3>
+                </div>
+
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 g-md-4 justify-content-center text-center">
+                    
+                    <div class="col reveal in-scale" data-delay="200">
+                         <div class="logo-item" style="--hover-color: #007bff;" title="JokiRIF">
+                            <img src="./img/LOGO JOKIRIF.png" alt="Logo Jokirif" class="img-fluid" loading="lazy" decoding="async">
+                            <div class="logo-overlay-text">JOKI RIF</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col reveal in-scale" data-delay="300">
+                        <div class="logo-item" style="--hover-color: #ff4d4d;" title="Raja 1blis">
+                            <img src="./img/LOGO RAJA 1BLIS.png" alt="Logo Raja 1blis" class="img-fluid" loading="lazy" decoding="async">
+                            <div class="logo-overlay-text">RAJA 1BLIS E-Sport</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col reveal in-scale" data-delay="100">
+                        <div class="logo-item" style="--hover-color: #ffb400;" title="MINARA">
+                            <img src="./img/LOGO MINARA.png" alt="Logo Minara" class="img-fluid" loading="lazy" decoding="async">
+                            <div class="logo-overlay-text">MINARA</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col reveal in-scale" data-delay="400">
+                        <div class="logo-item" style="--hover-color: #9b59b6;" title="RELASKA COMPUTER">
+                            <img src="./img/LOGO RELASKA.png" alt="Logo Relaska" class="img-fluid" loading="lazy" decoding="async">
+                            <div class="logo-overlay-text">RELASKA COMPUTER</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col reveal in-scale" data-delay="500">
+                        <div class="logo-item" style="--hover-color: #00d4ff;" title="PTM Lumba-Lumba">
+                            <img src="./img/LOGO PTM LUMBA-LUMBA.png" alt="Logo PTM Lumba-Lumba" class="img-fluid" loading="lazy" decoding="async">
+                            <div class="logo-overlay-text">PTM LUMBA-LUMBA PISANGAN BARU</div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            
+            <!-- BAGIAN 2: LOGIC (FULLSTACK) -->
+            <div class="mt-5">
+                <div class="project-category-header reveal in-left" data-delay="0">
+                    <span class="cat-num">02 //</span>
+                    <h3>Software Architecture & Dev</h3>
+                </div>
+
+                <div class="row g-4"> 
+    
+                    <!-- KIRI: PROYEK RELASKA -->
+                    <div class="col-md-6 reveal in-up" data-delay="0">
+                        <a href="case-study-relaska.html" class="project-card h-100">
+                            <div class="project-card-media">
+                                <img src="./img/thumbnail-relaska.png" alt="Thumbnail Proyek RELASKA" class="project-card-media-img" loading="lazy" decoding="async">
+                            </div>
+                            <div class="project-card-overlay">
+                                <div class="project-card-tags">
+                                    <span class="project-tag">PC Builder Simulator</span>
+                                    <span class="project-tag">2026</span>
+                                    <span class="project-tag">Linear Regression</span>
+                                </div>
+                                <h5 class="project-card-title">RELASKA — PC Builder & Smart Store</h5>
+                                <p class="project-card-desc">Simulator rakit PC interaktif yang mengecek kompatibilitas hardware otomatis, terintegrasi dengan Price Trend Radar berbasis Regresi Linear.</p>
+                                <span class="project-card-btn">View Case Study <i class="bi bi-arrow-up-right" aria-hidden="true"></i></span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 reveal in-up" data-delay="0">
+                        <a href="case-study-ecommerce.html" class="project-card">
+                            <!-- TODO: ganti dengan screenshot asli implementasi e-commerce -->
+                            <div class="project-card-media is-pending">
+                                <i class="bi bi-image" aria-hidden="true"></i>
+                                <span>Screenshot coming soon</span>
+                            </div>
+                            <div class="project-card-overlay">
+                                <div class="project-card-tags">
+                                    <span class="project-tag">UI/UX Engineer</span>
+                                    <span class="project-tag">2025</span>
+                                    <span class="project-tag">System Analysis</span>
+                                </div>
+                                <h5 class="project-card-title">Redesign Website E-Commerce</h5>
+                                <p class="project-card-desc">Checkout flow dipangkas dari 5 langkah menjadi 2 langkah dengan progress indicator yang persisten.</p>
+                                <span class="project-card-btn">View Case Study <i class="bi bi-arrow-up-right" aria-hidden="true"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ======================================= -->
+    <!-- 8. CONTACT INTERFACE SECTION (BARU)     -->
+    <!-- ======================================= -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!-- Kolom Kiri: Call to Action -->
+                <div class="col-lg-6 reveal in-left" data-delay="0">
+                    <h2 class="contact-heading">
+                        LET'S BUILD A <br> SYSTEM TOGETHER.
+                    </h2>
+                    <p class="contact-subheading">
+                        Have an idea, a project, or just want to talk about systems? My inbox is always open. Whether you have a question or just want to say hi, I’ll try my best to get back to you!
+                    </p>
+                </div>
+
+                <!-- Kolom Kanan: Channels -->
+                <div class="col-lg-6 reveal in-right" data-delay="200">
+                    <div class="contact-channel-label">// PRIMARY CHANNEL</div>
+                    <button id="email-button" class="email-button" aria-label="Salin alamat email nakeshyaraka@gmail.com ke clipboard">
+                        <span id="email-text">nakeshyaraka@gmail.com</span>
+                        <span id="copy-icon">COPY</span>
+                    </button>
+
+                    <div class="contact-channel-label mt-4">// SOCIAL NODES</div>
+                    <div class="social-nodes">
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-cta reveal in-up" data-delay="0">
+                <h3>Let's Build Something Together.</h3>
+                <a href="#contact" class="footer-cta-btn">Start a Conversation <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+
+            <div class="footer-bottom reveal in-up" data-delay="100">
+                <div class="footer-brand">RAKA<span>.</span></div>
+                <p class="footer-note">Designing systems, not just screens. Thanks for scrolling this far — see you on the next project.</p>
+
+                <div class="footer-links">
+                    <a href="#hero-section">About</a>
+                    <a href="#works">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <p class="footer-copyright">&copy; 2026 Nakeshya Raka Putra Priyatna. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/utils.js"></script>
+<script src="js/loader.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/parallax.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/counter.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/marquee.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/magnetic-text.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

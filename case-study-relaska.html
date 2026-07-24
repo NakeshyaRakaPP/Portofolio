@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyek RELASKA — Sistem Akademik | Case Study | RAKA.</title>
+    <meta name="description" content="Studi kasus perancangan sistem akademik RELASKA oleh Nakeshya Raka Putra Priyatna. Dari project charter, ERD/UML, hingga dashboard berbasis role.">
+    <link rel="canonical" href="https://raka-portfolio.example.com/case-study-relaska.html">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://raka-portfolio.example.com/case-study-relaska.html">
+    <meta property="og:title" content="Proyek RELASKA — Sistem Akademik | Case Study | RAKA.">
+    <meta property="og:description" content="Dari spreadsheet yang tersebar ke satu sistem akademik dengan ERD/UML dan dashboard berbasis role.">
+    <meta property="og:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
+    <meta property="og:locale" content="id_ID">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Proyek RELASKA — Sistem Akademik | Case Study | RAKA.">
+    <meta name="twitter:description" content="Dari spreadsheet yang tersebar ke satu sistem akademik dengan ERD/UML dan dashboard berbasis role.">
+    <meta name="twitter:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/case-study.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="is-loading">
+
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div class="loader-logo">RAKA<span>.</span></div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav class="navbar navbar-expand-lg fixed-top scrolled reveal in-down" data-delay="0">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">RAKA<span>.</span></a>
+            <div class="ms-auto">
+                <button id="theme-toggle" class="btn btn-outline-light rounded-circle theme-toggle-btn" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="case-hero">
+        <div class="container">
+            <a href="index.html#works" class="case-back-link reveal in-left" data-delay="0">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Selected Works
+            </a>
+
+            <div class="case-eyebrow reveal in-up mt-4" data-delay="100">Case Study — 02 // Software Architecture & Dev</div>
+            <h1 class="case-title reveal in-up" data-delay="200">Proyek RELASKA — Sistem Akademik</h1>
+
+            <div class="case-meta reveal in-up" data-delay="300">
+                <div class="case-meta-item"><span>Role</span> System Analyst &amp; Project Lead</div>
+                <div class="case-meta-item"><span>Timeline</span> 10 Weeks</div>
+                <div class="case-meta-item"><span>Focus</span> Academic Data System</div>
+                <div class="case-meta-item"><span>Tools</span> Draw.io, ERD/UML, MySQL</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 reveal in-left" data-delay="0">
+                    <div class="case-step-num">01 // PROBLEM</div>
+                    <h2>Student Records Scattered Across Spreadsheets</h2>
+                    <p>
+                        RELASKA managed grades, attendance, and class schedules across a mix of shared spreadsheets
+                        and paper forms. There was no single source of truth: teachers kept their own copies, admins
+                        reconciled discrepancies manually every semester, and there was no audit trail when a record
+                        was changed.
+                    </p>
+                    <p>
+                        Before designing any interface, the project needed a formal project charter and scope
+                        definition — stakeholders disagreed on what "done" even looked like.
+                    </p>
+                </div>
+                <div class="col-lg-6 reveal in-right" data-delay="150">
+                    <div class="case-visual">Document — Project Charter &amp; Work Breakdown Structure (WBS)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 order-lg-2 reveal in-right" data-delay="0">
+                    <div class="case-step-num">02 // PROCESS</div>
+                    <h2>Modeling the Data Before the Screens</h2>
+                    <p>
+                        The process started with entity mapping: students, teachers, classes, grades, and attendance
+                        records were modeled as an ERD to define exactly how each piece of data related to the
+                        others. A UML use-case diagram followed, clarifying which actions each role — admin, teacher,
+                        student — was actually permitted to perform.
+                    </p>
+                    <p>
+                        Only after the data model was validated with stakeholders did the interface wireframes
+                        begin, ensuring the UI reflected real relationships instead of guesswork.
+                    </p>
+                </div>
+                <div class="col-lg-6 order-lg-1 reveal in-left" data-delay="150">
+                    <div class="case-visual">ERD / UML — Academic Data Relationships</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 reveal in-left" data-delay="0">
+                    <div class="case-step-num">03 // SOLUTION</div>
+                    <h2>One Dashboard, Role-Based Access</h2>
+                    <p>
+                        The final system centralized grades, attendance, and schedules into a single dashboard with
+                        role-based views: teachers see and edit only their own classes, admins see the full academic
+                        picture, and students see a read-only summary of their own records.
+                    </p>
+                    <p>
+                        Every change is logged, replacing the old manual reconciliation process with a built-in
+                        audit trail.
+                    </p>
+                </div>
+                <div class="col-lg-6 reveal in-right" data-delay="150">
+                    <div class="case-visual">Mockup — Role-Based Academic Dashboard</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="reveal in-up" data-delay="0">
+                <div class="case-step-num">04 // IMPLEMENTATION</div>
+                <h2>From Data Model to Live Dashboard</h2>
+                <p>
+                    The validated ERD was translated directly into a MySQL schema, and the UML use-cases became
+                    the access-control rules enforced on every route — so what admins, teachers, and students
+                    could see and edit in the interface always matched what the data model actually allowed.
+                </p>
+            </div>
+            <div class="case-visual case-visual-tall reveal in-scale" data-delay="100">
+                Screenshot — Live Academic Dashboard
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section case-section-noborder">
+        <div class="container">
+            <div class="reveal in-up" data-delay="0">
+                <div class="case-step-num">05 // RESULT</div>
+                <h2>From Scattered Spreadsheets to One System of Record</h2>
+                <p>
+                    Formalizing the project scope early and modeling the data before the interface meant the final
+                    build matched what stakeholders actually needed, with no late-stage rework of the data structure.
+                </p>
+                <p>
+                    <strong>Insight:</strong> the biggest risk in a project like this isn't the interface, it's
+                    disagreement about what the data even means. Locking the ERD and use-cases first turned every
+                    later design decision into a straightforward translation, instead of a negotiation.
+                </p>
+            </div>
+            <div class="case-result-grid">
+                <div class="case-result-item reveal in-scale" data-delay="0">
+                    <h3 class="stat-number">1</h3>
+                    <p class="stat-label">Source of Truth</p>
+                </div>
+                <div class="case-result-item reveal in-scale" data-delay="100">
+                    <h3 class="stat-number">3</h3>
+                    <p class="stat-label">Role-Based Views</p>
+                </div>
+                <div class="case-result-item reveal in-scale" data-delay="200">
+                    <h3 class="stat-number">0</h3>
+                    <p class="stat-label">Manual Reconciliation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="case-nav-footer reveal in-up" data-delay="0">
+        <a href="case-study-ecommerce.html" class="btn btn-outline-primary">
+            Next Case Study: Redesign E-Commerce <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-cta reveal in-up" data-delay="0">
+                <h3>Let's Build Something Together.</h3>
+                <a href="index.html#contact" class="footer-cta-btn">Start a Conversation <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+
+            <div class="footer-bottom reveal in-up" data-delay="100">
+                <div class="footer-brand">RAKA<span>.</span></div>
+                <p class="footer-note">Designing systems, not just screens. Thanks for scrolling this far — see you on the next project.</p>
+
+                <div class="footer-links">
+                    <a href="index.html#hero-section">About</a>
+                    <a href="index.html#works">Projects</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <p class="footer-copyright">&copy; 2026 Nakeshya Raka Putra Priyatna. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main-subpage.js"></script>
+</body>
+</html>

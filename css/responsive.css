@@ -1,0 +1,35 @@
+/* ======================================= */
+/* BREAKPOINT: TABLET & BELOW (max-width 992px) */
+/* ======================================= */
+
+@media (max-width: 992px) { 
+    .hero-side-info {
+        position: relative; 
+        left: auto;
+        right: auto;
+        top: auto !important;
+        transform: none !important;
+        width: 100%;
+        max-width: 90%;
+        margin: 20px auto;
+        text-align: center !important;
+    }
+    
+    .left-info {
+        order: -1; 
+    }
+    .right-info {
+        order: 1; 
+    }
+
+    .hero-profile-img {
+        height: 65vh;
+        margin-top: 30px;
+    }
+
+    .bg-text {
+        font-size: 15vw; 
+        top: 20%; 
+        transform: translate(-50%, -50%);
+    }
+}
