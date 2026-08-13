@@ -5,6 +5,10 @@
 window.RakaSite = window.RakaSite || {};
 
 RakaSite.initMagneticText = function () {
+    // Efek ini murni berbasis mousemove — tidak ada gunanya (dan boros) di layar sentuh,
+    // dan harus dihormati kalau pengguna minta gerakan lebih sedikit.
+    if (RakaSite.utils.isTouchDevice() || RakaSite.utils.prefersReducedMotion()) return;
+
     // 1. Pecah teks jadi span per-huruf (tetap menjaga kata utuh agar tidak wrap aneh)
     function wrapLettersInSpans(selector) {
         const elements = document.querySelectorAll(selector);

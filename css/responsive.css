@@ -1,35 +1,508 @@
-/* ======================================= */
-/* BREAKPOINT: TABLET & BELOW (max-width 992px) */
-/* ======================================= */
+/* =========================================================
+   RESPONSIVE.CSS — Sistem responsif portofolio RAKA
+   =========================================================
+   Filosofi: mobile bukan "desktop yang diperkecil", tapi bahasa
+   desain yang sama, disusun ulang untuk layar & interaksi yang
+   lebih kecil. Desktop (>=992px) TIDAK disentuh oleh file ini.
 
-@media (max-width: 992px) { 
-    .hero-side-info {
-        position: relative; 
+   Breakpoint yang dipakai:
+   >=992px   -> Desktop (tidak ada perubahan, styling asli di file lain)
+   768-991px -> Tablet (hero mulai bersusun vertikal)
+   576-767px -> Mobile besar (penyesuaian tipografi & spacing utama)
+   <=575px   -> Mobile kecil (padding & ukuran paling ketat)
+
+   Struktur file:
+   1. Global
+   2. Navbar
+   3. Hero
+   4. Stats
+   5. About
+   6. Skills
+   7. Projects
+   8. Case Study & 404
+   9. Contact
+   10. Footer
+   11. Accessibility / Reduced Motion
+   ========================================================= */
+
+
+/* =========================================================
+   1. GLOBAL
+   ========================================================= */
+:root {
+    --mobile-padding: 18px;
+}
+
+@media (max-width: 991px) {
+    .container,
+    .container-fluid {
+        padding-left: var(--mobile-padding);
+        padding-right: var(--mobile-padding);
+    }
+}
+
+@media (max-width: 575px) {
+    :root {
+        --mobile-padding: 14px;
+    }
+}
+
+
+/* =========================================================
+   2. NAVBAR
+   ========================================================= */
+@media (max-width: 991px) {
+    .navbar {
+        /* calc() lebih presisi & tidak bergantung pada lebar viewport secara kasar seperti 92% */
+        width: calc(100% - 24px);
+        padding: 10px 16px;
+    }
+
+    /* Cegah padding dobel: .navbar sudah punya padding sendiri, jadi
+       .container-fluid di dalamnya tidak perlu ikut memakai --mobile-padding */
+    .navbar .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    /* Panel menu saat dibuka: tetap menyatu secara visual dengan navbar melayang */
+    .navbar-collapse {
+        margin-top: 12px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar-nav {
+        gap: 2px;
+    }
+
+    /* Setiap target navigasi minimal ~44px tinggi supaya nyaman disentuh */
+    .nav-link {
+        margin-left: 0;
+        padding: 12px 4px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Efek scale saat hover/active terasa aneh untuk link full-width vertikal */
+    .nav-link:hover,
+    .nav-link.active {
+        transform: none;
+    }
+
+    /* Indikator garis geser hanya masuk akal di layout horizontal desktop */
+    .nav-indicator {
+        display: none;
+    }
+
+    /* Baris berisi tombol tema dipisah dengan garis tipis + jarak, sesuai brief */
+    .navbar-nav .nav-item:last-child {
+        margin-top: 8px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .theme-toggle-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+
+/* =========================================================
+   3. HERO
+   ========================================================= */
+@media (max-width: 991px) {
+    header {
+        height: auto;
+        min-height: 100vh;   /* fallback untuk browser tanpa dukungan svh */
+        min-height: 100svh;  /* svh = tinggi viewport nyata, tidak ketutup UI browser di HP */
+        padding: 100px 0 40px;
+        justify-content: flex-start;
+        gap: 22px;
+    }
+
+    .hero-bg-layer {
+        inset: 0;
+    }
+
+    /* "Bongkar" dua wrapper kiri/kanan supaya anak-anaknya bisa disusun ulang
+       satu per satu lewat `order` -- tanpa mengubah HTML maupun perilaku JS. */
+    .hero-side-info.left-info,
+    .hero-side-info.right-info {
+        display: contents;
+    }
+
+    /* Urutan komposisi mobile:
+       1. SYSTEM THINKER  2. Foto  3. Status  4. Nama+Role  5. Deskripsi  6. CTA  7. Marquee */
+    .hero-title-big {
+        order: 1;
+        position: relative;
+        top: auto;
         left: auto;
         right: auto;
-        top: auto !important;
-        transform: none !important;
-        width: 100%;
-        max-width: 90%;
-        margin: 20px auto;
-        text-align: center !important;
+        font-size: clamp(3.4rem, 15vw, 7rem);
+        letter-spacing: -2px;
+        white-space: normal;      /* boleh 2 baris jika perlu, jangan sampai overflow */
+        line-height: 0.95;
+        padding: 0 8px;
+        margin-bottom: -14px;     /* overlap kecil & terkontrol dengan foto, bukan negative margin raksasa */
     }
-    
-    .left-info {
-        order: -1; 
-    }
-    .right-info {
-        order: 1; 
+
+    .hero-profile-wrapper {
+        order: 2;
+        width: min(82vw, 430px);
+        margin: 0 auto;
     }
 
     .hero-profile-img {
-        height: 65vh;
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+
+    #hero-section .status-badge {
+        order: 3;
+        margin: 4px auto 0;
+    }
+
+    #hero-section .hero-identity-block {
+        order: 4;
+        width: 100%;
+        max-width: 480px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    #hero-section .right-info > .reveal.in-right {
+        order: 5;
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    #hero-section .hero-cta-group {
+        order: 6;
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .marquee-wrapper {
+        order: 7;
+    }
+
+    .hero-name-big {
+        font-size: clamp(1.5rem, 5vw, 1.8rem);
+    }
+
+    /* Deskripsi: rata kiri, ukuran dikecilkan, lebih mudah dibaca (bukan blok padat rata kanan-kiri) */
+    .hero-desc-long {
+        text-align: left;
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    /* CTA: "View Projects" dominan sendiri di baris pertama,
+       "Download CV" & "Contact Me" berbagi baris kedua */
+    .hero-cta-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .hero-cta-group .btn-hero-primary {
+        grid-column: 1 / -1;
+    }
+
+    .hero-cta-group .btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Marquee: padding & ukuran huruf diperkecil, tetap bergerak kontinu */
+    .marquee-wrapper {
+        padding: 12px 0;
+    }
+
+    .marquee-content span {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 575px) {
+    header {
+        padding-top: 90px;
+    }
+
+    .hero-title-big {
+        font-size: clamp(3rem, 16vw, 5.5rem);
+        letter-spacing: -1px;
+    }
+
+    .hero-profile-wrapper {
+        width: min(88vw, 360px);
+    }
+
+    .hero-cta-group {
+        grid-template-columns: 1fr; /* di layar sangat sempit, 3 tombol ditumpuk penuh */
+    }
+
+    .hero-cta-group .btn-hero-primary {
+        grid-column: auto;
+    }
+
+    .marquee-content span {
+        font-size: 0.72rem;
+        letter-spacing: 1.5px;
+    }
+}
+
+
+/* =========================================================
+   4. STATS
+   ========================================================= */
+@media (max-width: 991px) {
+    /* Grid 2-kolom sudah otomatis dari Bootstrap (col-6 col-md-3) -- di sini hanya
+       menyesuaikan ukuran & jarak supaya tetap terasa premium, bukan sekadar muat. */
+    .stats-section {
+        padding: 60px 0 10px;
+    }
+
+    .stat-number {
+        font-size: clamp(1.9rem, 7vw, 2.6rem);
+    }
+
+    .stat-item.stat-tags .stat-number {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .stat-item {
+        padding: 14px 10px;
+    }
+}
+
+
+/* =========================================================
+   5. ABOUT
+   ========================================================= */
+@media (max-width: 991px) {
+    .about-section {
+        padding: 70px 0;
+    }
+
+    .about-heading {
+        margin-bottom: 4px;
+    }
+
+    .about-paragraph {
+        font-size: 0.92rem;
+        line-height: 1.75;
+    }
+}
+
+@media (max-width: 575px) {
+    .about-section {
+        padding: 60px 0;
+    }
+}
+
+
+/* =========================================================
+   6. SKILLS
+   ========================================================= */
+@media (max-width: 767px) {
+    .skills-section {
+        padding: 30px 0 70px;
+    }
+
+    /* Spec: tetap 2 kolom di mobile, jangan dipaksa muat sampai berantakan */
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .skill-chip {
+        font-size: 0.85rem;
+        padding: 14px 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    /* Hanya di layar sangat sempit, 1 kolom supaya tidak terlalu padat */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   7. PROJECTS
+   ========================================================= */
+@media (max-width: 991px) {
+    .works-section {
         margin-top: 30px;
     }
 
-    .bg-text {
-        font-size: 15vw; 
-        top: 20%; 
-        transform: translate(-50%, -50%);
+    #works h2 {
+        font-size: clamp(2rem, 8vw, 4rem);
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Kartu proyek: tinggi proporsional terhadap layar, bukan angka desktop yang dipaksakan */
+    .project-card {
+        height: clamp(300px, 78vw, 420px);
+    }
+
+    .project-card-title {
+        font-size: 1.05rem;
+    }
+
+    .project-card-desc {
+        font-size: 0.82rem;
+    }
+
+    /* Tombol "View Case Study" dipastikan >=44px agar nyaman disentuh */
+    .project-card-btn {
+        padding: 12px 18px;
+        min-height: 44px;
+    }
+
+    /* Feedback tap: sedikit mengecil, bukan bounce besar (spec #27) */
+    .project-card:active {
+        transform: scale(0.985);
+    }
+
+    .logo-item:active {
+        transform: scale(0.97);
+    }
+}
+
+
+/* =========================================================
+   8. CASE STUDY & 404
+   ========================================================= */
+@media (max-width: 767px) {
+    .case-hero {
+        padding: 130px 0 40px;
+    }
+
+    .case-section {
+        padding: 50px 0;
+    }
+
+    .case-section h2 {
+        font-size: clamp(1.4rem, 6vw, 2rem);
+    }
+
+    .case-meta {
+        gap: 10px;
+    }
+
+    .case-meta-item {
+        flex: 1 1 calc(50% - 10px);
+    }
+
+    .case-nav-footer .btn {
+        min-height: 44px;
+        width: 100%;
+    }
+
+    .error-404-section {
+        padding: 130px 0 70px;
+    }
+}
+
+
+/* =========================================================
+   9. CONTACT
+   ========================================================= */
+@media (max-width: 991px) {
+    .contact-section {
+        padding: 80px 0;
+    }
+
+    .contact-heading {
+        font-size: clamp(1.8rem, 7vw, 2.8rem);
+    }
+}
+
+@media (max-width: 767px) {
+    .email-button {
+        min-height: 52px;
+        padding: 16px 18px;
+        font-size: 0.9rem;
+    }
+
+    .email-button #email-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Ikon sosial: tetap >=44px, jarak dijaga supaya tidak salah pencet */
+    .social-nodes a {
+        width: 46px;
+        height: 46px;
+        margin-right: 12px;
+    }
+}
+
+
+/* =========================================================
+   10. FOOTER
+   ========================================================= */
+@media (max-width: 767px) {
+    .site-footer {
+        padding: 60px 0 30px;
+    }
+
+    .footer-cta h3 {
+        font-size: clamp(1.6rem, 8vw, 2.4rem);
+    }
+
+    /* .footer-bottom { flex-direction: column } sudah diatur di sections.css --
+       di sini cukup menengahkan baris link & sosial agar rapi saat ditumpuk. */
+    .footer-links,
+    .footer-socials {
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+   11. ACCESSIBILITY / REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    /* Hentikan animasi berjalan pada marquee dan seluruh elemen parallax.
+       !important sengaja dipakai di sini -- ini satu-satunya cara menjamin
+       menang atas transform inline yang sempat ditulis JS sebelum media query
+       ini dibaca ulang, dan merupakan pengecualian yang wajar untuk kebutuhan
+       aksesibilitas gerakan. */
+    .marquee-content,
+    [data-parallax],
+    .hover-char {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
     }
 }

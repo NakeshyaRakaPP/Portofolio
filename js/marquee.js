@@ -18,6 +18,13 @@ RakaSite.initMarquee = function () {
     const baseText = firstSpan.outerHTML;
     const SPEED_PX_PER_SEC = 110; // Naikkan angka ini untuk lebih cepat, turunkan untuk lebih lambat
 
+    // Reduced motion: tampilkan satu baris teks statis saja, tanpa animasi berjalan
+    if (RakaSite.utils.prefersReducedMotion()) {
+        track.style.animation = 'none';
+        track.innerHTML = baseText;
+        return;
+    }
+
     function buildTrack() {
         // Reset ke satu salinan asli dulu sebelum menghitung ulang
         track.style.animation = 'none';

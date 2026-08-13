@@ -23,4 +23,5 @@ textarea:focus-visible {
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
+    overflow-x: hidden; /* Cegah scroll horizontal tak sengaja di semua ukuran layar */
 }

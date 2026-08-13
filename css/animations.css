@@ -133,6 +133,16 @@ body.cursor-hidden .cursor-outline {
     opacity: 0;
 }
 
+/* Safety net: JS (cursor.js) sudah mengecek pointer:fine sebelum mengaktifkan
+   cursor custom, tapi aturan CSS ini memastikan kursor palsu TIDAK PERNAH
+   muncul di perangkat sentuh murni, apa pun yang terjadi pada JS. */
+@media (hover: none), (pointer: coarse) {
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
+}
+
 /* ======================================= */
 
 /* 11. CINEMATIC SCROLL REVEAL             */
