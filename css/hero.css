@@ -192,7 +192,9 @@ header {
     font-size: 0.85rem;
     line-height: 1.6;
     color: var(--text-muted);
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-inline: 1.5rem; /* Mengatur margin kiri & kanan sekaligus */
 }
 .hero-desc-long strong {
     color: var(--text-main);

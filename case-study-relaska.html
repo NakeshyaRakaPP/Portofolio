@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyek RELASKA — Sistem Akademik | Case Study | RAKA.</title>
-    <meta name="description" content="Studi kasus perancangan sistem akademik RELASKA oleh Nakeshya Raka Putra Priyatna. Dari project charter, ERD/UML, hingga dashboard berbasis role.">
+    <title>Proyek RELASKA — Smart Computer Store | Case Study | RAKA.</title>
+    <meta name="description" content="Studi kasus perancangan e-commerce RELASKA oleh Nakeshya Raka Putra Priyatna. Menampilkan fitur PC Builder Simulator dan Price Trend Radar dengan algoritma Regresi Linear.">
     <link rel="canonical" href="https://raka-portfolio.example.com/case-study-relaska.html">
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -12,14 +12,14 @@
 
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://raka-portfolio.example.com/case-study-relaska.html">
-    <meta property="og:title" content="Proyek RELASKA — Sistem Akademik | Case Study | RAKA.">
-    <meta property="og:description" content="Dari spreadsheet yang tersebar ke satu sistem akademik dengan ERD/UML dan dashboard berbasis role.">
+    <meta property="og:title" content="Proyek RELASKA — Smart Computer Store | Case Study | RAKA.">
+    <meta property="og:description" content="Membangun e-commerce PC cerdas dengan simulasi perakitan dan analitik prediksi harga menggunakan model Regresi Linear.">
     <meta property="og:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
     <meta property="og:locale" content="id_ID">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Proyek RELASKA — Sistem Akademik | Case Study | RAKA.">
-    <meta name="twitter:description" content="Dari spreadsheet yang tersebar ke satu sistem akademik dengan ERD/UML dan dashboard berbasis role.">
+    <meta name="twitter:title" content="Proyek RELASKA — Smart Computer Store | Case Study | RAKA.">
+    <meta name="twitter:description" content="Membangun e-commerce PC cerdas dengan simulasi perakitan dan analitik prediksi harga menggunakan model Regresi Linear.">
     <meta name="twitter:image" content="https://raka-portfolio.example.com/img/og-image.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,14 +67,14 @@
                 <i class="bi bi-arrow-left" aria-hidden="true"></i> Back to Selected Works
             </a>
 
-            <div class="case-eyebrow reveal in-up mt-4" data-delay="100">Case Study — 02 // Software Architecture & Dev</div>
-            <h1 class="case-title reveal in-up" data-delay="200">Proyek RELASKA — Sistem Akademik</h1>
+            <div class="case-eyebrow reveal in-up mt-4" data-delay="100">Case Study — 02 // Fullstack & Predictive Analytics</div>
+            <h1 class="case-title reveal in-up" data-delay="200">Proyek RELASKA — Smart Computer Store</h1>
 
             <div class="case-meta reveal in-up" data-delay="300">
-                <div class="case-meta-item"><span>Role</span> System Analyst &amp; Project Lead</div>
-                <div class="case-meta-item"><span>Timeline</span> 10 Weeks</div>
-                <div class="case-meta-item"><span>Focus</span> Academic Data System</div>
-                <div class="case-meta-item"><span>Tools</span> Draw.io, ERD/UML, MySQL</div>
+                <div class="case-meta-item"><span>Role</span> System Architect & Fullstack Dev</div>
+                <div class="case-meta-item"><span>Timeline</span> 12 Weeks</div>
+                <div class="case-meta-item"><span>Focus</span> E-Commerce, Data Mining, UI/UX</div>
+                <div class="case-meta-item"><span>Tools</span> Laravel, PHP, Bootstrap 5, MySQL</div>
             </div>
         </div>
     </section>
@@ -84,20 +84,16 @@
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 reveal in-left" data-delay="0">
                     <div class="case-step-num">01 // PROBLEM</div>
-                    <h2>Student Records Scattered Across Spreadsheets</h2>
+                    <h2>The Guesswork in Building a PC</h2>
                     <p>
-                        RELASKA managed grades, attendance, and class schedules across a mix of shared spreadsheets
-                        and paper forms. There was no single source of truth: teachers kept their own copies, admins
-                        reconciled discrepancies manually every semester, and there was no audit trail when a record
-                        was changed.
+                        Membangun PC rakitan seringkali menjadi proses yang menakutkan bagi pemula. Mereka harus menghadapi masalah kompatibilitas *hardware* (seperti socket processor yang tidak cocok dengan motherboard) dan ketidakpastian harga komponen komputer yang sangat fluktuatif.
                     </p>
                     <p>
-                        Before designing any interface, the project needed a formal project charter and scope
-                        definition — stakeholders disagreed on what "done" even looked like.
+                        Banyak pengguna merasa ragu untuk menekan tombol "Beli" karena takut harga komponen tersebut akan anjlok minggu depan. Tantangannya adalah menciptakan platform yang tidak hanya bisa menjual barang, tetapi juga bertindak sebagai penasihat teknis dan finansial yang cerdas.
                     </p>
                 </div>
                 <div class="col-lg-6 reveal in-right" data-delay="150">
-                    <div class="case-visual">Document — Project Charter &amp; Work Breakdown Structure (WBS)</div>
+                    <div class="case-visual">Document — Fluktuasi Harga Hardware & Isu Kompatibilitas</div>
                 </div>
             </div>
         </div>
@@ -110,18 +106,14 @@
                     <div class="case-step-num">02 // PROCESS</div>
                     <h2>Modeling the Data Before the Screens</h2>
                     <p>
-                        The process started with entity mapping: students, teachers, classes, grades, and attendance
-                        records were modeled as an ERD to define exactly how each piece of data related to the
-                        others. A UML use-case diagram followed, clarifying which actions each role — admin, teacher,
-                        student — was actually permitted to perform.
+                        Pengembangan dimulai dengan merancang algoritma <b>Linear Regression</b> menggunakan metode <i>Least Squares</i>. Tujuannya adalah memproses riwayat harga 6 bulan terakhir dari setiap produk ke dalam sistem, guna menghitung <i>slope</i> (kemiringan tren) dan <i>intercept</i>.
                     </p>
                     <p>
-                        Only after the data model was validated with stakeholders did the interface wireframes
-                        begin, ensuring the UI reflected real relationships instead of guesswork.
+                        Alih-alih menggunakan <i>library external</i> berat seperti RapidMiner, seluruh formula matematika statistika ini ditanamkan langsung ke dalam <i>controller</i> PHP agar berjalan ringan secara <i>real-time</i> saat pengguna mengakses <i>website</i>.
                     </p>
                 </div>
                 <div class="col-lg-6 order-lg-1 reveal in-left" data-delay="150">
-                    <div class="case-visual">ERD / UML — Academic Data Relationships</div>
+                    <div class="case-visual">Logic Flow — Least Squares Method in PHP</div>
                 </div>
             </div>
         </div>
@@ -132,19 +124,16 @@
             <div class="row align-items-center g-5">
                 <div class="col-lg-6 reveal in-left" data-delay="0">
                     <div class="case-step-num">03 // SOLUTION</div>
-                    <h2>One Dashboard, Role-Based Access</h2>
+                    <h2>Price Trend Radar & PC Builder Simulator</h2>
                     <p>
-                        The final system centralized grades, attendance, and schedules into a single dashboard with
-                        role-based views: teachers see and edit only their own classes, admins see the full academic
-                        picture, and students see a read-only summary of their own records.
+                        Solusi utamanya adalah mengkonversi hasil rumit dari Regresi Linear menjadi visualisasi antarmuka (UI) yang bersahabat: <b>Price Trend Radar</b>. Berbentuk seperti <i>Speedometer</i> interaktif, fitur ini memberikan skor prediktif.
                     </p>
                     <p>
-                        Every change is logged, replacing the old manual reconciliation process with a built-in
-                        audit trail.
+                        Jarum akan menunjuk ke area hijau ("Beli Sekarang") jika harga diprediksi naik lebih dari 5%, atau ke area merah ("Tunda Dulu") jika harga akan turun. Ini diintegrasikan dengan fitur <b>PC Builder</b> yang memastikan komponen yang dipilih saling kompatibel 100%.
                     </p>
                 </div>
                 <div class="col-lg-6 reveal in-right" data-delay="150">
-                    <div class="case-visual">Mockup — Role-Based Academic Dashboard</div>
+                    <div class="case-visual">Mockup — Speedometer Indicator UI & Mobile Responsive Layout</div>
                 </div>
             </div>
         </div>
@@ -154,15 +143,13 @@
         <div class="container">
             <div class="reveal in-up" data-delay="0">
                 <div class="case-step-num">04 // IMPLEMENTATION</div>
-                <h2>From Data Model to Live Dashboard</h2>
+                <h2>From Data Analytics to Live Experience</h2>
                 <p>
-                    The validated ERD was translated directly into a MySQL schema, and the UML use-cases became
-                    the access-control rules enforced on every route — so what admins, teachers, and students
-                    could see and edit in the interface always matched what the data model actually allowed.
+                    Sistem dibangun menggunakan <i>framework</i> Laravel. Desain antarmuka dirakit ulang (*Reverse Engineering*) untuk menyesuaikan poin pengujian kuesioner UX. Label prediksi dipisahkan dari animasi lingkaran agar responsif di <i>smartphone</i>, serta ditambahkan Trust Badge verifikasi untuk meningkatkan rasa percaya responden terhadap perhitungan sistem.
                 </p>
             </div>
             <div class="case-visual case-visual-tall reveal in-scale" data-delay="100">
-                Screenshot — Live Academic Dashboard
+                Screenshot — Live E-Commerce RELASKA & Product Detail Page
             </div>
         </div>
     </section>
@@ -171,29 +158,26 @@
         <div class="container">
             <div class="reveal in-up" data-delay="0">
                 <div class="case-step-num">05 // RESULT</div>
-                <h2>From Scattered Spreadsheets to One System of Record</h2>
+                <h2>Smarter Purchases, Zero Bottlenecks</h2>
                 <p>
-                    Formalizing the project scope early and modeling the data before the interface meant the final
-                    build matched what stakeholders actually needed, with no late-stage rework of the data structure.
+                    Menanamkan model data mining ke dalam <i>web architecture</i> berhasil menjembatani kesenjangan antara e-commerce konvensional dan konsultan perangkat keras cerdas. Pengguna tidak lagi berbelanja secara buta.
                 </p>
                 <p>
-                    <strong>Insight:</strong> the biggest risk in a project like this isn't the interface, it's
-                    disagreement about what the data even means. Locking the ERD and use-cases first turned every
-                    later design decision into a straightforward translation, instead of a negotiation.
+                    <strong>Insight:</strong> Mengubah angka persentase prediktif menjadi aksi yang jelas ("Beli" atau "Tunda") dan menyajikannya secara *mobile-first* terbukti menjadi kunci utama meningkatnya rasa aman (*trust*) pembeli sebelum melakukan *checkout* hardware mahal.
                 </p>
             </div>
             <div class="case-result-grid">
                 <div class="case-result-item reveal in-scale" data-delay="0">
-                    <h3 class="stat-number">1</h3>
-                    <p class="stat-label">Source of Truth</p>
+                    <h3 class="stat-number">100%</h3>
+                    <p class="stat-label">Kompatibilitas Part</p>
                 </div>
                 <div class="case-result-item reveal in-scale" data-delay="100">
-                    <h3 class="stat-number">3</h3>
-                    <p class="stat-label">Role-Based Views</p>
+                    <h3 class="stat-number">Real-Time</h3>
+                    <p class="stat-label">Kalkulasi Regresi Linear</p>
                 </div>
                 <div class="case-result-item reveal in-scale" data-delay="200">
-                    <h3 class="stat-number">0</h3>
-                    <p class="stat-label">Manual Reconciliation</p>
+                    <h3 class="stat-number">Responsive</h3>
+                    <p class="stat-label">Mobile UI/UX Design</p>
                 </div>
             </div>
         </div>
@@ -223,10 +207,24 @@
                 </div>
 
                 <div class="footer-socials">
-                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="GitHub"><i class="bi bi-github" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
+                    <!-- Ganti # dengan link LinkedIn kamu -->
+                    <a href="https://www.linkedin.com/in/nakeshya-raka-putra-priyatna-32929230b" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin" aria-hidden="true"></i>
+                    </a>
+                    
+                    <!-- Ganti # dengan link GitHub kamu -->
+                    <a href="https://github.com/NakeshyaRakaPP" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="bi bi-github" aria-hidden="true"></i>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/nakeshya_raka" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="bi bi-instagram" aria-hidden="true"></i>
+                    </a>
+                    
+                    <!-- Ganti 6281234567890 dengan nomor WhatsApp aslimu -->
+                    <a href="https://wa.me/6285780516254" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                        <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
 
