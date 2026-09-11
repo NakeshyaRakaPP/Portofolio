@@ -1,0 +1,79 @@
+/* 7. CONTACT INTERFACE (BARU)             */
+/* ======================================= */
+.contact-section {
+    padding: 120px 0;
+    background-color: var(--bg-dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contact-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-main);
+    text-transform: uppercase;
+}
+
+.contact-subheading {
+    color: var(--text-muted);
+    margin-top: 20px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.contact-channel-label {
+    font-family: 'TomkinRegular', monospace;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.email-button {
+    width: 100%;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.email-button:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.email-button #copy-icon {
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.social-nodes a {
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-nodes a:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-dark);
+    transform: translateY(-5px) scale(1.1);
+    border-color: var(--accent-color);
+}
+

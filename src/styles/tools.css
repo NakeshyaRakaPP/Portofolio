@@ -1,0 +1,941 @@
+/* =========================================================
+   TOOLS & TECHNOLOGIES
+   ========================================================= */
+
+.skills-section {
+    padding: 40px 0 90px;
+}
+
+
+/* =========================================================
+   PLAYGROUND
+   ========================================================= */
+
+.tools-playground {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 46px;
+
+    margin-top: 32px;
+}
+
+
+/* =========================================================
+   TOOL LAYOUT
+   Desktop composition:
+   7 cards on top
+   2 cards | dropzone | 2 cards on bottom
+   ========================================================= */
+
+.tools-layout {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.tools-top-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tools-bottom-layout {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+}
+
+.tools-side {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+
+    min-width: 0;
+
+    align-self: start;
+    align-items: start;
+    align-content: start;
+}
+
+.tools-side-left {
+    grid-column: 1 / 3;
+}
+
+.tools-side-right {
+    grid-column: 6 / 8;
+}
+
+.tools-bottom-layout > .tool-dropzone {
+    grid-column: 3 / 6;
+
+    width: 100%;
+    max-width: none;
+
+    min-height: 170px;
+
+    margin-top: 70px;
+
+    justify-self: stretch;
+    align-self: start;
+}
+
+.tool-card-slot {
+    width: 100%;
+    min-width: 0;
+    min-height: 66px;
+    position: relative;
+}
+
+/*
+ * Slot menjaga ukuran layout tetap ada
+ * saat card aktif dipindahkan secara visual.
+ */
+.tool-card-slot {
+    width: 100%;
+    min-width: 0;
+    min-height: 66px;
+    position: relative;
+}
+
+
+/*
+ * Saat aktif:
+ * card asli disembunyikan,
+ * tetapi slot tetap ada.
+ */
+.tool-card-slot.is-empty {
+    position: relative;
+
+    border: 2px dashed rgba(140, 155, 190, .30);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, .018),
+            rgba(255, 255, 255, .006)
+        );
+
+    transition:
+        border-color .3s ease,
+        background .3s ease;
+    
+    height: 66px;
+    min-height: 66px;
+}
+
+
+/*
+ * Simbol kecil di tengah slot kosong.
+ * Biar user sadar tool sedang "dipindahkan",
+ * bukan card menghilang karena bug.
+ */
+.tool-card-slot.is-empty::before {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border:
+        2px dashed
+        rgba(140, 155, 190, .28);
+
+    border-radius: 6px;
+
+    pointer-events: none;
+}
+
+
+.tool-card-slot.is-empty .tool-card {
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TOOL CARD
+   ========================================================= */
+
+.tool-card {
+    width: 100%;
+    min-height: 66px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 15px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .09);
+
+    border-radius: 10px;
+
+    background: var(--card-bg);
+
+    color: var(--text-main);
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    cursor: grab;
+
+    user-select: none;
+
+    touch-action: pan-y;
+
+    transition:
+        transform .25s
+            cubic-bezier(.22, 1, .36, 1),
+        border-color .25s ease,
+        box-shadow .25s ease,
+        opacity .2s ease;
+}
+
+
+.tool-card:hover {
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(255, 180, 0, .38);
+
+    box-shadow:
+        0 12px 28px
+        rgba(0, 0, 0, .2);
+}
+
+
+.tool-card:active {
+    cursor: grabbing;
+}
+
+
+.tool-card:focus-visible {
+    outline:
+        2px solid
+        var(--accent-color);
+
+    outline-offset: 3px;
+}
+
+
+.tool-card.is-dragging {
+    opacity: .18;
+}
+
+
+.tool-card.is-demo-grabbed {
+    transform:
+        translateY(-3px)
+        scale(.97);
+
+    border-color:
+        rgba(255, 180, 0, .5);
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.tool-logo,
+.tool-result-logo {
+    flex: 0 0 40px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border-radius: 6px;
+
+    background: transparent;
+
+    overflow: hidden;
+}
+
+
+.tool-logo img,
+.tool-result-logo img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    pointer-events: none;
+
+    image-rendering: auto;
+
+    transform: none;
+
+    filter: none;
+
+    backface-visibility: hidden;
+
+    border-radius: 6px;
+}
+
+
+.tool-name {
+    white-space: nowrap;
+
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   DROP ZONE
+   ========================================================= */
+
+.tool-dropzone {
+    position: relative;
+
+    width: 100%;
+    max-width: none;
+    min-height: 170px;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self:center;
+
+    padding: 16px;
+
+    border:
+        2px dashed
+        rgba(140, 155, 190, .26);
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(
+                255,
+                255,
+                255,
+                .018
+            ),
+            rgba(
+                255,
+                255,
+                255,
+                .006
+            )
+        );
+
+    transition:
+        border-color .28s ease,
+        background .28s ease,
+        transform .28s
+            cubic-bezier(.22, 1, .36, 1),
+        box-shadow .28s ease;
+}
+
+
+.tool-dropzone.is-hovered {
+    transform:
+        scale(1.015);
+
+    border-color:
+        rgba(255, 180, 0, .68);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(
+                255,
+                180,
+                0,
+                .07
+            ),
+            rgba(
+                255,
+                180,
+                0,
+                .015
+            )
+        );
+
+    box-shadow:
+        0 16px 40px
+        rgba(0, 0, 0, .18);
+}
+
+
+/* =========================================================
+   EMPTY DROPZONE
+   ========================================================= */
+
+.tool-dropzone-empty {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--text-muted);
+
+    text-align: center;
+
+    transition:
+        opacity .25s ease,
+        transform .3s
+            cubic-bezier(.22, 1, .36, 1);
+}
+
+
+.drop-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 3px;
+
+    border:
+        2px dashed
+        rgba(140, 155, 190, .3);
+
+    border-radius: 8px;
+
+    font-size: 1.1rem;
+}
+
+
+.tool-dropzone-empty strong {
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: .75rem;
+
+    font-weight: 600;
+
+    letter-spacing: .08em;
+}
+
+
+.tool-dropzone-empty > span:last-child {
+    font-size: .67rem;
+
+    opacity: .65;
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+.tool-result {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 18px;
+
+    animation:
+        toolResultIn
+        .4s
+        cubic-bezier(.22, 1, .36, 1)
+        both;
+}
+
+
+.tool-dropzone.has-result {
+    border-style: solid;
+
+    border-color:
+        rgba(255, 255, 255, .09);
+
+    background:
+        var(--card-bg);
+}
+
+
+.tool-dropzone.has-result
+.tool-dropzone-empty {
+    opacity: 0;
+
+    transform:
+        translateY(-8px);
+
+    pointer-events: none;
+}
+
+
+.tool-result-head {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 10px;
+    padding-right: 90px;
+}
+
+
+.tool-result-head strong {
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: .95rem;
+    font-weight: 600;
+
+    color:
+        var(--text-main);
+}
+
+
+.tool-result p {
+    max-width: 430px;
+
+    margin:
+        0 0 14px;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: .68rem;
+
+    line-height: 1.5;
+
+    color:
+        var(--text-muted);
+}
+
+
+/* =========================================================
+   LEVEL
+   ========================================================= */
+
+.tool-result-level {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 6px;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: .65rem;
+
+    color:
+        var(--text-muted);
+}
+
+
+.tool-result-level strong {
+    color:
+        var(--text-main);
+
+    font-weight: 500;
+}
+
+
+.tool-progress {
+    width: 100%;
+    height: 6px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, .09);
+}
+
+
+.tool-progress span {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        var(--accent-color);
+
+    transform-origin:
+        left center;
+
+    transition:
+        transform .7s
+        cubic-bezier(.22, 1, .36, 1);
+}
+
+/* =========================================================
+   RETURN TOOL BUTTON
+   ========================================================= */
+
+.tool-return-btn {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+
+    min-height: 32px;
+
+    padding: 6px 10px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, .10);
+
+    border-radius: 7px;
+
+    background:
+        rgba(255, 255, 255, .035);
+
+    color:
+        var(--text-muted);
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: .65rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        color .25s ease,
+        border-color .25s ease,
+        background .25s ease,
+        transform .25s
+            cubic-bezier(.22, 1, .36, 1);
+}
+
+
+.tool-return-btn:hover {
+    color:
+        var(--accent-color);
+
+    border-color:
+        rgba(255, 180, 0, .45);
+
+    background:
+        rgba(255, 180, 0, .06);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.tool-return-btn:active {
+    transform:
+        translateY(0)
+        scale(.96);
+}
+
+
+.tool-return-btn:focus-visible {
+    outline:
+        2px solid
+        var(--accent-color);
+
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   DRAG GHOST
+   ========================================================= */
+
+.tool-drag-ghost {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 15px;
+
+    border:
+        1px solid
+        rgba(255, 180, 0, .5);
+
+    border-radius: 10px;
+
+    background:
+        var(--card-bg);
+
+    color:
+        var(--text-main);
+
+    box-shadow:
+        0 18px 42px
+        rgba(0, 0, 0, .32);
+
+    will-change:
+        transform;
+
+    transition: none !important;
+}
+
+
+/* =========================================================
+   CLICK FLIGHT
+   ========================================================= */
+
+.tool-flight-clone {
+    transition:
+        transform .52s
+            cubic-bezier(.22, 1, .36, 1),
+        opacity .4s ease;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+
+/* =========================================================
+   FAKE CURSOR DEMO
+   ========================================================= */
+
+.tool-demo-cursor {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    z-index: 9999;
+
+    color:
+        var(--accent-color);
+
+    font-size: 1.55rem;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(0, 0, 0, .35)
+        );
+
+    transform:
+        translate3d(
+            -100px,
+            -100px,
+            0
+        );
+
+    transition:
+        opacity .25s ease;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+
+.tool-demo-cursor.is-visible {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   RESULT ANIMATION
+   ========================================================= */
+
+@keyframes toolResultIn {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(8px)
+            scale(.985);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1199px) {
+    .tools-top-row {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .tools-bottom-layout {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .tools-side-left {
+        grid-column: 1 / 3;
+    }
+
+    .tools-side-right {
+        grid-column: 3 / 5;
+    }
+
+    .tools-bottom-layout > .tool-dropzone {
+        grid-column: 1 / 5;
+        grid-row: 2;
+        width: min(100%, 560px);
+        justify-self: center;
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 767px) {
+    .tools-playground {
+        gap: 30px;
+    }
+
+    .tools-layout {
+        gap: 12px;
+    }
+
+    .tools-top-row,
+    .tools-bottom-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .tools-side {
+        display: contents;
+    }
+
+    .tools-side-left,
+    .tools-side-right {
+        grid-column: auto;
+    }
+
+    .tools-bottom-layout > .tool-dropzone {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        width: 100%;
+        min-height: 170px;
+        margin-top: 8px;
+    }
+
+    .tool-card-slot {
+        width: 100%;
+        min-height: 58px;
+    }
+
+    .tool-card {
+        min-height: 58px;
+        padding: 9px 10px;
+        gap: 9px;
+        cursor: pointer;
+    }
+
+    .tool-logo {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .tool-name {
+        overflow: hidden;
+        font-size: .78rem;
+        text-overflow: ellipsis;
+    }
+
+    .tool-demo-cursor {
+        display: none;
+    }
+
+    .tool-card-slot.is-empty {
+        height: 58px;
+        min-height: 58px;
+    }
+}
+
+@media (max-width: 420px) {
+    .tools-top-row,
+    .tools-bottom-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .tools-bottom-layout > .tool-dropzone {
+        grid-column: 1;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    .tool-card,
+    .tool-dropzone,
+    .tool-progress span {
+        transition:
+            none !important;
+    }
+
+
+    .tool-demo-cursor {
+        display: none;
+    }
+
+}
