@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ToolCard from './ToolCard';
 import ToolDropzone from './ToolDropzone';
-import AmbientDecor from '../common/AmbientDecor';
+import SceneChrome from '../common/SceneChrome';
 import { tools } from '../../data/tools';
 
 export default function ToolsSection() {
@@ -413,26 +413,29 @@ export default function ToolsSection() {
   return (
     <section
         id="skills"
-        className="skills-section"
+        className="skills-section scene-section scene-tools"
         ref={sectionRef}
     >
-        <AmbientDecor variant="tools" />
+        <SceneChrome
+          index="02"
+          label="TOOLKIT"
+          meta="INTERACTIVE LAB"
+        />
 
         <div className="container">
 
-            <div
-                className="project-category-header reveal in-left"
-                data-delay="0"
-            >
-                <span className="cat-num">
-                    // STACK
-                </span>
-
-                <h3>
-                    Tools & Technologies
-                </h3>
+            <div className="scene-intro reveal in-up" data-delay="0">
+              <div>
+                <span className="scene-kicker">Tools / Technologies</span>
+                <h2 className="scene-title">
+                  MY <span className="outline">WORKBENCH.</span>
+                </h2>
+              </div>
+              <p className="scene-description">
+                The stack behind my design and development process. Pick a tool —
+                or drag it into the lab — to see where it fits in my workflow.
+              </p>
             </div>
-
 
             <div
                 className="tools-playground reveal in-up"

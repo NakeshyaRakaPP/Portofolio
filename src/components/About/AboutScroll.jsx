@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import AmbientDecor from '../common/AmbientDecor';
+import SceneChrome from '../common/SceneChrome';
 import '../../styles/about-scroll.css';
 
 const ABOUT_STEPS = [
@@ -217,7 +217,11 @@ export default function AboutScroll() {
     >
       <div className="about-scroll-sticky">
 
-        <AmbientDecor variant="about" />
+        <SceneChrome
+          index="01"
+          label="ABOUT / PROCESS"
+          meta="SYSTEM THINKING"
+        />
 
         <div className="container about-scroll-container">
           <div className="about-scroll-intro">

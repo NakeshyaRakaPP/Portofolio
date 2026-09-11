@@ -17,7 +17,8 @@ export function useContactScrollGate() {
       return undefined;
     }
 
-    const contactSection = document.getElementById('contact');
+    const contactSection =
+      document.getElementById('contact');
 
     if (!contactSection) {
       return undefined;
@@ -35,19 +36,34 @@ export function useContactScrollGate() {
 
       if (hasGatedRef.current) return;
 
-      const rect = contactSection.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+      const rect =
+        contactSection.getBoundingClientRect();
 
-      const isApproachingContact =
-        rect.top > 0 &&
-        rect.top < viewportHeight * 0.92;
+      const viewportHeight =
+        window.innerHeight;
 
-      if (!isApproachingContact) return;
+      /*
+       * Gate hanya aktif ketika Contact
+       * sudah benar-benar dekat dengan
+       * bagian tengah-bawah viewport.
+       *
+       * Jangan tangkap scroll saat user
+       * masih menjelajahi Projects.
+       */
+      const isReallyApproachingContact =
+        rect.top > viewportHeight * 0.18 &&
+        rect.top < viewportHeight * 0.48;
+
+      if (!isReallyApproachingContact) {
+        return;
+      }
 
       event.preventDefault();
 
       hasGatedRef.current = true;
-      lockUntilRef.current = now + 900;
+
+      lockUntilRef.current =
+        now + 850;
 
       contactSection.scrollIntoView({
         behavior: 'smooth',
@@ -56,26 +72,47 @@ export function useContactScrollGate() {
     };
 
     const handleScroll = () => {
-      const rect = contactSection.getBoundingClientRect();
+      const rect =
+        contactSection.getBoundingClientRect();
 
-      // Kalau user naik jauh ke atas lagi,
-      // gate boleh aktif lagi saat turun berikutnya.
-      if (rect.top > window.innerHeight * 1.35) {
+      /*
+       * Kalau user scroll balik jauh
+       * ke atas, gate boleh digunakan lagi.
+       */
+      if (
+        rect.top >
+        window.innerHeight * 1.25
+      ) {
         hasGatedRef.current = false;
       }
     };
 
-    window.addEventListener('wheel', handleWheel, {
-      passive: false
-    });
+    window.addEventListener(
+      'wheel',
+      handleWheel,
+      {
+        passive: false
+      }
+    );
 
-    window.addEventListener('scroll', handleScroll, {
-      passive: true
-    });
+    window.addEventListener(
+      'scroll',
+      handleScroll,
+      {
+        passive: true
+      }
+    );
 
     return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener(
+        'wheel',
+        handleWheel
+      );
+
+      window.removeEventListener(
+        'scroll',
+        handleScroll
+      );
     };
   }, []);
 }

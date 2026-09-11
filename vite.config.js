@@ -5,9 +5,8 @@ import { fileURLToPath, URL } from 'node:url';
 const fromRoot = path => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig({
-  // Relative build paths work on a GitHub Pages project URL and remain safe
-  // when the repository is later attached to a custom domain.
-  base: './',
+  // GitHub Pages project URL: https://nakeshyarakapp.github.io/Portofolio/
+  base: '/Portofolio/',
   plugins: [react()],
   build: {
     rollupOptions: {

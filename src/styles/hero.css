@@ -1,6 +1,6 @@
 /* 3. HERO SECTION */
 /* ======================================= */
-header {
+#hero-section {
     position: relative;
     height: 100vh;
     background-color: var(--bg-dark);

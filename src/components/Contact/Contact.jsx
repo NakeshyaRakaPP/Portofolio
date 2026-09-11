@@ -1,11 +1,18 @@
+import SceneChrome from '../common/SceneChrome';
 import '../../styles/contact-intro.css';
 
 export default function Contact() {
   return (
     <section
       id="contact"
-      className="contact-intro"
+      className="contact-intro scene-contact"
     >
+      <SceneChrome
+        index="04"
+        label="OPEN CHANNEL"
+        meta="FINAL SCENE"
+      />
+
       <div className="contact-intro-inner">
 
         <div
@@ -13,7 +20,7 @@ export default function Contact() {
           aria-hidden="true"
         >
           <span />
-          OPEN CHANNEL
+          START A CONVERSATION
           <span />
         </div>
 

@@ -6,7 +6,8 @@ export function useCursor() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const dot = document.querySelector('.cursor-dot');
     const outline = document.querySelector('.cursor-outline');
-    if (!finePointer || reduced || !dot || !outline) return;
+
+    if (!finePointer || reduced || !dot || !outline) return undefined;
 
     document.body.classList.add('custom-cursor-active');
 
@@ -15,6 +16,19 @@ export function useCursor() {
     let outlineX = 0;
     let outlineY = 0;
     let frame = 0;
+
+    const interactiveSelector = [
+      'a',
+      'button',
+      '.btn',
+      '.project-card',
+      '.tool-card',
+      '.logo-coverflow-card',
+      '.logo-coverflow-dot',
+      '.logo-detail-gallery-item',
+      '#theme-toggle',
+      '.stretched-link'
+    ].join(', ');
 
     const move = event => {
       mouseX = event.clientX;
@@ -31,31 +45,43 @@ export function useCursor() {
 
     const hide = () => document.body.classList.add('cursor-hidden');
     const show = () => document.body.classList.remove('cursor-hidden');
-    const enter = () => { outline.classList.add('cursor-hover'); dot.classList.add('cursor-hover'); };
-    const leave = () => { outline.classList.remove('cursor-hover'); dot.classList.remove('cursor-hover'); };
 
-    const selector = 'a, button, .btn, .logo-item, .card, .project-card, .tool-card, #theme-toggle, .stretched-link';
-    const targets = [...document.querySelectorAll(selector)];
-    targets.forEach(el => {
-      el.addEventListener('mouseenter', enter);
-      el.addEventListener('mouseleave', leave);
-    });
+    const setHover = active => {
+      outline.classList.toggle('cursor-hover', active);
+      dot.classList.toggle('cursor-hover', active);
+    };
+
+    const handlePointerOver = event => {
+      if (event.target.closest?.(interactiveSelector)) setHover(true);
+    };
+
+    const handlePointerOut = event => {
+      const fromInteractive = event.target.closest?.(interactiveSelector);
+      if (!fromInteractive) return;
+
+      const next = event.relatedTarget;
+      if (next instanceof Element && next.closest(interactiveSelector)) return;
+
+      setHover(false);
+    };
 
     window.addEventListener('mousemove', move, { passive: true });
+    document.addEventListener('mouseover', handlePointerOver, { passive: true });
+    document.addEventListener('mouseout', handlePointerOut, { passive: true });
     document.addEventListener('mouseleave', hide);
     document.addEventListener('mouseenter', show);
+
     frame = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(frame);
       document.body.classList.remove('custom-cursor-active', 'cursor-hidden');
       window.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseover', handlePointerOver);
+      document.removeEventListener('mouseout', handlePointerOut);
       document.removeEventListener('mouseleave', hide);
       document.removeEventListener('mouseenter', show);
-      targets.forEach(el => {
-        el.removeEventListener('mouseenter', enter);
-        el.removeEventListener('mouseleave', leave);
-      });
+      setHover(false);
     };
   }, []);
 }

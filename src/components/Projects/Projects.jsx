@@ -1,21 +1,33 @@
 import LogoCoverflow from './LogoCoverflow';
 import { logoProjects, softwareProjects } from '../../data/projects';
-import AmbientDecor from '../common/AmbientDecor';
+import SceneChrome from '../common/SceneChrome';
 
 export default function Projects() {
   return (
-    <section id="works" className="works-section py-5">
+    <section id="works" className="works-section scene-section scene-projects">
+      <SceneChrome
+        index="03"
+        label="SELECTED WORK"
+        meta="PROJECT ARCHIVE"
+      />
 
-        <AmbientDecor variant="projects" />
+      <div className="container">
+        <div className="scene-intro reveal in-up" data-delay="0">
+          <div>
+            <span className="scene-kicker">Selected / Projects</span>
+            <h2 className="scene-title">
+              SYSTEMS I&apos;VE <span className="outline">SHIPPED.</span>
+            </h2>
+          </div>
+          <p className="scene-description">
+            A mix of identity work and software systems. Different outputs,
+            same approach: structure the problem, design the logic, then make it usable.
+          </p>
+        </div>
 
-        <div className="container">
-        <h2 className="text-center mb-5 display-4 fw-bold reveal in-scale works-heading" data-delay="0">
-          SELECTED WORKS
-        </h2>
-
-        <div className="mb-5">
+        <div className="project-category-block">
           <div className="project-category-header reveal in-left" data-delay="0">
-            <span className="cat-num">01 //</span>
+            <span className="cat-num">01 / VISUAL SYSTEMS</span>
             <h3>Logo Designs</h3>
           </div>
 
@@ -24,10 +36,10 @@ export default function Projects() {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="project-category-block">
           <div className="project-category-header reveal in-left" data-delay="0">
-            <span className="cat-num">02 //</span>
-            <h3>Software Architecture & Dev</h3>
+            <span className="cat-num">02 / DIGITAL SYSTEMS</span>
+            <h3>Software Architecture &amp; Development</h3>
           </div>
 
           <div className="row g-4">
@@ -57,7 +69,9 @@ export default function Projects() {
                     </div>
                     <h5 className="project-card-title">{project.title}</h5>
                     <p className="project-card-desc">{project.description}</p>
-                    <span className="project-card-btn">View Case Study <i className="bi bi-arrow-up-right" aria-hidden="true" /></span>
+                    <span className="project-card-btn">
+                      View Case Study <i className="bi bi-arrow-up-right" aria-hidden="true" />
+                    </span>
                   </div>
                 </a>
               </div>

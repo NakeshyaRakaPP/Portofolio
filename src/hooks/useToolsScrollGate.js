@@ -28,7 +28,7 @@ export function useToolsScrollGate() {
 
       const now = performance.now();
 
-      // Selama masa lock, tahan scroll agar Tools benar-benar terlihat dulu
+      // Selama masa lock, tahan scroll sebentar agar user benar-benar mendarat di Tools
       if (now < lockUntilRef.current) {
         event.preventDefault();
         return;
@@ -41,8 +41,8 @@ export function useToolsScrollGate() {
       const viewportHeight = window.innerHeight;
 
       const isApproachingTools =
-        rect.top > 0 &&
-        rect.top < viewportHeight * 0.95;
+        rect.top > viewportHeight * 0.18 &&
+        rect.top < viewportHeight * 0.58;
 
       if (!isApproachingTools) return;
 
@@ -51,7 +51,7 @@ export function useToolsScrollGate() {
       hasGatedRef.current = true;
 
       // Beri waktu sedikit agar user "mendarat" di Tools
-      lockUntilRef.current = now + 1000;
+      lockUntilRef.current = now + 820;
 
       toolsSection.scrollIntoView({
         behavior: 'smooth',

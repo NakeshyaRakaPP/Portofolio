@@ -1,96 +1,124 @@
-/* 1. IMPORT FONT & VARIABEL */
-
-/* ======================================= */
-/* 💖 Deklarasi Font Tomkin (WAJIB ADA FILE) */
-/* ======================================= */
-@font-face {
-    font-family: 'TomkinHero'; 
-    src: url('../fonts/tomkin/fonnts.com-Tomkin-Bold.ttf') format('truetype'); 
-    font-weight: 800; 
-    font-style: normal;
-    font-display: swap; /* OPTIMASI: Teks tetap terbaca saat font loading */
-}
+/* =========================================================
+   GLOBAL DESIGN TOKENS
+   Latest cinematic system used across the whole portfolio.
+   ========================================================= */
 
 @font-face {
-    font-family: 'TomkinRegular'; 
-    src: url('../fonts/tomkin/fonnts.com-Tomkin-Regular.ttf') format('truetype'); 
-    font-weight: 800; 
+    font-family: 'TomkinHero';
+    src: url('../fonts/tomkin/fonnts.com-Tomkin-Bold.ttf') format('truetype');
+    font-weight: 800;
     font-style: normal;
     font-display: swap;
 }
 
-/* ======================================= */
-/* 🌙 DARK MODE (Default - Style Raka) */
-/* ======================================= */
+@font-face {
+    font-family: 'TomkinRegular';
+    src: url('../fonts/tomkin/fonnts.com-Tomkin-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
-    --bg-dark: #1a1c23;       /* Latar belakang utama (Dark Navy) */
-    --card-bg: #272a38;       /* Latar belakang kartu */
-    --accent-color: #ffb400;  /* Kuning/Amber */
-    --text-main: #ffffff;     /* Teks Putih */
-    --text-muted: #a0a3b1;    /* Teks abu-abu untuk deskripsi */
+    --bg-deep: #070a0f;
+    --bg-dark: #0b0f15;
+    --surface-1: #101620;
+    --surface-2: #151c27;
+    --surface-3: #1b2431;
+    --surface-glass: rgba(255, 255, 255, .025);
+    --card-bg: var(--surface-2);
+
+    --accent-color: #ffb800;
+    --accent-line: rgba(255, 184, 0, .42);
+    --accent-glow: rgba(255, 184, 0, .095);
+
+    --text-main: #f5f7fb;
+    --text-muted: #98a2b3;
+    --text-faint: rgba(245, 247, 251, .38);
+    --line-color: rgba(255, 255, 255, .075);
+    --grid-line: rgba(255, 255, 255, .023);
+    --outline-color: rgba(255, 255, 255, .46);
+
+    --font-display: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-meta: 'TomkinRegular', 'Inter', sans-serif;
+
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 26px;
+    --radius-scene: 34px;
+
+    --shadow-soft: 0 22px 70px rgba(0, 0, 0, .20);
+    --shadow-scene: 0 36px 110px rgba(0, 0, 0, .28);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--bg-deep);
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Inter', sans-serif; 
+    margin: 0;
+    font-family: var(--font-body);
     color: var(--text-main);
-    background-color: var(--bg-dark);
-
+    background: var(--bg-deep);
     overflow-x: clip;
-
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color .3s ease, color .3s ease;
 }
 
-/* ======================================= */
-/* 🎨 GLOBAL TYPOGRAPHY SYSTEM (BARU)      */
-/* ======================================= */
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Poppins', sans-serif; /* Heading pakai Poppins biar tegas */
+::selection {
+    color: #17120a;
+    background: var(--accent-color);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-display);
+}
+
+p {
+    text-wrap: pretty;
+}
+
+a {
+    color: inherit;
 }
 
 .btn {
-    font-family: 'Poppins', sans-serif; /* Tombol juga pakai Poppins */
+    font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: .01em;
 }
 
-/* ======================================= */
-/* ☀️ LIGHT MODE RULES */
-/* ======================================= */
 [data-theme="light"] {
-    --bg-dark: #f8fafc;       
-    --card-bg: #ffffff;       
-    --text-main: #1e2029;     
-    --text-muted: #64748b;    
-    --accent-color: #f59e0b;  
+    --bg-deep: #e8ebf0;
+    --bg-dark: #f1f3f6;
+    --surface-1: #f8f9fb;
+    --surface-2: #ffffff;
+    --surface-3: #eef1f5;
+    --surface-glass: rgba(255, 255, 255, .54);
+    --card-bg: var(--surface-2);
+
+    --accent-color: #d99000;
+    --accent-line: rgba(217, 144, 0, .36);
+    --accent-glow: rgba(217, 144, 0, .10);
+
+    --text-main: #151922;
+    --text-muted: #667085;
+    --text-faint: rgba(21, 25, 34, .42);
+    --line-color: rgba(21, 25, 34, .10);
+    --grid-line: rgba(21, 25, 34, .035);
+    --outline-color: rgba(21, 25, 34, .34);
+
+    --shadow-soft: 0 20px 58px rgba(33, 43, 54, .08);
+    --shadow-scene: 0 34px 90px rgba(33, 43, 54, .12);
 }
 
-[data-theme="light"] .card {
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme="light"] .navbar {
-    background-color: transparent !important; /* Kembalikan sifat tembus pandang di posisi puncak (Hero) */
-    box-shadow: none; /* Hilangkan bayangan agar menyatu sempurna dengan background */
-}
-
-[data-theme="light"] .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.85) !important; /* Putih semi-transparan (Glassmorphism) */
-    border: 1px solid rgba(0, 0, 0, 0.05); /* Border halus gelap untuk kontras */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); /* Bayangan lebih tipis & lembut */
-}
-
-[data-theme="light"] #theme-toggle {
-    color: #1e2029;
-    border-color: #1e2029;
-}
-
-/* ======================================= */
-/* ✨ OVERRIDE HERO BACKGROUND (LIGHT MODE)*/
-/* ======================================= */
 [data-theme="light"] .hero-bg-layer {
-    filter: invert(1) hue-rotate(180deg) brightness(1.1) opacity(0.8);
+    filter: invert(1) hue-rotate(180deg) brightness(1.08) opacity(.72);
     mix-blend-mode: multiply;
 }
-
-/* ======================================= */

@@ -19,7 +19,7 @@ export default function Navbar({ subpage = false }) {
 
   useEffect(() => {
     if (subpage) return;
-    const sections = ['about', 'works', 'contact']
+    const sections = ['about', 'skills', 'works', 'contact']
       .map(id => document.getElementById(id))
       .filter(Boolean);
 
@@ -56,7 +56,7 @@ export default function Navbar({ subpage = false }) {
               onClick={toggleTheme}
               aria-label="Toggle color theme"
             >
-              {theme === 'light' ? '☀️' : '🌙'}
+              <i className={`bi ${theme === 'light' ? 'bi-sun-fill' : 'bi-moon-stars-fill'}`} aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -66,6 +66,7 @@ export default function Navbar({ subpage = false }) {
 
   const links = [
     ['about', 'About'],
+    ['skills', 'Toolkit'],
     ['works', 'Projects'],
     ['contact', 'Contact']
   ];
@@ -111,7 +112,7 @@ export default function Navbar({ subpage = false }) {
                 onClick={toggleTheme}
                 aria-label="Toggle color theme"
               >
-                {theme === 'light' ? '☀️' : '🌙'}
+                <i className={`bi ${theme === 'light' ? 'bi-sun-fill' : 'bi-moon-stars-fill'}`} aria-hidden="true" />
               </button>
             </li>
             <div className="nav-indicator" ref={indicatorRef} aria-hidden="true" />

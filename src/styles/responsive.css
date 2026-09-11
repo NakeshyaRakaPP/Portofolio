@@ -119,7 +119,7 @@
    3. HERO
    ========================================================= */
 @media (max-width: 991px) {
-    header {
+    #hero-section {
         height: auto;
         min-height: 100vh;   /* fallback untuk browser tanpa dukungan svh */
         min-height: 100svh;  /* svh = tinggi viewport nyata, tidak ketutup UI browser di HP */
@@ -243,7 +243,7 @@
 }
 
 @media (max-width: 575px) {
-    header {
+    #hero-section {
         padding-top: 90px;
     }
 

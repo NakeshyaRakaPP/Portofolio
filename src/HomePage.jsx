@@ -9,7 +9,6 @@ import Contact from './components/Contact/Contact';
 import CinematicFooter from './components/Footer/CinematicFooter';
 import Loader from './components/common/Loader';
 import CustomCursor from './components/common/CustomCursor';
-import SectionDivider from './components/common/SectionDivider';
 import { useReveal } from './hooks/useReveal';
 import { useCounters } from './hooks/useCounters';
 import { useCursor } from './hooks/useCursor';
@@ -42,18 +41,15 @@ export default function HomePage() {
       <Loader />
       <CustomCursor />
       <Navbar />
-      <Hero />
-      <SectionDivider />
-      <Stats />
-      <SectionDivider />
-      <AboutScroll />
-      <SectionDivider />
-      <ToolsSection />
-      <SectionDivider />
-      <Projects />
-      <SectionDivider />
-      <Contact />
-      <CinematicFooter />
+      <div className="portfolio-flow">
+        <Hero />
+        <Stats />
+        <AboutScroll />
+        <ToolsSection />
+        <Projects />
+        <Contact />
+        <CinematicFooter />
+      </div>
     </>
   );
 }
