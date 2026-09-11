@@ -1,0 +1,263 @@
+/* 6. PROJECT CARDS (DIBUTUHKAN RAKA) */
+/* ======================================= */
+/* Judul Section Besar (SELECTED WORKS) jadi Tomkin */
+#works h2 {
+    font-family: 'TomkinHero', sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.works-section {
+    margin-top: 50px;
+}
+
+.works-heading {
+    color: var(--text-main);
+}
+
+.project-card-media-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-radius: 8px; 
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* Judul dalam Card Project */
+.card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.card:hover {
+    transform: translateY(-5px); 
+    border-color: var(--accent-color);
+}
+
+
+/* ======================================= */
+/* 6.1 LOGO SHOWCASE GRID (REVISI KOTAK)   */
+/* ======================================= */
+.logo-item {
+    padding: 0; 
+    border-radius: 8px;
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    position: relative;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--card-bg); 
+}
+
+.logo-item:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 0 25px var(--hover-color, var(--accent-color)); 
+    cursor: pointer;
+    z-index: 10;
+}
+
+.logo-item img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+/* ======================================= */
+/* 6.2 LOGO OVERLAY TEXT (BARU)            */
+/* ======================================= */
+.logo-overlay-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* Gelap transparan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 15px;
+    text-align: center;
+    
+    /* Animasi muncul dari bawah */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    pointer-events: none; /* Agar tidak mengganggu hover pada parent */
+}
+
+.logo-item:hover .logo-overlay-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logo-item:hover img {
+    opacity: 0.3; /* Gelapkan gambar logo saat teks muncul */
+}
+
+/* ======================================= */
+
+/* 18. PROJECT CARD (Software Architecture)*/
+/* ======================================= */
+.project-card {
+    position: relative;
+    display: block;
+    height: 340px;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    isolation: isolate;
+}
+
+.project-card-media {
+    position: absolute;
+    inset: 0;
+    background: #2c2f3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.project-card-media.is-pending {
+    background: linear-gradient(135deg, #2c2f3d 0%, #23252f 100%);
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-card-media.is-pending i {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.project-card-media.is-pending span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.project-card:hover .project-card-media {
+    transform: scale(1.06);
+    filter: brightness(0.55);
+}
+
+.project-card-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 26px 24px;
+    background: linear-gradient(to top, rgba(15, 16, 22, 0.97) 20%, rgba(15, 16, 22, 0.75) 60%, transparent 100%);
+    transform: translateY(58%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-card-overlay {
+    transform: translateY(0);
+}
+
+.project-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.project-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    border: 1px solid rgba(255, 180, 0, 0.35);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.project-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.project-card-desc {
+    color: #c3c5d1;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s ease 0.05s;
+    margin-bottom: 0;
+}
+
+.project-card:hover .project-card-desc {
+    max-height: 80px;
+    opacity: 1;
+    margin-bottom: 14px;
+}
+
+.project-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--bg-dark);
+    background-color: var(--accent-color);
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card-btn i {
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-card-btn {
+    box-shadow: 0 8px 20px rgba(255, 180, 0, 0.25);
+}
+
+.project-card:hover .project-card-btn i {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 768px) {
+    .project-card-overlay {
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(15, 16, 22, 0.97) 40%, rgba(15, 16, 22, 0.4) 100%);
+    }
+    .project-card-desc {
+        max-height: 100px;
+        opacity: 1;
+        margin-bottom: 14px;
+    }
+}
+
+/* ======================================= */

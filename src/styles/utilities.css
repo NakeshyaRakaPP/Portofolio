@@ -1,0 +1,28 @@
+/* 10b. FOCUS-VISIBLE (Aksesibilitas keyboard) */
+/* ======================================= */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.logo-item:focus-visible,
+.card:focus-visible,
+.skill-chip:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ======================================= */
+
+/* ======================================= */
+/* SMOOTH SCROLL */
+/* ======================================= */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+
+    overflow-x: clip;
+}

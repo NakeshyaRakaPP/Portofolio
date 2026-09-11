@@ -1,0 +1,93 @@
+/* 2. CUSTOM NAVBAR */
+/* ======================================= */
+.navbar {
+    background-color: transparent !important;
+    padding: 15px 25px; /* Padding kiri-kanan ditambah biar lega */
+    z-index: 100;
+    /* OPTIMASI: Transisi diperhalus, ditambah backdrop-filter agar blur juga smooth */
+    transition: all 0.4s ease; 
+    
+    /* LOGIC: FLOATING NAVBAR (Melayang) */
+    position: fixed; 
+    top: 10px; /* Jarak dari atas (Gap) */
+    
+    /* FIX: Menggunakan Margin Auto agar tidak bentrok dengan animasi AOS (Transform) */
+    left: 0;
+    right: 0;
+    margin: 0 auto; /* Ajaib! Ini otomatis menengahkan elemen fixed secara presisi */
+    
+    width: 92%; /* Lebar tidak full (memberi efek melayang) */
+    max-width: 1200px; /* Batas lebar maksimum agar rapi di layar besar */
+    border-radius: 16px; /* Sudut Bulat (Rounded Corners) */
+
+    opacity: 1;
+    filter: none;
+    visibility: visible;
+}
+
+.navbar.scrolled {
+    background-color: rgba(26, 28, 35, 0.85) !important; /* Ubah jadi semi-transparan */
+    backdrop-filter: blur(12px); /* EFEK KACA (Glassmorphism) */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Shadow lebih deep untuk efek melayang */
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Border keliling halus */
+    /* Border bottom dihapus karena sekarang kita pakai border keliling */
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif; 
+    color: var(--text-main) !important;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.navbar-brand span {
+    color: var(--accent-color);
+}
+
+.navbar-nav {
+    position: relative; /* Container acuan untuk sliding indicator */
+}
+
+.nav-link {
+    font-family: 'Poppins', sans-serif; /* Menu Navigasi jadi lebih modern */
+    position: relative; 
+    color: var(--text-muted) !important;
+    font-weight: 500;
+    margin-left: 20px;
+    transition: color 0.3s ease, transform 0.2s ease; /* Tambah transisi transform */
+}
+
+/* LOGIC: Sliding Indicator (Garis yang bisa jalan-jalan) */
+.nav-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Efek smooth easing */
+    width: 0; /* Default awal */
+    border-radius: 2px;
+}
+
+/* STATE: Hover & Active (ScrollSpy) */
+.nav-link:hover, 
+.nav-link.active {
+    color: var(--accent-color) !important;
+    transform: scale(1.1); /* Teks membesar sedikit saat hover/active */
+}
+
+/* STATE: Click (Saat ditekan) */
+.nav-link:active {
+    transform: scale(1.05); /* Sedikit mengecil dari hover, memberi efek 'tekan' */
+}
+
+#theme-toggle {
+    color: var(--text-main);
+    border-color: var(--text-main);
+    transition: all 0.3s;
+    background: transparent !important;
+}
+
+/* ======================================= */
