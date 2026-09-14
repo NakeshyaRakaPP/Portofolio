@@ -1,365 +1,690 @@
-/* 3. HERO SECTION */
-/* ======================================= */
-#hero-section {
-    position: relative;
-    height: 100vh;
-    background-color: var(--bg-dark);
+/* =========================================================
+   HERO — CINEMATIC SYSTEM ENTRY
+   Matches the chapter / workbench / final-scene language.
+   ========================================================= */
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    overflow: hidden; 
-    text-align: center;
-    padding-top: 60px;
-    padding-bottom: 0;
+#hero-section.hero-system {
+    position: relative;
+    min-height: 100svh;
+    height: 100svh;
+    overflow: hidden;
+    isolation: isolate;
+    background: #080a0f;
+    color: var(--text-main);
 }
 
-/* 1. Kembalikan Background Image Statis */
 .hero-bg-layer {
     position: absolute;
     inset: -5%;
-    z-index: 0;
-    
-    /* Gambar dan gradasi asli dikembalikan */
-    background-image: 
-        radial-gradient(circle at center, #272a38 0%, rgba(26, 28, 35, 0.9) 70%),
-        linear-gradient(rgba(26, 28, 35, 0.4), rgba(26, 28, 35, 0.4)), 
-        url('../img/background-texture.webp'); 
-        
-    background-size: cover, cover, cover; 
-    background-position: center, center, center;
-    background-repeat: no-repeat, no-repeat, no-repeat;
+    z-index: -5;
+    background:
+        radial-gradient(circle at 67% 39%, rgba(255, 180, 0, .075), transparent 23%),
+        radial-gradient(circle at 61% 62%, rgba(255, 255, 255, .035), transparent 34%),
+        linear-gradient(118deg, #080a0f 0%, #0b0e15 52%, #0b1019 100%),
+        url('../img/background-texture.webp');
+    background-size: cover;
+    background-position: center;
     will-change: transform;
 }
 
-/* Teks SYSTEM THINKER */
-.hero-title-big {
+.hero-grid {
     position: absolute;
-    top: 9%; 
-    left: 0;   
-    right: 0;  
-    
-    font-family: 'TomkinHero', sans-serif;
-    text-align: center; 
-    font-size: 11vw; 
-    font-weight: 900;
-    
-    /* TEXT SHADOW DIHAPUS */
-    
-    color: rgba(255, 255, 255, 0.05); 
-    background: linear-gradient(to bottom, var(--text-main), var(--text-muted));
-    background-clip: text; 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent;
-
-    text-transform: uppercase;
-    white-space: nowrap; 
-    z-index: 1 !important;
-    letter-spacing: -4px; 
-    width: 100%; 
-    margin: 0;
-    line-height: 1; 
+    inset: 0;
+    z-index: -4;
+    opacity: .18;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+    background-size: 82px 82px;
+    mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.8) 72%, transparent 100%);
 }
 
-/* Ubah bagian ini di style_2.css */
-.hero-profile-img {
-    position: relative;
-    z-index: 2; 
-    height: 90vh; /* PERBESAR: Naikkan dari 70vh menjadi 85vh atau 90vh */
-    width: auto;
-    object-fit: contain;
-    margin-bottom: -160px; /* TURUNIN: Kasih minus lebih besar (misal -80px s/d -120px) agar masuk ke balik marquee */
-    margin-left: -100px; 
-
-    /* Shadow natural */
-    /* filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 60px rgba(255, 180, 0, 0.08)); */
-    
-    /* MATIKAN EFEK PUDAR DI BAWAH INI: */
-    /* -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%); */
-    /* mask-image: linear-gradient(to bottom, black 78%, transparent 100%); */
-}
-
-/* =========================================================
-   SEAMLESS MARQUEE
-   ========================================================= */
-
-.marquee-wrapper {
-    position: relative;
-
-    width: 100%;
-
-    overflow: hidden;
-
-    padding: 16px 0;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-    background: var(--bg-dark);
-
-    /*
-     * Marquee harus berada DI DEPAN foto hero.
-     * Foto memakai z-index: 2.
-     */
-    z-index: 5;
-
-    /*
-     * Buat stacking context sendiri supaya
-     * isi marquee tidak "tenggelam" di bawah hero image.
-     */
-    isolation: isolate;
-}
-
-
-/*
- * Track berisi 2 group IDENTIK.
- * Lebarnya mengikuti seluruh isi, bukan viewport.
- */
-.marquee-track {
-    display: flex;
-
-    width: max-content;
-
-    will-change: transform;
-
-    animation:
-        marqueeInfinite 32s linear infinite;
-}
-
-
-/*
- * Setiap group HARUS mempertahankan lebarnya sendiri.
- *
- * min-width: max-content sangat penting:
- * browser tidak boleh mengecilkan group.
- */
-.marquee-group {
-    display: flex;
-    align-items: center;
-
-    flex-shrink: 0;
-
-    min-width: max-content;
-
-    gap: 28px;
-
-    padding-right: 28px;
-
-    white-space: nowrap;
-}
-
-
-.marquee-group span {
-    flex-shrink: 0;
-
-    font-family: 'Poppins', sans-serif;
-
-    font-size: 0.9rem;
-    font-weight: 600;
-
-    letter-spacing: 4px;
-
-    color: var(--text-main);
-
-    white-space: nowrap;
-}
-
-
-.marquee-dot {
-    color: var(--accent-color);
-}
-
-.marquee-wrapper,
-.marquee-track,
-.marquee-group {
-    filter: none !important;
-    opacity: 1;
-}
-
-
-/*
- * Karena track terdiri dari:
- *
- * [ GROUP A ][ GROUP B ]
- *
- * dan keduanya identik,
- *
- * kita hanya perlu menggeser tepat separuh track.
- *
- * Ketika GROUP B berada di posisi GROUP A,
- * animasi reset ke awal.
- *
- * Secara visual keduanya identik,
- * jadi reset TIDAK TERLIHAT.
- */
-@keyframes marqueeInfinite {
-
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(-50%, 0, 0);
-    }
-
-}
-
-/* ======================================= */
-/* 5. HERO SIDE INFO (TEKS KIRI/KANAN) */
-/* ======================================= */
-.hero-side-info {
+.hero-glow {
     position: absolute;
-    z-index: 3; 
-    font-family: 'Inter', sans-serif;
-    max-width: 400px;
-}
-
-.left-info {
-    left: 10.5%; 
-    text-align: left;
-    top: 38%;
-}
-
-.right-info {
-    right: 10.5%; 
-    text-align: left;
-    top: 40%;
-}
-
-/* UPDATE DI style.css */
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 1rem;
-    color: var(--text-main);
-    /* Tambahan transisi membal */
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
-    cursor: default; 
-}
-
-/* TAMBAHKAN STATE HOVER INI */
-.status-badge:hover {
-    border-color: var(--accent-color);
-    background-color: rgba(255, 180, 0, 0.08); /* Latar kuning sangat transparan */
-    transform: translateY(-4px); /* Mengangkat ke atas */
-    box-shadow: 0 8px 20px rgba(255, 180, 0, 0.15); /* Cahaya kuning di bawahnya */
-}
-
-.status-dot {
-    height: 10px;
-    width: 10px;
-    background-color: var(--accent-color);
+    z-index: -2;
+    right: 8%;
+    top: 15%;
+    width: min(52vw, 820px);
+    aspect-ratio: 1;
     border-radius: 50%;
-    margin-right: 8px;
+    border: 1px solid rgba(255, 180, 0, .1);
+    box-shadow:
+        inset 0 0 100px rgba(255, 180, 0, .018),
+        0 0 120px rgba(0, 0, 0, .3);
+    opacity: .85;
 }
 
-.hero-name-big {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 1.8rem;
-    line-height: 1.2;
-    margin: 10px 0;
-    color: var(--text-main);
-}
-
-/* BARU: Style untuk garis bawah nama */
-/* .name-underline {
-    text-decoration: underline;
-    text-decoration-color: var(--accent-color); 
-} */
-
-.hero-role-small {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-.hero-desc-long {
-    text-align: justify;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-inline: 1.5rem; /* Mengatur margin kiri & kanan sekaligus */
-}
-.hero-desc-long strong {
-    color: var(--text-main);
-    font-weight: 600;
-}
-
-/* Wrapper foto hero (dulunya inline style position/z-index) */
-.hero-profile-wrapper {
+.hero-system-shell {
     position: relative;
-    z-index: 2;
+    width: min(100% - 8vw, 1600px);
+    height: calc(100% - 54px);
+    margin: 0 auto;
+    padding-top: clamp(108px, 12vh, 148px);
+}
 
-    /*
-     * Foto boleh overlap secara posisi,
-     * tetapi secara layer tetap di bawah marquee.
-     */
+.hero-entry-meta {
+    position: absolute;
+    top: 15.5%;
+    left: 0;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: .56rem;
+    letter-spacing: .2em;
+    color: rgba(255,255,255,.34);
+}
+
+.hero-entry-meta span { color: var(--accent-color); }
+.hero-entry-meta b { font-weight: 500; }
+
+.hero-kicker {
+    position: absolute;
+    top: 22.5%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    z-index: 5;
+    font-family: 'Inter', sans-serif;
+    font-size: .64rem;
+    font-weight: 600;
+    letter-spacing: .24em;
+    color: rgba(255,255,255,.54);
+}
+
+.hero-kicker i {
+    font-style: normal;
+    color: rgba(255, 180, 0, .55);
+}
+
+.hero-title-wrap {
+    position: absolute;
+    left: 0;
+    top: 29%;
+    width: 66%;
+    z-index: 1;
+    will-change: transform;
+}
+
+.hero-title-big {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    line-height: .76;
+    letter-spacing: -.065em;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Satu bahasa dengan chapter lain: oversized, editorial, semi transparan. */
+.hero-title-solid {
+    font-size: clamp(4.5rem, 7.7vw, 8.6rem);
+    color: rgba(242, 244, 248, .34);
+    text-shadow: 0 0 44px rgba(255,255,255,.025);
+}
+
+.hero-title-outline {
+    margin-top: .06em;
+    font-size: clamp(6rem, 10.9vw, 12rem);
+    color: rgba(242, 244, 248, .025);
+    -webkit-text-stroke: 1px rgba(242, 244, 248, .30);
+}
+
+.hero-copy {
+    position: absolute;
+    z-index: 8;
+    left: 0;
+    bottom: 13%;
+    width: min(470px, 36vw);
+    text-align: left;
+}
+
+.hero-copy > p {
+    margin: 0 0 22px;
+    max-width: 430px;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(.86rem, .96vw, 1.02rem);
+    line-height: 1.6;
+    color: rgba(235,240,248,.64);
+}
+
+/* Slider CTA — kembali ke pill terang versi awal, tapi tetap draggable. */
+.hero-slide-cta {
+    --slide-progress: 0;
+    position: relative;
+    width: min(390px, 31vw);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.82);
+    border-radius: 999px;
+    background: rgba(244, 246, 249, .94);
+    box-shadow: 0 14px 38px rgba(0,0,0,.18);
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-y;
+    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+.hero-slide-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,180,0,.18), transparent 38%);
+    opacity: calc(.25 + var(--slide-progress) * .75);
     pointer-events: none;
 }
 
-/* CTA Group di Hero: View Projects / Download CV / Contact Me */
-.hero-cta-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 22px;
+.hero-slide-cta:hover,
+.hero-slide-cta:focus-visible {
+    border-color: rgba(255, 180, 0, .95);
+    box-shadow: 0 15px 42px rgba(0,0,0,.22), 0 0 0 1px rgba(255,180,0,.08);
+    transform: translateY(-2px);
+    outline: none;
 }
 
-.btn-hero-primary {
-    background-color: var(--accent-color);
-    color: var(--bg-dark) !important;
-    border: 1px solid var(--accent-color);
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+.hero-slide-cta:active { cursor: grabbing; }
+
+.hero-slide-label {
+    position: relative;
+    z-index: 2;
+    padding-left: 62px;
+    font-family: 'Inter', sans-serif;
+    font-size: .63rem;
+    font-weight: 700;
+    letter-spacing: .17em;
+    color: rgba(10, 11, 15, .74);
+    transition: opacity .2s ease;
+    opacity: calc(1 - (var(--slide-progress) * .7));
 }
 
-.btn-hero-primary:hover {
-    background-color: transparent;
-    color: var(--accent-color) !important;
+.hero-slide-line {
+    position: absolute;
+    z-index: 2;
+    left: 68px;
+    right: 20px;
+    bottom: 12px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,180,0,.85), rgba(10,11,15,.10));
+    transform-origin: left center;
+    transform: scaleX(calc(.18 + (var(--slide-progress) * .82)));
 }
 
-.btn-hero-outline {
-    background-color: transparent;
-    color: var(--text-main) !important;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+.hero-slide-knob {
+    position: absolute;
+    z-index: 3;
+    left: 6px;
+    top: 6px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #0b0d12;
+    color: var(--accent-color);
+    border: 1px solid rgba(255,180,0,.32);
+    transform: translateX(calc(var(--slide-progress) * (min(390px, 31vw) - 60px)));
+    transition: box-shadow .2s ease, color .2s ease;
+    pointer-events: none;
 }
 
-.btn-hero-outline:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color) !important;
+.hero-slide-cta:hover .hero-slide-knob {
+    color: #ffd15a;
+    box-shadow: 0 0 0 4px rgba(255,180,0,.08), 0 0 26px rgba(255,180,0,.16);
 }
 
-/* Tombol theme-toggle (dulunya inline style ukuran/posisi) */
-.theme-toggle-btn {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    display: flex;
+.hero-cv-link {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    color: rgba(255,255,255,.44);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: .59rem;
+    font-weight: 600;
+    letter-spacing: .19em;
+    transition: color .25s ease, transform .25s ease;
 }
 
-/* ======================================= */
+.hero-cv-link:hover {
+    color: var(--accent-color);
+    transform: translateX(3px);
+}
 
-/* ======================================= */
-/* PARALLAX LAYERS */
-/* ======================================= */
+.hero-profile-zone {
+    position: absolute;
+    z-index: 4;
+    right: 7.5%;
+    bottom: 0;
+    width: min(48vw, 720px);
+    height: 89%;
+    pointer-events: none;
+}
 
-/* 12. PARALLAX LAYERS                     */
-/* ======================================= */
-[data-parallax] {
+.hero-photo-frame {
+    position: absolute;
+    z-index: 0;
+    right: 3%;
+    bottom: 5%;
+    width: 78%;
+    height: 71%;
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 50% 50% 8px 8px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.025), transparent 60%),
+        radial-gradient(circle at 50% 20%, rgba(255,180,0,.055), transparent 58%);
+}
+
+.hero-photo-frame::before,
+.hero-photo-frame::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,180,0,.38);
+}
+
+.hero-photo-frame::before {
+    width: 32px;
+    height: 1px;
+    left: -16px;
+    top: 42%;
+}
+
+.hero-photo-frame::after {
+    width: 1px;
+    height: 32px;
+    right: 18%;
+    bottom: -16px;
+}
+
+.hero-profile-img {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    /* Portrait sengaja diturunkan: wajah berada dekat mid-screen dan tidak menabrak nav. */
+    bottom: -26%;
+    width: auto;
+    height: min(91vh, 940px);
+    max-width: none;
+    object-fit: contain;
+    object-position: bottom right;
+    filter: drop-shadow(0 30px 48px rgba(0,0,0,.36));
     will-change: transform;
 }
 
-/* ======================================= */
+/* Identity is a compact tag, not a face-covering card */
+.hero-identity-tag {
+    position: absolute;
+    z-index: 9;
+    top: 21%;
+    left: 45%;
+    width: min(300px, 23vw);
+    padding: 10px 0 10px 15px;
+    border-left: 2px solid var(--accent-color);
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    transform: rotate(-3deg);
+}
+
+.hero-identity-tag::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 62%;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,180,0,.5), transparent);
+}
+
+.hero-identity-tag > span {
+    display: block;
+    margin-bottom: 5px;
+    font-size: .5rem;
+    letter-spacing: .25em;
+    color: rgba(255,255,255,.42);
+}
+
+.hero-identity-tag strong {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(.82rem, 1.02vw, 1rem);
+    line-height: 1.25;
+    color: rgba(255,255,255,.88);
+}
+
+.hero-identity-tag small {
+    display: block;
+    margin-top: 4px;
+    font-size: .58rem;
+    color: rgba(255,255,255,.42);
+}
+
+.status-badge.hero-status {
+    position: absolute;
+    z-index: 8;
+    top: 12%;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,.14);
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    font-family: 'Inter', sans-serif;
+    font-size: .68rem;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.63);
+    transition: color .25s ease, border-color .25s ease;
+}
+
+.status-badge.hero-status:hover {
+    transform: none;
+    background: transparent;
+    border-color: rgba(255,180,0,.55);
+    color: rgba(255,255,255,.88);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 14px rgba(255,180,0,.45);
+}
+
+.hero-process {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 35%;
+    display: grid;
+    gap: 34px;
+    width: 92px;
+}
+
+.hero-process div {
+    display: grid;
+    grid-template-columns: 22px auto;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid rgba(255,255,255,.075);
+    font-family: 'Inter', sans-serif;
+    font-size: .52rem;
+    letter-spacing: .17em;
+    color: rgba(255,255,255,.42);
+}
+
+.hero-process b {
+    font-weight: 500;
+    color: rgba(255,180,0,.65);
+}
+
+.hero-coordinate {
+    position: absolute;
+    z-index: 2;
+    font-family: 'Inter', sans-serif;
+    font-size: .48rem;
+    letter-spacing: .22em;
+    color: rgba(255,255,255,.2);
+}
+
+.hero-coordinate-a { right: 33%; top: 16%; }
+.hero-coordinate-b { right: 25%; bottom: 11%; }
+
+.marquee-wrapper {
+    position: absolute;
+    z-index: 12;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,.075);
+    background: rgba(7, 8, 12, .92);
+    backdrop-filter: blur(10px);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: marqueeInfinite 36s linear infinite;
+}
+
+.marquee-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: max-content;
+    gap: 26px;
+    padding-right: 26px;
+}
+
+.hero-marquee-pair {
+    display: inline-flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.hero-marquee-pair > span:first-child {
+    font-family: 'Inter', sans-serif;
+    font-size: .59rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    color: rgba(255,255,255,.56);
+    white-space: nowrap;
+}
+
+.marquee-dot { color: var(--accent-color); }
+
+@keyframes marqueeInfinite {
+    from { transform: translate3d(0,0,0); }
+    to { transform: translate3d(-50%,0,0); }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+@media (max-width: 1199px) {
+    .hero-system-shell { width: min(100% - 48px, 1100px); }
+    .hero-title-wrap { width: 72%; top: 31%; }
+    .hero-title-big { font-size: clamp(4.7rem, 10.2vw, 8.2rem); }
+    .hero-profile-zone { right: 2%; width: 52vw; }
+    .hero-profile-img { height: 84vh; right: -5%; bottom: -22%; }
+    .hero-identity-tag { left: 39%; width: min(260px, 27vw); }
+    .hero-process { display: none; }
+    .hero-copy { width: 42vw; }
+    .hero-slide-cta { width: min(360px, 38vw); }
+    .hero-slide-knob { transform: translateX(calc(var(--slide-progress) * (min(360px, 38vw) - 58px))); }
+}
+
+/* =========================================================
+   MOBILE / SMALL TABLET
+   ========================================================= */
+@media (max-width: 767px) {
+    #hero-section.hero-system {
+        min-height: 100svh;
+        height: auto;
+        padding-bottom: 46px;
+        overflow: clip;
+    }
+
+    .hero-system-shell {
+        width: min(100% - 30px, 620px);
+        height: auto;
+        min-height: calc(100svh - 46px);
+        padding-top: 94px;
+        padding-bottom: 28px;
+        display: grid;
+        grid-template-rows: auto auto auto minmax(300px, 45vh) auto;
+        align-content: start;
+    }
+
+    .hero-grid { background-size: 48px 48px; opacity: .13; }
+    .hero-glow { width: 92vw; right: -34%; top: 27%; opacity: .6; }
+
+    .hero-entry-meta {
+        position: relative;
+        inset: auto;
+        grid-row: 1;
+        font-size: .48rem;
+    }
+
+    .hero-kicker {
+        position: relative;
+        inset: auto;
+        grid-row: 2;
+        margin-top: 14px;
+        gap: 8px;
+        font-size: .47rem;
+        letter-spacing: .16em;
+    }
+
+    .hero-kicker span:nth-of-type(3),
+    .hero-kicker i:nth-of-type(2) { display: none; }
+
+    .hero-title-wrap {
+        position: relative;
+        inset: auto;
+        grid-row: 3;
+        width: 100%;
+        margin-top: 18px;
+        z-index: 5;
+    }
+
+    .hero-title-big {
+        line-height: .78;
+        letter-spacing: -.06em;
+        white-space: normal;
+    }
+
+    .hero-title-solid {
+        font-size: clamp(2.75rem, 14.5vw, 4.7rem);
+    }
+
+    .hero-title-outline {
+        font-size: clamp(3.75rem, 19vw, 6.2rem);
+    }
+
+    .hero-profile-zone {
+        position: relative;
+        inset: auto;
+        grid-row: 4;
+        width: 100%;
+        height: 100%;
+        margin-top: -4px;
+    }
+
+    .hero-profile-img {
+        left: 50%;
+        right: auto;
+        bottom: -10%;
+        height: min(52vh, 520px);
+        transform: translateX(-50%);
+        object-position: bottom center;
+    }
+
+    .hero-photo-frame {
+        left: 50%;
+        right: auto;
+        width: min(84vw, 390px);
+        height: 72%;
+        transform: translateX(-50%);
+    }
+
+    .hero-identity-tag {
+        top: 37%;
+        left: 0;
+        width: min(215px, 58vw);
+        padding-left: 11px;
+        transform: rotate(-2deg);
+    }
+
+    .hero-identity-tag strong { font-size: .78rem; }
+    .hero-identity-tag small { font-size: .51rem; }
+
+    .status-badge.hero-status {
+        top: 9%;
+        right: 0;
+        font-size: .58rem;
+    }
+
+    .hero-copy {
+        position: relative;
+        inset: auto;
+        grid-row: 5;
+        width: 100%;
+        padding-top: 12px;
+        z-index: 8;
+    }
+
+    .hero-copy > p {
+        max-width: 34rem;
+        margin-bottom: 17px;
+        font-size: .8rem;
+    }
+
+    .hero-slide-cta {
+        width: 100%;
+        height: 54px;
+    }
+
+    .hero-slide-knob {
+        width: 42px;
+        height: 42px;
+        transform: translateX(calc(var(--slide-progress) * (100vw - 96px)));
+    }
+
+    .hero-slide-label {
+        padding-left: 52px;
+        font-size: .55rem;
+    }
+
+    .hero-cv-link { margin-top: 14px; font-size: .54rem; }
+    .hero-process,
+    .hero-coordinate { display: none; }
+
+    .marquee-wrapper {
+        position: relative;
+        bottom: auto;
+        padding: 11px 0;
+    }
+
+    .hero-marquee-pair > span:first-child {
+        font-size: .5rem;
+        letter-spacing: .18em;
+    }
+}
+
+@media (max-width: 420px) {
+    .hero-system-shell {
+        width: calc(100% - 24px);
+        padding-top: 88px;
+        grid-template-rows: auto auto auto minmax(285px, 42vh) auto;
+    }
+
+    .hero-title-solid { font-size: clamp(2.55rem, 13.4vw, 3.9rem); }
+    .hero-title-outline { font-size: clamp(3.45rem, 18vw, 5rem); }
+    .hero-identity-tag { top: 40%; width: 61vw; }
+    .status-badge.hero-status { top: 11%; }
+    .hero-slide-knob { transform: translateX(calc(var(--slide-progress) * (100vw - 90px))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .hero-slide-cta,
+    .hero-slide-knob,
+    .hero-cv-link,
+    .status-badge.hero-status { transition: none; }
+}

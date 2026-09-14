@@ -121,14 +121,6 @@ export default function LogoCoverflow({
           : 'auto';
     });
 
-    const currentIndex =
-      indexAt(position);
-
-    setSelected(previous =>
-      previous === currentIndex
-        ? previous
-        : currentIndex
-    );
   }, [
     count,
     depth,
@@ -211,13 +203,20 @@ export default function LogoCoverflow({
 
   const nudge = useCallback(
     amount => {
-      settle(
-        Math.round(
-          targetRef.current
-        ) + amount
-      );
+      if (!count) return;
+
+      const nextIndex =
+        (selected + amount + count) %
+        count;
+
+      setSelected(nextIndex);
+      goTo(nextIndex);
     },
-    [settle]
+    [
+      count,
+      selected,
+      goTo
+    ]
   );
 
   const handlePointerDown = event => {
@@ -358,12 +357,17 @@ export default function LogoCoverflow({
           1.75
         );
 
-    settle(
+    const finalPosition =
       Math.round(
         posRef.current +
         carried
-      )
+      );
+
+    setSelected(
+      indexAt(finalPosition)
     );
+
+    settle(finalPosition);
 
     window.setTimeout(() => {
       suppressClickRef.current =
@@ -482,6 +486,10 @@ export default function LogoCoverflow({
           }}
         >
           <div className="logo-coverflow-stage">
+            <p className="logo-coverflow-hint">
+              Slow down and explore
+            </p>
+
             {logos.map(
               (logo, index) => {
                 const isActive =
@@ -617,9 +625,10 @@ export default function LogoCoverflow({
                       ? 'is-active'
                       : ''
                   }
-                  onClick={() =>
-                    goTo(index)
-                  }
+                  onClick={() => {
+                    setSelected(index);
+                    goTo(index);
+                  }}
                   aria-label={`Show ${logo.name}`}
                   aria-current={
                     index === selected

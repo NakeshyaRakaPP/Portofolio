@@ -213,7 +213,8 @@
 }
 
 
-.tool-card:hover {
+.tool-card:hover,
+.tool-card.is-demo-hovered {
     transform:
         translateY(-3px);
 

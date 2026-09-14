@@ -6,6 +6,7 @@ const ToolCard = forwardRef(
       tool,
       isActive,
       isDragging,
+      interactive = true,
       onClick,
       onPointerDown,
       onPointerMove,
@@ -38,6 +39,8 @@ const ToolCard = forwardRef(
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerCancel={onPointerCancel}
+          tabIndex={interactive ? 0 : -1}
+          aria-hidden={interactive ? undefined : 'true'}
           aria-label={`Explore ${tool.name}`}
         >
           <span className="tool-logo">

@@ -305,9 +305,11 @@
     margin: 0 auto;
 
     padding:
-        clamp(190px, 23vh, 235px)
+        clamp(120px, 20vh, 220px)
         0
-        130px;
+        190px;
+
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;

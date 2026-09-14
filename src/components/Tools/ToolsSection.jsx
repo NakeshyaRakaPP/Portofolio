@@ -2,18 +2,39 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ToolCard from './ToolCard';
 import ToolDropzone from './ToolDropzone';
-import SceneChrome from '../common/SceneChrome';
+import ToolWorkbenchIntro from './ToolWorkbenchIntro';
 import { tools } from '../../data/tools';
+
+const clamp01 = value => Math.max(0, Math.min(1, value));
+
+const smoothstep = (start, end, value) => {
+  if (start === end) return value >= end ? 1 : 0;
+  const t = clamp01((value - start) / (end - start));
+  return t * t * (3 - 2 * t);
+};
+
+const mix = (from, to, progress) =>
+  from + (to - from) * progress;
 
 export default function ToolsSection() {
   const [activeTool, setActiveTool] = useState(null);
   const [draggingTool, setDraggingTool] = useState(null);
+  const [assemblyReady, setAssemblyReady] = useState(false);
 
   const sectionRef = useRef(null);
+  const liveShellRef = useRef(null);
+  const playgroundRef = useRef(null);
   const dropzoneRef = useRef(null);
+  const introSceneRef = useRef(null);
+  const introAnchorRefs = useRef({});
+  const slotRefs = useRef({});
+  const actorRefs = useRef({});
   const cardRefs = useRef({});
   const ghostRef = useRef(null);
   const fakeCursorRef = useRef(null);
+  const activeToolRef = useRef(null);
+  const readyRef = useRef(false);
+  const layoutRequestRef = useRef(null);
 
   const dragOffsetRef = useRef({
     x: 0,
@@ -21,6 +42,11 @@ export default function ToolsSection() {
   });
 
   const demoRunRef = useRef(false);
+
+  useEffect(() => {
+    activeToolRef.current = activeTool;
+    layoutRequestRef.current?.();
+  }, [activeTool]);
 
   function getToolById(id) {
     return tools.find(tool => tool.id === id);
@@ -102,6 +128,8 @@ export default function ToolsSection() {
   }
 
   function flyCardToDropzone(toolId) {
+    if (!assemblyReady) return;
+
     const sourceCard = cardRefs.current[toolId];
     const dropzone = dropzoneRef.current;
 
@@ -159,7 +187,7 @@ export default function ToolsSection() {
   }
 
   function handleToolClick(toolId) {
-    if (draggingTool) return;
+    if (!assemblyReady || draggingTool) return;
 
     if (activeTool === toolId) return;
 
@@ -167,6 +195,8 @@ export default function ToolsSection() {
   }
 
   function handleDragStart(toolId, event) {
+    if (!assemblyReady) return;
+
     if (
       !window.matchMedia(
         '(hover: hover) and (pointer: fine)'
@@ -191,7 +221,7 @@ export default function ToolsSection() {
   }
 
   function handleDragMove(event) {
-    if (!draggingTool) return;
+    if (!assemblyReady || !draggingTool) return;
 
     moveDragGhost(
       event.clientX,
@@ -214,10 +244,12 @@ export default function ToolsSection() {
 
     const toolId = draggingTool;
 
-    const dropped = isPointerInsideDropzone(
-      event.clientX,
-      event.clientY
-    );
+    const dropped =
+      assemblyReady &&
+      isPointerInsideDropzone(
+        event.clientX,
+        event.clientY
+      );
 
     dropzoneRef.current?.classList.remove(
       'is-hovered'
@@ -238,18 +270,244 @@ export default function ToolsSection() {
     };
   }, []);
 
+  // -----------------------------------------------------------------------
+  // ONE REAL TOOLCARD, TWO LAYOUT STATES
+  // -----------------------------------------------------------------------
+  // Every visible tool is a single portaled ToolCard. During the intro it
+  // follows its scattered anchor. Near the live workbench it interpolates to
+  // the matching grid slot. Scrolling upward simply reverses the same math.
+  // Only the fully docked state enables pointer interaction.
   useEffect(() => {
     const section = sectionRef.current;
+    const liveShell = liveShellRef.current;
+
+    if (!section || !liveShell) return undefined;
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+
+    let rafId = null;
+
+    const setReady = nextReady => {
+      if (readyRef.current === nextReady) return;
+
+      const wasReady = readyRef.current;
+      readyRef.current = nextReady;
+      setAssemblyReady(nextReady);
+
+      liveShell.classList.toggle('is-docked', nextReady);
+
+      if (wasReady && !nextReady) {
+        removeGhost();
+        setDraggingTool(null);
+        setActiveTool(null);
+      }
+    };
+
+    const paintActors = () => {
+      rafId = null;
+
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const sectionRect = section.getBoundingClientRect();
+      const shellRect = liveShell.getBoundingClientRect();
+      const scene = introSceneRef.current;
+      const sceneRect = scene?.getBoundingClientRect();
+
+      const inSectionRange =
+        sectionRect.bottom > -120 &&
+        sectionRect.top < viewportHeight + 120;
+
+      // Docking begins only as the interactive workbench approaches.
+      // This leaves a genuine free-scroll gap after the scattered intro.
+      const bridgeStart = viewportHeight * 0.96;
+      const bridgeEnd = viewportHeight * 0.28;
+
+      const bridge = reduceMotion.matches
+        ? 1
+        : clamp01(
+            (bridgeStart - shellRect.top) /
+              Math.max(bridgeStart - bridgeEnd, 1)
+          );
+
+      const dropProgress = smoothstep(0.7, 0.96, bridge);
+      const liveCopyProgress = smoothstep(0.48, 0.86, bridge);
+
+      liveShell.style.setProperty(
+        '--workbench-dock-progress',
+        bridge.toFixed(4)
+      );
+      liveShell.style.setProperty(
+        '--workbench-live-copy',
+        liveCopyProgress.toFixed(4)
+      );
+      liveShell.style.setProperty(
+        '--workbench-live-y',
+        `${mix(18, 0, liveCopyProgress)}px`
+      );
+
+      if (dropzoneRef.current) {
+        dropzoneRef.current.style.opacity = String(dropProgress);
+        dropzoneRef.current.style.transform = `
+          translateY(${mix(18, 0, dropProgress)}px)
+          scale(${mix(0.975, 1, dropProgress)})
+        `;
+        dropzoneRef.current.style.pointerEvents =
+          bridge >= 0.995 ? 'auto' : 'none';
+      }
+
+      tools.forEach((tool, index) => {
+        const actor = actorRefs.current[tool.id];
+        const anchor = introAnchorRefs.current[tool.id];
+        const target = slotRefs.current[tool.id];
+
+        if (!actor || !target) return;
+
+        const targetRect = target.getBoundingClientRect();
+
+        const sourceX = Number(anchor?.dataset.actorX || 0);
+        const sourceY = Number(anchor?.dataset.actorY || 0);
+        const sourceRotation = Number(
+          anchor?.dataset.actorRotation || 0
+        );
+        const sourceScale = Number(
+          anchor?.dataset.actorScale || 1
+        );
+        const spread = Number(
+          anchor?.dataset.actorSpread || 0
+        );
+
+        const sourceBaseWidth =
+          anchor?.offsetWidth || targetRect.width;
+        const sourceBaseHeight =
+          anchor?.offsetHeight || targetRect.height;
+
+        const sourceCenterX = sceneRect
+          ? sceneRect.left + sceneRect.width / 2 + sourceX
+          : targetRect.left + targetRect.width / 2;
+
+        const sourceCenterY = sceneRect
+          ? sceneRect.top + sceneRect.height / 2 + sourceY
+          : -120 - index * 10;
+
+        const sourceWidth = sourceBaseWidth * sourceScale;
+        const sourceHeight = sourceBaseHeight * sourceScale;
+
+        const targetCenterX =
+          targetRect.left + targetRect.width / 2;
+        const targetCenterY =
+          targetRect.top + targetRect.height / 2;
+
+        // Stagger is encoded in scroll space rather than timers, so the
+        // sequence is perfectly reversible when the user scrolls upward.
+        const staggerStart = index * 0.032;
+        const staggerEnd = 0.62 + index * 0.032;
+        const localDock = reduceMotion.matches
+          ? 1
+          : smoothstep(staggerStart, staggerEnd, bridge);
+
+        const centerX = mix(
+          sourceCenterX,
+          targetCenterX,
+          localDock
+        );
+        const centerY = mix(
+          sourceCenterY,
+          targetCenterY,
+          localDock
+        );
+        const width = mix(
+          sourceWidth,
+          targetRect.width,
+          localDock
+        );
+        const height = mix(
+          sourceHeight,
+          targetRect.height,
+          localDock
+        );
+        const rotation = mix(
+          sourceRotation,
+          0,
+          localDock
+        );
+
+        const selected =
+          activeToolRef.current === tool.id &&
+          bridge >= 0.995;
+
+        actor.style.visibility =
+          inSectionRange ? 'visible' : 'hidden';
+        actor.style.left = `${centerX}px`;
+        actor.style.top = `${centerY}px`;
+        actor.style.width = `${Math.max(width, 1)}px`;
+        actor.style.height = `${Math.max(height, 1)}px`;
+        actor.style.transform = `
+          translate3d(-50%, -50%, 0)
+          rotate(${rotation}deg)
+        `;
+        actor.style.opacity = selected ? '0' : '1';
+        actor.style.pointerEvents =
+          bridge >= 0.995 && !selected
+            ? 'auto'
+            : 'none';
+
+        actor.classList.toggle(
+          'is-floating',
+          spread >= 0.985 && bridge <= 0.02
+        );
+        actor.classList.toggle(
+          'is-docked',
+          localDock >= 0.999 && bridge >= 0.995
+        );
+      });
+
+      setReady(bridge >= 0.995);
+    };
+
+    const requestPaint = () => {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(paintActors);
+    };
+
+    layoutRequestRef.current = requestPaint;
+
+    requestPaint();
+
+    window.addEventListener('scroll', requestPaint, {
+      passive: true
+    });
+    window.addEventListener('resize', requestPaint);
+    reduceMotion.addEventListener('change', requestPaint);
+
+    return () => {
+      layoutRequestRef.current = null;
+
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+
+      window.removeEventListener('scroll', requestPaint);
+      window.removeEventListener('resize', requestPaint);
+      reduceMotion.removeEventListener('change', requestPaint);
+    };
+  }, []);
+
+  useEffect(() => {
+    const playground = playgroundRef.current;
     const fakeCursor = fakeCursorRef.current;
 
-    if (!section || !fakeCursor) return;
+    if (!assemblyReady) return undefined;
+
+    if (!playground || !fakeCursor) return undefined;
 
     if (
       !window.matchMedia(
         '(hover: hover) and (pointer: fine)'
       ).matches
     ) {
-      return;
+      return undefined;
     }
 
     if (
@@ -257,10 +515,10 @@ export default function ToolsSection() {
         '(prefers-reduced-motion: reduce)'
       ).matches
     ) {
-      return;
+      return undefined;
     }
 
-    if (demoRunRef.current) return;
+    if (demoRunRef.current) return undefined;
 
     let cancelled = false;
 
@@ -281,7 +539,7 @@ export default function ToolsSection() {
       }
     );
 
-    observer.observe(section);
+    observer.observe(playground);
 
     async function runDemoSequence() {
       const firstTool = tools[0];
@@ -303,7 +561,7 @@ export default function ToolsSection() {
         index < TOTAL_DEMOS;
         index++
       ) {
-        if (cancelled) return;
+        if (cancelled || !readyRef.current) return;
 
         await runSingleDemo(
           sourceCard,
@@ -336,12 +594,12 @@ export default function ToolsSection() {
           dropzone.getBoundingClientRect();
 
         const startX =
-            cardRect.left +
-            cardRect.width * 0.72;
+          cardRect.left +
+          cardRect.width * 0.72;
 
         const startY =
-            cardRect.top +
-            cardRect.height * 0.62;
+          cardRect.top +
+          cardRect.height * 0.62;
 
         const endX =
           dropRect.left +
@@ -363,10 +621,28 @@ export default function ToolsSection() {
 
         cursor.classList.add('is-visible');
 
+        // Cursor "lands" on Figma first, so the source card should
+        // visibly react before the pointer starts travelling.
         window.setTimeout(() => {
-          sourceCard.classList.add(
-            'is-demo-grabbed'
-          );
+          if (!readyRef.current) {
+            cursor.classList.remove('is-visible');
+            resolve();
+            return;
+          }
+
+          sourceCard.classList.add('is-demo-hovered');
+        }, 100);
+
+        // Leave the source card, then travel toward the dropzone.
+        window.setTimeout(() => {
+          if (!readyRef.current) {
+            sourceCard.classList.remove('is-demo-hovered');
+            cursor.classList.remove('is-visible');
+            resolve();
+            return;
+          }
+
+          sourceCard.classList.remove('is-demo-hovered');
 
           cursor.style.transition = `
             transform 1.1s
@@ -381,25 +657,22 @@ export default function ToolsSection() {
             )
           `;
 
-          dropzone.classList.add(
-            'is-hovered'
-          );
-
+          // The dropzone only reacts once the cursor has actually arrived.
           window.setTimeout(() => {
-            sourceCard.classList.remove(
-              'is-demo-grabbed'
-            );
+            if (!readyRef.current) {
+              cursor.classList.remove('is-visible');
+              resolve();
+              return;
+            }
 
-            dropzone.classList.remove(
-              'is-hovered'
-            );
+            dropzone.classList.add('is-hovered');
 
-            cursor.classList.remove(
-              'is-visible'
-            );
-
-            resolve();
-          }, 1250);
+            window.setTimeout(() => {
+              dropzone.classList.remove('is-hovered');
+              cursor.classList.remove('is-visible');
+              resolve();
+            }, 700);
+          }, 1100);
         }, 650);
       });
     }
@@ -408,130 +681,139 @@ export default function ToolsSection() {
       cancelled = true;
       observer.disconnect();
     };
-  }, []);
+  }, [assemblyReady]);
+
+  const renderTargetSlot = tool => (
+    <div
+      key={tool.id}
+      ref={element => {
+        slotRefs.current[tool.id] = element;
+      }}
+      className={[
+        'tool-card-slot',
+        'tool-card-target-slot',
+        activeTool === tool.id ? 'is-empty' : ''
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      aria-hidden="true"
+    />
+  );
 
   return (
     <section
-        id="skills"
-        className="skills-section scene-section scene-tools"
-        ref={sectionRef}
+      id="skills"
+      className="skills-section scene-section scene-tools"
+      ref={sectionRef}
     >
-        <SceneChrome
-          index="02"
-          label="TOOLKIT"
-          meta="INTERACTIVE LAB"
-        />
+      <ToolWorkbenchIntro
+        tools={tools}
+        anchorRefs={introAnchorRefs}
+        sceneRef={introSceneRef}
+      />
 
+      <div ref={liveShellRef} className="tools-live-shell">
         <div className="container">
+          <div className="tools-live-intro">
+            <div>
+              <span className="tools-live-state">
+                Interactive mode
+              </span>
 
-            <div className="scene-intro reveal in-up" data-delay="0">
-              <div>
-                <span className="scene-kicker">Tools / Technologies</span>
-                <h2 className="scene-title">
-                  MY <span className="outline">WORKBENCH.</span>
-                </h2>
+              <h2 className="tools-live-title">
+                THE BENCH <span>IS LIVE.</span>
+              </h2>
+            </div>
+
+            <p className="tools-live-copy">
+              The stack is assembled. Pick a tool — or drag it into the
+              workbench — to inspect how it fits into my workflow.
+            </p>
+          </div>
+
+          <div
+            ref={playgroundRef}
+            className="tools-playground"
+          >
+            <div className="tools-layout">
+              <div className="tools-top-row">
+                {tools.slice(0, 7).map(renderTargetSlot)}
               </div>
-              <p className="scene-description">
-                The stack behind my design and development process. Pick a tool —
-                or drag it into the lab — to see where it fits in my workflow.
-              </p>
-            </div>
 
-            <div
-                className="tools-playground reveal in-up"
-                data-delay="100"
-            >
-
-                <div className="tools-layout">
-
-                  <div className="tools-top-row">
-                    {tools.slice(0, 7).map((tool) => (
-                      <ToolCard
-                        key={tool.id}
-                        ref={(element) => {
-                          cardRefs.current[tool.id] = element;
-                        }}
-                        tool={tool}
-                        isActive={activeTool === tool.id}
-                        isDragging={draggingTool === tool.id}
-                        onClick={() => handleToolClick(tool.id)}
-                        onPointerDown={(event) => handleDragStart(tool.id, event)}
-                        onPointerMove={handleDragMove}
-                        onPointerUp={handleDragEnd}
-                        onPointerCancel={handleDragEnd}
-                      />
-                    ))}
-                  </div>
-
-
-                  <div className="tools-bottom-layout">
-
-                    <div className="tools-side tools-side-left">
-                      {tools.slice(7, 9).map((tool) => (
-                        <ToolCard
-                          key={tool.id}
-                          ref={(element) => {
-                            cardRefs.current[tool.id] = element;
-                          }}
-                          tool={tool}
-                          isActive={activeTool === tool.id}
-                          isDragging={draggingTool === tool.id}
-                          onClick={() => handleToolClick(tool.id)}
-                          onPointerDown={(event) => handleDragStart(tool.id, event)}
-                          onPointerMove={handleDragMove}
-                          onPointerUp={handleDragEnd}
-                          onPointerCancel={handleDragEnd}
-                        />
-                      ))}
-                    </div>
-
-
-                    <ToolDropzone
-                      ref={dropzoneRef}
-                      tool={getToolById(activeTool)}
-                      onReturn={() => setActiveTool(null)}
-                    />
-
-
-                    <div className="tools-side tools-side-right">
-                      {tools.slice(9, 11).map((tool) => (
-                        <ToolCard
-                          key={tool.id}
-                          ref={(element) => {
-                            cardRefs.current[tool.id] = element;
-                          }}
-                          tool={tool}
-                          isActive={activeTool === tool.id}
-                          isDragging={draggingTool === tool.id}
-                          onClick={() => handleToolClick(tool.id)}
-                          onPointerDown={(event) => handleDragStart(tool.id, event)}
-                          onPointerMove={handleDragMove}
-                          onPointerUp={handleDragEnd}
-                          onPointerCancel={handleDragEnd}
-                        />
-                      ))}
-                    </div>
-                  </div>
+              <div className="tools-bottom-layout">
+                <div className="tools-side tools-side-left">
+                  {tools.slice(7, 9).map(renderTargetSlot)}
                 </div>
+
+                <ToolDropzone
+                  ref={dropzoneRef}
+                  tool={getToolById(activeTool)}
+                  onReturn={() => setActiveTool(null)}
+                />
+
+                <div className="tools-side tools-side-right">
+                  {tools.slice(9, 11).map(renderTargetSlot)}
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
 
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className="workbench-tool-actor-layer"
+            aria-hidden={assemblyReady ? undefined : 'true'}
+          >
+            {tools.map((tool, index) => (
+              <div
+                key={tool.id}
+                ref={element => {
+                  actorRefs.current[tool.id] = element;
+                }}
+                className="workbench-tool-actor"
+                style={{
+                  '--float-delay': `${index * -0.18}s`
+                }}
+              >
+                <div className="workbench-tool-actor-float">
+                  <ToolCard
+                    ref={element => {
+                      cardRefs.current[tool.id] = element;
+                    }}
+                    tool={tool}
+                    isActive={false}
+                    isDragging={draggingTool === tool.id}
+                    interactive={assemblyReady}
+                    onClick={() => handleToolClick(tool.id)}
+                    onPointerDown={event =>
+                      handleDragStart(tool.id, event)
+                    }
+                    onPointerMove={handleDragMove}
+                    onPointerUp={handleDragEnd}
+                    onPointerCancel={handleDragEnd}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>,
+          document.body
+        )}
 
-        {/* Fake cursor sengaja dirender ke body.
-            Jangan masukkan kembali ke tools-playground. */}
-        {typeof document !== 'undefined' &&
-            createPortal(
-                <div
-                    ref={fakeCursorRef}
-                    className="tool-demo-cursor"
-                    aria-hidden="true"
-                >
-                    <i className="bi bi-cursor-fill" />
-                </div>,
-                document.body
-            )
-        }
-
+      {/* Fake cursor stays portaled to body so transformed ancestors never
+          offset its fixed coordinates. */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            ref={fakeCursorRef}
+            className="tool-demo-cursor"
+            aria-hidden="true"
+          >
+            <i className="bi bi-cursor-fill" />
+          </div>,
+          document.body
+        )}
     </section>
-);
+  );
 }

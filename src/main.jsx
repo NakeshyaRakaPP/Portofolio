@@ -15,5 +15,6 @@ import './styles/animations.css';
 import './styles/utilities.css';
 import './styles/responsive.css';
 import './styles/scene-system.css';
+import './styles/workbench-intro.css';
 
 createRoot(document.getElementById('root')).render(<App />);

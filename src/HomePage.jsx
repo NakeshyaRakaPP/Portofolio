@@ -14,7 +14,6 @@ import { useCounters } from './hooks/useCounters';
 import { useCursor } from './hooks/useCursor';
 import { useParallax } from './hooks/useParallax';
 import { useMagneticText } from './hooks/useMagneticText';
-import { useToolsScrollGate } from './hooks/useToolsScrollGate';
 import { useContactScrollGate } from './hooks/useContactScrollGate';
 
 export default function HomePage() {
@@ -33,7 +32,6 @@ export default function HomePage() {
   useCursor();
   useParallax(true);
   useMagneticText(true);
-  useToolsScrollGate();
   useContactScrollGate();
 
   return (
