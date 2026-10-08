@@ -1,6 +1,8 @@
 import {
   useEffect,
-  useRef
+  useMemo,
+  useRef,
+  useState
 } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -9,6 +11,33 @@ export default function LogoDetailModal({
   onClose
 }) {
   const closeRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const gallery = useMemo(
+    () =>
+      Array.isArray(logo.gallery) && logo.gallery.length
+        ? logo.gallery
+        : [
+            {
+              src: logo.image,
+              label: 'Logo Mark',
+              alt: `Logo ${logo.name}`,
+              fit: 'contain'
+            }
+          ],
+    [logo]
+  );
+
+  const deliverables =
+    Array.isArray(logo.deliverables)
+      ? logo.deliverables
+      : [];
+
+  const activeItem = gallery[activeIndex] || gallery[0];
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [logo.id]);
 
   useEffect(() => {
     const previousOverflow =
@@ -20,6 +49,20 @@ export default function LogoDetailModal({
     const handleKeyDown = event => {
       if (event.key === 'Escape') {
         onClose();
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        setActiveIndex(index =>
+          (index + 1) % gallery.length
+        );
+      }
+
+      if (event.key === 'ArrowLeft') {
+        setActiveIndex(index =>
+          (index - 1 + gallery.length) %
+          gallery.length
+        );
       }
     };
 
@@ -29,8 +72,7 @@ export default function LogoDetailModal({
     );
 
     window.requestAnimationFrame(
-      () =>
-        closeRef.current?.focus()
+      () => closeRef.current?.focus()
     );
 
     return () => {
@@ -42,19 +84,20 @@ export default function LogoDetailModal({
         handleKeyDown
       );
     };
-  }, [onClose]);
+  }, [gallery.length, onClose]);
 
-  const gallery =
-    Array.isArray(logo.gallery)
-      ? logo.gallery
-      : [];
+  const showPrevious = () => {
+    setActiveIndex(index =>
+      (index - 1 + gallery.length) %
+      gallery.length
+    );
+  };
 
-  const deliverables =
-    Array.isArray(
-      logo.deliverables
-    )
-      ? logo.deliverables
-      : [];
+  const showNext = () => {
+    setActiveIndex(index =>
+      (index + 1) % gallery.length
+    );
+  };
 
   return createPortal(
     <div
@@ -70,7 +113,7 @@ export default function LogoDetailModal({
       }}
     >
       <section
-        className="logo-detail-modal"
+        className="logo-detail-modal logo-detail-modal--viewer"
         role="dialog"
         aria-modal="true"
         aria-labelledby={`logo-detail-${logo.id}`}
@@ -85,7 +128,7 @@ export default function LogoDetailModal({
           type="button"
           className="logo-detail-close"
           onClick={onClose}
-          aria-label="Close logo details"
+          aria-label="Close logo preview"
         >
           <i
             className="bi bi-x-lg"
@@ -93,137 +136,183 @@ export default function LogoDetailModal({
           />
         </button>
 
-        <div className="logo-detail-hero">
-          <div className="logo-detail-copy">
-            <span className="logo-detail-kicker">
-              // VISUAL IDENTITY
-            </span>
+        <div className="logo-viewer-main">
+          <div className="logo-viewer-copy">
+            <div>
+              <span className="logo-detail-kicker">
+                // PROJECT PREVIEW
+              </span>
 
-            <h3
-              id={`logo-detail-${logo.id}`}
-            >
-              {logo.name}
-            </h3>
+              <h3
+                id={`logo-detail-${logo.id}`}
+              >
+                {logo.name}
+              </h3>
 
-            {logo.subtitle && (
-              <p className="logo-detail-subtitle">
-                {logo.subtitle}
-              </p>
-            )}
-
-            {logo.description && (
-              <p className="logo-detail-description">
-                {logo.description}
-              </p>
-            )}
-
-            <div className="logo-detail-meta">
-              {logo.category && (
-                <span>
-                  {logo.category}
-                </span>
+              {logo.subtitle && (
+                <p className="logo-detail-subtitle">
+                  {logo.subtitle}
+                </p>
               )}
 
-              {logo.year && (
-                <span>
-                  {logo.year}
-                </span>
+              {logo.description && (
+                <p className="logo-detail-description">
+                  {logo.description}
+                </p>
               )}
 
-              {logo.role && (
-                <span>
-                  {logo.role}
-                </span>
-              )}
-            </div>
+              <div className="logo-detail-meta">
+                {logo.category && (
+                  <span>{logo.category}</span>
+                )}
 
-            {deliverables.length >
-              0 && (
-              <div className="logo-detail-deliverables">
-                {deliverables.map(
-                  item => (
+                {logo.year && (
+                  <span>{logo.year}</span>
+                )}
+
+                {logo.role && (
+                  <span>{logo.role}</span>
+                )}
+              </div>
+
+              {deliverables.length > 0 && (
+                <div className="logo-detail-deliverables">
+                  {deliverables.map(item => (
                     <span key={item}>
                       {item}
                     </span>
-                  )
-                )}
-              </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {logo.caseStudyHref && (
+              <a
+                href={logo.caseStudyHref}
+                className="logo-detail-case-link"
+              >
+                <span>VIEW CASE STUDY</span>
+                <i
+                  className="bi bi-arrow-up-right"
+                  aria-hidden="true"
+                />
+              </a>
             )}
           </div>
 
-          <div className="logo-detail-mark">
-            <img
-              src={logo.image}
-              alt={`Logo ${logo.name}`}
-            />
+          <div className="logo-viewer-stage">
+            <figure
+              className={`logo-viewer-figure ${
+                activeItem.fit === 'contain'
+                  ? 'is-contain'
+                  : ''
+              }`}
+            >
+              <img
+                key={`${logo.id}-${activeIndex}`}
+                src={activeItem.src}
+                alt={
+                  activeItem.alt ||
+                  `${logo.name} visual ${activeIndex + 1}`
+                }
+                className="logo-viewer-image"
+                decoding="async"
+              />
+
+              <figcaption className="logo-viewer-caption">
+                <span>
+                  {String(activeIndex + 1).padStart(2, '0')}
+                  {' / '}
+                  {String(gallery.length).padStart(2, '0')}
+                </span>
+
+                <strong>
+                  {activeItem.label || 'Brand Application'}
+                </strong>
+              </figcaption>
+            </figure>
+
+            {gallery.length > 1 && (
+              <div className="logo-viewer-arrows">
+                <button
+                  type="button"
+                  onClick={showPrevious}
+                  aria-label="Previous visual"
+                >
+                  <i
+                    className="bi bi-arrow-left"
+                    aria-hidden="true"
+                  />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={showNext}
+                  aria-label="Next visual"
+                >
+                  <i
+                    className="bi bi-arrow-right"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        {gallery.length > 0 && (
-          <div className="logo-detail-gallery">
-            <div className="logo-detail-gallery-head">
-              <span>
-                BRAND APPLICATIONS
-              </span>
-
-              <span>
-                {String(
-                  gallery.length
-                ).padStart(
-                  2,
-                  '0'
-                )}{' '}
-                VISUALS
-              </span>
-            </div>
-
-            <div className="logo-detail-gallery-grid">
-              {gallery.map(
-                (item, index) => {
-                  const source =
-                    typeof item ===
-                    'string'
-                      ? item
-                      : item.src;
-
-                  const alt =
-                    typeof item ===
-                    'string'
-                      ? `${logo.name} application ${index + 1}`
-                      : item.alt ||
-                        `${logo.name} application ${index + 1}`;
-
-                  const label =
-                    typeof item ===
-                    'string'
-                      ? ''
-                      : item.label ||
-                        '';
-
-                  return (
-                    <figure
-                      key={`${source}-${index}`}
-                      className="logo-detail-gallery-item"
-                    >
-                      <img
-                        src={source}
-                        alt={alt}
-                        loading="lazy"
-                        decoding="async"
-                      />
-
-                      {label && (
-                        <figcaption>
-                          {label}
-                        </figcaption>
-                      )}
-                    </figure>
-                  );
+        <div className="logo-viewer-thumbs-wrap">
+          <div
+            className="logo-viewer-thumbs"
+            aria-label={`${logo.name} gallery`}
+          >
+            {gallery.map((item, index) => (
+              <button
+                type="button"
+                key={`${item.src}-${index}`}
+                className={`logo-viewer-thumb ${
+                  index === activeIndex
+                    ? 'is-active'
+                    : ''
+                }`}
+                onClick={() =>
+                  setActiveIndex(index)
                 }
-              )}
-            </div>
+                aria-label={`Show ${
+                  item.label ||
+                  `visual ${index + 1}`
+                }`}
+                aria-current={
+                  index === activeIndex
+                    ? 'true'
+                    : undefined
+                }
+              >
+                <span className="logo-viewer-thumb-index">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <span
+                  className={`logo-viewer-thumb-media ${
+                    item.fit === 'contain'
+                      ? 'is-contain'
+                      : ''
+                  }`}
+                >
+                  <img
+                    src={item.src}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+
+                <span className="logo-viewer-thumb-label">
+                  {item.label || 'Visual'}
+                </span>
+              </button>
+            ))}
           </div>
-        )}
+        </div>
       </section>
     </div>,
     document.body

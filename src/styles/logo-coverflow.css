@@ -69,23 +69,29 @@
     transform-style: preserve-3d;
 }
 
-
-
-
 .logo-coverflow-hint {
     position: absolute;
+
     left: 50%;
-    top: 6px;
-    z-index: 4;
-    margin: 0;
+    top: 8px;
+
     transform: translateX(-50%);
-    font-family: var(--font-meta);
-    font-size: .62rem;
+
+    z-index: 5;
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.62rem;
     font-weight: 500;
-    letter-spacing: .16em;
+
+    letter-spacing: 0.16em;
     text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.42);
+
     white-space: nowrap;
-    color: var(--text-faint);
+
     pointer-events: none;
     user-select: none;
 }
@@ -1022,48 +1028,6 @@
     color: #fff;
 }
 
-/* =========================================================
-   CUSTOM CURSOR ABOVE LOGO MODAL
-   ========================================================= */
-
-body.custom-cursor-active .cursor-dot,
-body.custom-cursor-active .cursor-outline {
-    z-index: 20050 !important;
-}
-
-.logo-detail-backdrop {
-    z-index: 12000;
-}
-
-.logo-detail-modal {
-    overscroll-behavior: contain;
-    touch-action: pan-y;
-}
-
-.logo-detail-modal,
-.logo-detail-gallery {
-    scrollbar-width: thin;
-    scrollbar-color:
-        rgba(255, 180, 0, .45)
-        rgba(255, 255, 255, .04);
-}
-
-.logo-detail-modal::-webkit-scrollbar {
-    width: 8px;
-}
-
-.logo-detail-modal::-webkit-scrollbar-track {
-    background:
-        rgba(255,255,255,.025);
-}
-
-.logo-detail-modal::-webkit-scrollbar-thumb {
-    background:
-        rgba(255,180,0,.35);
-
-    border-radius: 999px;
-}
-
 
 /* =========================================================
    LIGHT MODE
@@ -1276,5 +1240,495 @@ body.custom-cursor-active .cursor-outline {
         transform:
             translateY(0)
             scale(1);
+    }
+}
+
+/* =========================================================
+   PROJECT PREVIEW VIEWER — V2
+   Keeps the coverflow untouched, upgrades only the modal.
+   ========================================================= */
+
+.logo-detail-modal--viewer {
+    width: min(94vw, 1240px);
+    height: min(820px, calc(100dvh - 48px));
+    max-height: calc(100dvh - 48px);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.logo-detail-modal--viewer .logo-detail-close {
+    position: absolute;
+    float: none;
+    top: 18px;
+    right: 18px;
+    margin: 0;
+    z-index: 30;
+    background: rgba(10, 11, 16, .62);
+}
+
+.logo-viewer-main {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(310px, .78fr) minmax(0, 1.22fr);
+}
+
+.logo-viewer-copy {
+    min-width: 0;
+    min-height: 0;
+
+    padding: clamp(42px, 5vw, 72px);
+    padding-bottom: 34px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+
+    border-right: 1px solid rgba(255,255,255,.07);
+
+    /* Content tetap bisa di-scroll kalau diperlukan,
+       tetapi scrollbar tidak mengganggu visual modal. */
+    overflow-y: auto;
+    overflow-x: clip;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.logo-viewer-copy::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.logo-detail-modal--viewer .logo-detail-kicker {
+    margin-bottom: 14px;
+}
+
+.logo-detail-modal--viewer .logo-viewer-copy h3 {
+    max-width: 620px;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 5.4rem);
+    font-weight: 800;
+    line-height: .92;
+    letter-spacing: -.055em;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.logo-detail-modal--viewer .logo-detail-subtitle {
+    margin-top: 18px;
+    max-width: 500px;
+    font-size: clamp(.98rem, 1.35vw, 1.18rem);
+    line-height: 1.45;
+}
+
+.logo-detail-modal--viewer .logo-detail-description {
+    max-width: 540px;
+    margin-top: 18px;
+    font-size: .82rem;
+    line-height: 1.75;
+}
+
+.logo-detail-modal--viewer .logo-detail-meta {
+    margin-top: 22px;
+}
+
+.logo-detail-case-link {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--logo-accent) 62%, transparent);
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    transition: color .3s ease, gap .3s ease, border-color .3s ease;
+}
+
+.logo-detail-case-link i {
+    color: var(--logo-accent);
+}
+
+.logo-detail-case-link:hover {
+    gap: 20px;
+    color: var(--logo-accent);
+    border-color: var(--logo-accent);
+}
+
+.logo-viewer-stage {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    padding: 18px 18px 18px 0;
+    background:
+        radial-gradient(circle at 72% 35%, color-mix(in srgb, var(--logo-accent) 9%, transparent), transparent 40%),
+        rgba(255,255,255,.012);
+}
+
+.logo-viewer-figure {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 18px;
+    background: rgba(8,9,13,.46);
+}
+
+.logo-viewer-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: logoViewerImageIn .36s cubic-bezier(.22,1,.36,1) both;
+}
+
+.logo-viewer-figure.is-contain {
+    background:
+        radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--logo-accent) 11%, transparent), rgba(255,255,255,.025) 45%, transparent 76%);
+}
+
+.logo-viewer-figure.is-contain .logo-viewer-image {
+    object-fit: contain;
+    padding: clamp(44px, 7vw, 96px);
+}
+
+.logo-viewer-caption {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 10px;
+    background: rgba(8,9,13,.62);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #fff;
+}
+
+.logo-viewer-caption span,
+.logo-viewer-caption strong {
+    font-family: 'Poppins', sans-serif;
+    font-size: .61rem;
+    letter-spacing: .08em;
+}
+
+.logo-viewer-caption span {
+    color: rgba(255,255,255,.5);
+}
+
+.logo-viewer-caption strong {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.logo-viewer-arrows {
+    position: absolute;
+
+    right: 34px;
+    bottom: 76px;
+
+    z-index: 4;
+
+    display: flex;
+    gap: 8px;
+}
+
+.logo-viewer-arrows button {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 50%;
+    background: rgba(10,11,16,.66);
+    color: #fff;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.logo-viewer-arrows button:hover {
+    transform: scale(1.06);
+    border-color: color-mix(in srgb, var(--logo-accent) 55%, transparent);
+    color: var(--logo-accent);
+}
+
+.logo-viewer-thumbs-wrap {
+    position: relative;
+    z-index: 12;
+    padding: 12px 14px 14px;
+    border-top: 1px solid rgba(255,255,255,.07);
+    background: rgba(14,15,20,.96);
+    box-shadow: 0 -18px 38px rgba(0,0,0,.18);
+}
+
+.logo-viewer-thumbs {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    gap: 9px;
+}
+
+.logo-viewer-thumb {
+    position: relative;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 48px minmax(0,1fr);
+    align-items: center;
+    gap: 10px;
+    padding: 7px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 10px;
+    background: rgba(255,255,255,.022);
+    color: var(--text-muted);
+    text-align: left;
+    cursor: pointer;
+    opacity: .58;
+    transition: opacity .25s ease, border-color .25s ease, background .25s ease, transform .25s ease;
+}
+
+.logo-viewer-thumb:hover {
+    opacity: .86;
+    transform: translateY(-2px);
+}
+
+.logo-viewer-thumb.is-active {
+    opacity: 1;
+    border-color: color-mix(in srgb, var(--logo-accent) 58%, rgba(255,255,255,.08));
+    background: color-mix(in srgb, var(--logo-accent) 7%, rgba(255,255,255,.025));
+}
+
+.logo-viewer-thumb-index {
+    position: absolute;
+    right: 7px;
+    top: 5px;
+    z-index: 2;
+    font-family: 'TomkinRegular', monospace;
+    font-size: .5rem;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.28);
+}
+
+.logo-viewer-thumb-media {
+    width: 48px;
+    aspect-ratio: 1.1;
+    overflow: hidden;
+    border-radius: 7px;
+    background: rgba(255,255,255,.035);
+}
+
+.logo-viewer-thumb-media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.logo-viewer-thumb-media.is-contain img {
+    object-fit: contain;
+    padding: 7px;
+}
+
+.logo-viewer-thumb-label {
+    min-width: 0;
+    padding-right: 11px;
+    font-family: 'Poppins', sans-serif;
+    font-size: .57rem;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+[data-theme="light"] .logo-viewer-copy {
+    border-right-color: rgba(30,32,41,.08);
+}
+
+[data-theme="light"] .logo-viewer-stage,
+[data-theme="light"] .logo-viewer-figure {
+    background-color: rgba(30,32,41,.02);
+}
+
+[data-theme="light"] .logo-viewer-thumbs-wrap {
+    border-top-color: rgba(30,32,41,.08);
+    background: rgba(248,249,252,.97);
+    box-shadow: 0 -18px 38px rgba(30,32,41,.06);
+}
+
+[data-theme="light"] .logo-viewer-thumb {
+    border-color: rgba(30,32,41,.08);
+    background: rgba(30,32,41,.025);
+}
+
+@media (max-width: 980px) {
+    .logo-detail-modal--viewer {
+        width: min(96vw, 900px);
+    }
+
+    .logo-viewer-main {
+        grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr);
+    }
+
+    .logo-viewer-copy {
+        padding: 44px 28px 28px;
+    }
+
+    .logo-detail-modal--viewer .logo-viewer-copy h3 {
+        font-size: clamp(2.1rem, 6vw, 4rem);
+    }
+
+    .logo-viewer-thumb {
+        grid-template-columns: 40px minmax(0,1fr);
+        gap: 7px;
+    }
+
+    .logo-viewer-thumb-media {
+        width: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .logo-detail-backdrop {
+        padding: 8px;
+        place-items: stretch;
+    }
+
+    .logo-detail-modal--viewer {
+        width: 100%;
+        height: calc(100dvh - 16px);
+        max-height: calc(100dvh - 16px);
+        border-radius: 16px;
+        overflow-y: auto;
+        display: block;
+    }
+
+    .logo-detail-modal--viewer .logo-detail-close {
+        position: sticky;
+        float: right;
+        top: 12px;
+        right: 12px;
+        margin: 12px 12px -42px 0;
+    }
+
+    .logo-viewer-main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo-viewer-copy {
+        order: 2;
+        overflow: visible;
+        border-right: 0;
+        padding: 30px 22px 24px;
+    }
+
+    .logo-viewer-stage {
+        order: 1;
+        height: min(54dvh, 470px);
+        min-height: 350px;
+        padding: 12px;
+        padding-top: 58px;
+    }
+
+    .logo-viewer-figure {
+        border-radius: 14px;
+    }
+
+    .logo-detail-modal--viewer .logo-viewer-copy h3 {
+        font-size: clamp(2.15rem, 13vw, 4.2rem);
+    }
+
+    .logo-viewer-arrows {
+        top: auto;
+        right: 24px;
+        bottom: 68px;
+    }
+
+    .logo-viewer-caption {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .logo-viewer-thumbs-wrap {
+        position: sticky;
+        bottom: 0;
+        padding: 10px;
+        background: rgba(14,15,20,.97);
+    }
+
+    .logo-viewer-thumbs {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+        padding-bottom: 2px;
+    }
+
+    .logo-viewer-thumb {
+        flex: 0 0 88px;
+        display: block;
+        padding: 5px;
+    }
+
+    .logo-viewer-thumb-media {
+        width: 100%;
+        aspect-ratio: 1.25;
+        display: block;
+    }
+
+    .logo-viewer-thumb-label {
+        display: block;
+        padding: 5px 2px 1px;
+        font-size: .5rem;
+        text-align: center;
+    }
+
+    .logo-viewer-thumb-index {
+        display: none;
+    }
+
+    [data-theme="light"] .logo-viewer-thumbs-wrap {
+        background: rgba(248,249,252,.98);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-viewer-image,
+    .logo-viewer-thumb,
+    .logo-viewer-arrows button,
+    .logo-detail-case-link {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@keyframes logoViewerImageIn {
+    from {
+        opacity: 0;
+        transform: scale(.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }

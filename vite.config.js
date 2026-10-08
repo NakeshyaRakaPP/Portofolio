@@ -14,6 +14,11 @@ export default defineConfig({
         home: fromRoot('./index.html'),
         relaska: fromRoot('./case-study-relaska.html'),
         ecommerce: fromRoot('./case-study-ecommerce.html'),
+        logoJokirif: fromRoot('./logo-jokirif.html'),
+        logoRajaIblis: fromRoot('./logo-raja-1blis.html'),
+        logoMinara: fromRoot('./logo-minara.html'),
+        logoRelaska: fromRoot('./logo-relaska.html'),
+        logoPtm: fromRoot('./logo-ptm-lumba-lumba.html'),
         notFound: fromRoot('./404.html')
       }
     }

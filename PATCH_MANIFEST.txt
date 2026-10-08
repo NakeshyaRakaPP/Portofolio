@@ -1,0 +1,37 @@
+PORTFOLIO LOGO BRAND VIEWER + 5 CASE STUDIES
+
+HOW TO APPLY
+1. Extract this ZIP into the root of the existing Portofolio project.
+2. Allow matching files to be replaced/merged.
+3. This is a patch ZIP: files not present in this ZIP are NOT meant to be deleted.
+4. Keep the existing five logo PNG files in src/img/.
+5. Replace the placeholder JPGs in src/img/logo-projects/<brand>/ with your final mockups using the exact same filenames.
+6. Run: npm run build
+
+CHANGED FILES
+- src/App.jsx
+- src/data/projects.js
+- src/components/Projects/LogoDetailModal.jsx
+- src/styles/logo-coverflow.css
+- vite.config.js
+
+NEW FILES
+- src/components/CaseStudy/LogoCaseStudyPage.jsx
+- src/styles/logo-case-study.css
+- logo-jokirif.html
+- logo-raja-1blis.html
+- logo-minara.html
+- logo-relaska.html
+- logo-ptm-lumba-lumba.html
+- src/img/logo-projects/** (20 placeholder JPGs)
+- README_LOGO_SHOWCASE.md
+
+FEATURES
+- Quick brand preview modal for all five identities.
+- Large image viewer on the right.
+- Bottom thumbnail strip that swaps the active visual.
+- Keyboard Left/Right navigation and Escape close.
+- VIEW CASE STUDY action.
+- Five dedicated visual-identity case-study pages.
+- Mobile responsive viewer with sticky thumbnail strip.
+- Light mode and reduced-motion handling.

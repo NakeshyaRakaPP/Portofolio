@@ -1,0 +1,382 @@
+.logo-case-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 78% 14%, color-mix(in srgb, var(--logo-accent) 7%, transparent), transparent 30%),
+        var(--bg-dark);
+}
+
+.logo-case-hero {
+    padding: 160px 0 70px;
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.logo-case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: .75rem;
+    transition: color .25s ease, transform .25s ease;
+}
+
+.logo-case-back:hover {
+    color: var(--logo-accent);
+    transform: translateX(-4px);
+}
+
+.logo-case-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+    align-items: end;
+    gap: clamp(40px, 8vw, 120px);
+    margin-top: 54px;
+}
+
+.logo-case-eyebrow,
+.logo-case-section-head > span,
+.logo-case-story-index,
+.logo-case-mark-code,
+.logo-case-next > .container > span {
+    font-family: 'TomkinRegular', monospace;
+    letter-spacing: .14em;
+    color: var(--logo-accent);
+}
+
+.logo-case-eyebrow {
+    display: block;
+    margin-bottom: 14px;
+    font-size: .72rem;
+}
+
+.logo-case-copy h1 {
+    max-width: 900px;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(3.2rem, 8vw, 8.4rem);
+    font-weight: 800;
+    line-height: .88;
+    letter-spacing: -.065em;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.logo-case-intro {
+    max-width: 760px;
+    margin: 28px 0 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(.95rem, 1.4vw, 1.15rem);
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.logo-case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.logo-case-tags span {
+    padding: 7px 10px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: .6rem;
+    color: var(--text-muted);
+}
+
+.logo-case-mark {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    padding: clamp(44px, 6vw, 84px);
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--logo-accent) 12%, transparent), rgba(255,255,255,.018) 46%, transparent 75%);
+    overflow: hidden;
+}
+
+.logo-case-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo-case-mark-code {
+    position: absolute;
+    left: 18px;
+    top: 16px;
+    font-size: .55rem;
+    color: color-mix(in srgb, var(--logo-accent) 72%, var(--text-muted));
+}
+
+.logo-case-feature {
+    padding: 46px 0 20px;
+}
+
+.logo-case-feature figure,
+.logo-case-gallery-item {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 18px;
+    background: rgba(255,255,255,.02);
+}
+
+.logo-case-feature figure {
+    aspect-ratio: 16 / 8.2;
+}
+
+.logo-case-feature img,
+.logo-case-gallery-item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+
+.logo-case-feature figure:hover img,
+.logo-case-gallery-item:hover img {
+    transform: scale(1.025);
+}
+
+.logo-case-feature figcaption,
+.logo-case-gallery-item figcaption {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 10px;
+    background: rgba(8,9,13,.68);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #fff;
+}
+
+.logo-case-feature figcaption span,
+.logo-case-feature figcaption strong,
+.logo-case-gallery-item figcaption span,
+.logo-case-gallery-item figcaption strong {
+    font-family: 'Poppins', sans-serif;
+    font-size: .6rem;
+    letter-spacing: .08em;
+}
+
+.logo-case-feature figcaption span,
+.logo-case-gallery-item figcaption span {
+    color: rgba(255,255,255,.48);
+}
+
+.logo-case-story {
+    padding: 92px 0;
+}
+
+.logo-case-story-row {
+    display: grid;
+    grid-template-columns: minmax(120px, .3fr) minmax(0, 1fr);
+    gap: clamp(26px, 8vw, 120px);
+    padding: 48px 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.logo-case-story-row:last-child {
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.logo-case-story-index {
+    padding-top: 8px;
+    font-size: .68rem;
+}
+
+.logo-case-story-copy {
+    max-width: 850px;
+}
+
+.logo-case-story-copy h2,
+.logo-case-section-head h2 {
+    margin: 0 0 18px;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -.045em;
+    color: var(--text-main);
+}
+
+.logo-case-story-copy p,
+.logo-case-section-head p {
+    max-width: 760px;
+    margin: 0 0 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: .9rem;
+    line-height: 1.85;
+    color: var(--text-muted);
+}
+
+.logo-case-applications {
+    padding: 20px 0 110px;
+}
+
+.logo-case-section-head {
+    margin-bottom: 34px;
+}
+
+.logo-case-section-head > span {
+    display: block;
+    margin-bottom: 12px;
+    font-size: .68rem;
+}
+
+.logo-case-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 16px;
+}
+
+.logo-case-gallery-item {
+    aspect-ratio: 4 / 3;
+}
+
+.logo-case-gallery-item.is-wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 7.5;
+}
+
+.logo-case-next {
+    padding: 80px 0 120px;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.logo-case-next > .container > span {
+    display: block;
+    margin-bottom: 16px;
+    font-size: .65rem;
+}
+
+.logo-case-next a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.logo-case-next strong {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.1rem, 5vw, 5rem);
+    line-height: 1;
+    letter-spacing: -.05em;
+    text-transform: uppercase;
+    transition: color .25s ease;
+}
+
+.logo-case-next i {
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    color: var(--logo-accent);
+    transition: transform .25s ease;
+}
+
+.logo-case-next a:hover strong {
+    color: var(--logo-accent);
+}
+
+.logo-case-next a:hover i {
+    transform: translateX(8px);
+}
+
+[data-theme="light"] .logo-case-page {
+    background:
+        radial-gradient(circle at 78% 14%, color-mix(in srgb, var(--logo-accent) 7%, transparent), transparent 30%),
+        var(--bg-dark);
+}
+
+[data-theme="light"] .logo-case-mark,
+[data-theme="light"] .logo-case-feature figure,
+[data-theme="light"] .logo-case-gallery-item {
+    border-color: rgba(30,32,41,.08);
+    background-color: rgba(30,32,41,.02);
+}
+
+@media (max-width: 900px) {
+    .logo-case-head {
+        grid-template-columns: 1fr;
+    }
+
+    .logo-case-mark {
+        width: min(100%, 520px);
+    }
+}
+
+@media (max-width: 767px) {
+    .logo-case-hero {
+        padding: 130px 0 50px;
+    }
+
+    .logo-case-head {
+        margin-top: 38px;
+        gap: 32px;
+    }
+
+    .logo-case-copy h1 {
+        font-size: clamp(3rem, 16vw, 5.5rem);
+    }
+
+    .logo-case-feature {
+        padding-top: 24px;
+    }
+
+    .logo-case-feature figure,
+    .logo-case-gallery-item,
+    .logo-case-gallery-item.is-wide {
+        aspect-ratio: 4 / 3;
+    }
+
+    .logo-case-story {
+        padding: 58px 0;
+    }
+
+    .logo-case-story-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 36px 0;
+    }
+
+    .logo-case-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .logo-case-gallery-item.is-wide {
+        grid-column: auto;
+    }
+
+    .logo-case-applications {
+        padding-bottom: 76px;
+    }
+
+    .logo-case-next {
+        padding: 62px 0 88px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-case-feature img,
+    .logo-case-gallery-item img,
+    .logo-case-next i,
+    .logo-case-next strong,
+    .logo-case-back {
+        transition: none !important;
+    }
+}
