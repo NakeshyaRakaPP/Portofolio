@@ -1,29 +1,40 @@
 import { useEffect, useRef } from 'react';
 import SceneChrome from '../common/SceneChrome';
+import TextRoll from './TextRoll';
 import '../../styles/about-scroll.css';
 
 const ABOUT_STEPS = [
   {
     number: '01',
-    title: 'THINK',
-    text: 'Understand the system and define the problem.'
+    tag: 'ORIGIN',
+    title: 'CURIOSITY',
+    text: 'It started with a strange habit: taking systems apart to see why they work — a checkout flow, campus bureaucracy, a strategy game. I was always more interested in the why than the how-to.'
   },
   {
     number: '02',
-    title: 'DESIGN',
-    text: 'Translate logic into clear visual experiences.'
+    tag: 'METHOD',
+    title: 'LOGIC FIRST',
+    text: 'Before touching color or layout, I map the problem: who are the users, what data flows, what decisions happen at each point. A design should be sound in logic before it looks beautiful.'
   },
   {
     number: '03',
-    title: 'BUILD',
-    text: 'Turn the concept into a working product.'
+    tag: 'NOW',
+    title: 'SHIPPING',
+    text: 'SIM student and IT Developer intern at Telkom, turning that thinking into working products — from a multi-location POS to data-warehouse reporting.',
+    cta: { href: '#works', label: 'See the systems' }
   }
 ];
 
 const clamp = (value, min = 0, max = 1) =>
   Math.min(Math.max(value, min), max);
 
-const easeOutCubic = value => 1 - Math.pow(1 - value, 3);
+/* Overshoot spring — the NativeWind-style bouncy entrance.
+   Peaks ~10% past the target, then settles back. */
+const easeOutBack = value => {
+  const c1 = 1.70158;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(value - 1, 3) + c1 * Math.pow(value - 1, 2);
+};
 const easeInCubic = value => value * value * value;
 
 export default function AboutScroll() {
@@ -95,7 +106,7 @@ export default function AboutScroll() {
       stepElements.forEach((step, index) => {
         /*
          * Satu step mendapat satu "chapter" sendiri.
-         * Tidak ada overlap antar THINK / DESIGN / BUILD.
+         * Tidak ada overlap antar step.
          * Masing-masing: masuk -> tahan -> keluar.
          */
         const storyStart = 0.06;
@@ -110,12 +121,12 @@ export default function AboutScroll() {
         let opacity = 0;
         let scale = 0.97;
 
-        /* 0% - 22% : masuk dari bawah */
+        /* 0% - 22% : masuk dari bawah, dengan overshoot spring */
         if (localProgress < 0.22) {
-          const phase = easeOutCubic(localProgress / 0.22);
+          const phase = easeOutBack(localProgress / 0.22);
           y = 42 * (1 - phase);
-          opacity = phase;
-          scale = 0.97 + (0.03 * phase);
+          opacity = Math.min(phase, 1);
+          scale = 0.97 + (0.03 * Math.min(phase, 1));
         }
         /* 22% - 78% : benar-benar stay */
         else if (localProgress <= 0.78) {
@@ -233,9 +244,13 @@ export default function AboutScroll() {
               id="about-scroll-title"
               className="about-scroll-title"
             >
-              I design systems,
+              <TextRoll>I design</TextRoll>
               <br />
-              <span>not just screens.</span>
+              <TextRoll>systems,</TextRoll>
+              <br />
+              <TextRoll className="text-roll--muted">not just</TextRoll>
+              <br />
+              <TextRoll className="text-roll--muted">screens.</TextRoll>
             </h2>
 
             <p className="about-scroll-copy">
@@ -258,6 +273,19 @@ export default function AboutScroll() {
             aria-label="My working process"
           >
             <div
+              className="about-scroll-blueprint"
+              aria-hidden="true"
+            >
+              <span className="about-scroll-blueprint-tag">
+                [ FIG. 01 — SYSTEM ]
+              </span>
+              <span className="about-scroll-blueprint-cross tl" />
+              <span className="about-scroll-blueprint-cross tr" />
+              <span className="about-scroll-blueprint-cross bl" />
+              <span className="about-scroll-blueprint-cross br" />
+            </div>
+
+            <div
               className="about-scroll-stage-line"
               aria-hidden="true"
             />
@@ -278,13 +306,25 @@ export default function AboutScroll() {
 
                 <div className="about-scroll-step-content">
                   <div className="about-scroll-step-kicker">
-                    <span>{step.number}</span>
+                    <span className="about-scroll-step-index">
+                      [{step.number}]
+                    </span>
                     <span className="about-scroll-step-dash" />
-                    <span>PROCESS</span>
+                    <span>{step.tag}</span>
                   </div>
 
                   <h3>{step.title}</h3>
                   <p>{step.text}</p>
+
+                  {step.cta && (
+                    <a
+                      className="about-scroll-step-cta"
+                      href={step.cta.href}
+                    >
+                      {step.cta.label}
+                      <i className="bi bi-arrow-down-right" aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               </article>
             ))}

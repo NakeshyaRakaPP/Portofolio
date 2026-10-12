@@ -357,8 +357,7 @@
     transition:
         border-color .28s ease,
         background .28s ease,
-        transform .28s
-            cubic-bezier(.22, 1, .36, 1),
+        transform .3s var(--ease-spring),
         box-shadow .28s ease;
 }
 
@@ -651,8 +650,7 @@
         color .25s ease,
         border-color .25s ease,
         background .25s ease,
-        transform .25s
-            cubic-bezier(.22, 1, .36, 1);
+        transform .3s var(--ease-spring);
 }
 
 

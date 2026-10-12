@@ -41,7 +41,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: transform .3s var(--ease-spring), border-color .3s ease, background-color .3s ease, color .3s ease;
 }
 
 .email-button:hover {
@@ -67,7 +67,7 @@
     font-size: 1.2rem;
     margin-right: 15px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform .3s var(--ease-spring), background-color .3s ease, color .3s ease, border-color .3s ease;
 }
 
 .social-nodes a:hover {

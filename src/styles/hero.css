@@ -170,7 +170,7 @@
     cursor: grab;
     user-select: none;
     touch-action: pan-y;
-    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    transition: transform .3s var(--ease-spring), border-color .3s ease, box-shadow .3s ease;
 }
 
 .hero-slide-cta::before {
@@ -251,7 +251,7 @@
     font-size: .59rem;
     font-weight: 600;
     letter-spacing: .19em;
-    transition: color .25s ease, transform .25s ease;
+    transition: color .25s ease, transform .3s var(--ease-spring);
 }
 
 .hero-cv-link:hover {

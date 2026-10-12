@@ -1,13 +1,13 @@
 export const assets = {
   heroProfile: new URL('../img/foto-raka-transparan.webp', import.meta.url).href,
   backgroundTexture: new URL('../img/background-texture.webp', import.meta.url).href,
-  relaskaThumb: new URL('../img/thumbnail-relaska.jpg', import.meta.url).href,
+  relaskaThumb: new URL('../img/thumbnail-relaska.webp', import.meta.url).href,
   logos: {
-    jokirif: new URL('../img/LOGO JOKIRIF.png', import.meta.url).href,
-    rajaIblis: new URL('../img/LOGO RAJA 1BLIS.png', import.meta.url).href,
-    minara: new URL('../img/LOGO MINARA.png', import.meta.url).href,
-    relaska: new URL('../img/LOGO RELASKA.png', import.meta.url).href,
-    ptm: new URL('../img/LOGO PTM LUMBA-LUMBA.png', import.meta.url).href
+    jokirif: new URL('../img/LOGO JOKIRIF.webp', import.meta.url).href,
+    rajaIblis: new URL('../img/LOGO RAJA 1BLIS.webp', import.meta.url).href,
+    minara: new URL('../img/LOGO MINARA.webp', import.meta.url).href,
+    relaska: new URL('../img/LOGO RELASKA.webp', import.meta.url).href,
+    ptm: new URL('../img/LOGO PTM LUMBA-LUMBA.webp', import.meta.url).href
   },
   tools: {
     figma: new URL('../img/tools/figma.svg', import.meta.url).href,

@@ -59,10 +59,7 @@
     color: var(--text-main);
 }
 
-.about-scroll-title span {
-    color: var(--text-muted);
-    font-weight: 500;
-}
+/* (second headline line tone lives on .text-roll--muted now) */
 
 .about-scroll-copy {
     max-width: 500px;
@@ -209,10 +206,10 @@
 .about-scroll-step h3 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(3.2rem, 7vw, 7.5rem);
+    font-size: clamp(2.4rem, 4.6vw, 4.6rem);
     font-weight: 700;
-    line-height: .86;
-    letter-spacing: -.055em;
+    line-height: .94;
+    letter-spacing: -.045em;
     color: var(--text-main);
 }
 
@@ -283,7 +280,7 @@
     }
 
     .about-scroll-step h3 {
-        font-size: clamp(3rem, 8vw, 5.8rem);
+        font-size: clamp(2.2rem, 5.4vw, 4rem);
     }
 
     .about-scroll-step-number {
@@ -374,7 +371,7 @@
     }
 
     .about-scroll-step h3 {
-        font-size: clamp(2.8rem, 15vw, 4.7rem);
+        font-size: clamp(1.9rem, 9.5vw, 3rem);
     }
 
     .about-scroll-step p {
@@ -432,5 +429,200 @@
 
     .about-scroll-hint-line::after {
         animation: none;
+    }
+}
+
+/* =========================================================
+   NATIVEWIND ADOPTION — BLUEPRINT / GLOW / MONO / SPRING
+   ========================================================= */
+
+/* Amber glow behind the scroll stage */
+.about-scroll-stage::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    width: min(46vw, 640px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+        circle,
+        rgba(255, 184, 0, .07),
+        transparent 62%
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Blueprint decoration — dashed frame + crop crosses + mono tag */
+.about-scroll-blueprint {
+    position: absolute;
+    inset: 4% 0 4% clamp(28px, 4vw, 64px);
+    border: 1px dashed rgba(255, 255, 255, .09);
+    border-radius: 18px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-scroll-blueprint-tag {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+    font-family: 'TomkinRegular', monospace;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    color: rgba(255, 255, 255, .28);
+}
+
+.about-scroll-blueprint-cross {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    opacity: .35;
+}
+
+.about-scroll-blueprint-cross::before,
+.about-scroll-blueprint-cross::after {
+    content: "";
+    position: absolute;
+    background: var(--accent-color);
+}
+
+.about-scroll-blueprint-cross::before {
+    left: 6px;
+    top: 0;
+    width: 2px;
+    height: 14px;
+}
+
+.about-scroll-blueprint-cross::after {
+    top: 6px;
+    left: 0;
+    width: 14px;
+    height: 2px;
+}
+
+.about-scroll-blueprint-cross.tl { top: -7px; left: -7px; }
+.about-scroll-blueprint-cross.tr { top: -7px; right: -7px; }
+.about-scroll-blueprint-cross.bl { bottom: -7px; left: -7px; }
+.about-scroll-blueprint-cross.br { bottom: -7px; right: -7px; }
+
+/* Mono bracket index in step kicker */
+.about-scroll-step-index {
+    font-family: 'TomkinRegular', monospace;
+    letter-spacing: .1em;
+    color: var(--accent-color);
+}
+
+/* Step CTA — appears on the final step */
+.about-scroll-step-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 12px 20px 12px 22px;
+    font-family: 'Poppins', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: #16120a;
+    background: var(--accent-color);
+    text-decoration: none;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+    transition: transform .3s var(--ease-spring, cubic-bezier(.175, .885, .32, 1.275)),
+        filter .3s ease;
+}
+
+.about-scroll-step-cta:hover {
+    transform: translateY(-3px);
+    filter: drop-shadow(0 14px 26px rgba(255, 184, 0, .28));
+    color: #16120a;
+}
+
+.about-scroll-step-cta i {
+    transition: transform .3s var(--ease-spring, cubic-bezier(.175, .885, .32, 1.275));
+}
+
+.about-scroll-step-cta:hover i {
+    transform: translate(3px, 3px);
+}
+
+/* Mobile + reduced motion: keep new elements calm */
+@media (max-width: 767px) {
+    .about-scroll-blueprint,
+    .about-scroll-stage::before {
+        display: none;
+    }
+
+    .about-scroll-step-cta {
+        margin-top: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-scroll-blueprint,
+    .about-scroll-stage::before {
+        display: none;
+    }
+}
+
+/* =========================================================
+   TEXT ROLL — 21st.dev-style letter roll, CSS-only.
+   Top layer rolls up, accent layer rolls in from below,
+   staggered from the center outward. No JS, no new deps.
+   ========================================================= */
+
+.text-roll {
+    display: inline-grid;
+    overflow: hidden;
+    vertical-align: bottom;
+    line-height: 1.04;
+}
+
+.text-roll-layer {
+    /* Both layers share one grid cell and stay in normal flow,
+       so they always get the exact same width.
+       Single unwrappable line per TextRoll — no wrapping,
+       so the layers can never desync. */
+    grid-area: 1 / 1;
+    white-space: nowrap;
+}
+
+.text-roll-layer--alt {
+    color: var(--accent-color);
+}
+
+.text-roll-letter {
+    display: inline-block;
+    transition: transform .55s cubic-bezier(.65, 0, .35, 1);
+    transition-delay: var(--roll-delay, 0s);
+    will-change: transform;
+}
+
+.text-roll-layer--alt .text-roll-letter {
+    transform: translateY(112%);
+}
+
+.text-roll:hover .text-roll-letter {
+    transform: translateY(-112%);
+}
+
+.text-roll:hover .text-roll-layer--alt .text-roll-letter {
+    transform: translateY(0);
+}
+
+/* Muted second line of the headline keeps its tone until rolled */
+.about-scroll-title .text-roll--muted {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .text-roll-letter {
+        transition: none;
+    }
+
+    .text-roll-layer--alt {
+        display: none;
     }
 }

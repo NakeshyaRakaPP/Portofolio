@@ -88,7 +88,19 @@
 }
 
 .scene-chrome-index {
+    font-family: 'TomkinRegular', monospace;
+    letter-spacing: .08em;
     color: var(--accent-color);
+}
+
+.scene-chrome-index::before {
+    content: "[";
+    opacity: .55;
+}
+
+.scene-chrome-index::after {
+    content: "]";
+    opacity: .55;
 }
 
 .scene-chrome-line {

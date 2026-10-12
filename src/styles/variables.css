@@ -50,6 +50,12 @@
 
     --shadow-soft: 0 22px 70px rgba(0, 0, 0, .20);
     --shadow-scene: 0 36px 110px rgba(0, 0, 0, .28);
+
+    /* Overshoot spring — NativeWind-style bouncy micro-interactions.
+       The y > 1 control point makes elements travel ~10% past
+       their target, then settle back. Use for transforms only,
+       never for color/opacity transitions. */
+    --ease-spring: cubic-bezier(.175, .885, .32, 1.275);
 }
 
 * {

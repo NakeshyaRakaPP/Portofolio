@@ -2,34 +2,34 @@ import { assets } from './assets';
 
 const shots = {
   jokirif: {
-    hero: new URL('../img/logo-projects/jokirif/01-hero.png', import.meta.url).href,
-    applicationA: new URL('../img/logo-projects/jokirif/02-application-a.png', import.meta.url).href,
-    applicationB: new URL('../img/logo-projects/jokirif/03-application-b.png', import.meta.url).href,
-    applicationC: new URL('../img/logo-projects/jokirif/04-application-c.png', import.meta.url).href
+    hero: new URL('../img/logo-projects/jokirif/01-hero.webp', import.meta.url).href,
+    applicationA: new URL('../img/logo-projects/jokirif/02-application-a.webp', import.meta.url).href,
+    applicationB: new URL('../img/logo-projects/jokirif/03-application-b.webp', import.meta.url).href,
+    applicationC: new URL('../img/logo-projects/jokirif/04-application-c.webp', import.meta.url).href
   },
   rajaIblis: {
-    hero: new URL('../img/logo-projects/raja-iblis/01-hero.png', import.meta.url).href,
-    applicationA: new URL('../img/logo-projects/raja-iblis/02-application-a.png', import.meta.url).href,
-    applicationB: new URL('../img/logo-projects/raja-iblis/03-application-b.png', import.meta.url).href,
-    applicationC: new URL('../img/logo-projects/raja-iblis/04-application-c.png', import.meta.url).href
+    hero: new URL('../img/logo-projects/raja-iblis/01-hero.webp', import.meta.url).href,
+    applicationA: new URL('../img/logo-projects/raja-iblis/02-application-a.webp', import.meta.url).href,
+    applicationB: new URL('../img/logo-projects/raja-iblis/03-application-b.webp', import.meta.url).href,
+    applicationC: new URL('../img/logo-projects/raja-iblis/04-application-c.webp', import.meta.url).href
   },
   minara: {
-    hero: new URL('../img/logo-projects/minara/01-hero.png', import.meta.url).href,
-    applicationA: new URL('../img/logo-projects/minara/02-application-a.png', import.meta.url).href,
-    applicationB: new URL('../img/logo-projects/minara/03-application-b.png', import.meta.url).href,
-    applicationC: new URL('../img/logo-projects/minara/04-application-c.png', import.meta.url).href
+    hero: new URL('../img/logo-projects/minara/01-hero.webp', import.meta.url).href,
+    applicationA: new URL('../img/logo-projects/minara/02-application-a.webp', import.meta.url).href,
+    applicationB: new URL('../img/logo-projects/minara/03-application-b.webp', import.meta.url).href,
+    applicationC: new URL('../img/logo-projects/minara/04-application-c.webp', import.meta.url).href
   },
   relaska: {
-    hero: new URL('../img/logo-projects/relaska/01-hero.png', import.meta.url).href,
-    applicationA: new URL('../img/logo-projects/relaska/02-application-a.png', import.meta.url).href,
-    applicationB: new URL('../img/logo-projects/relaska/03-application-b.png', import.meta.url).href,
-    applicationC: new URL('../img/logo-projects/relaska/04-application-c.png', import.meta.url).href
+    hero: new URL('../img/logo-projects/relaska/01-hero.webp', import.meta.url).href,
+    applicationA: new URL('../img/logo-projects/relaska/02-application-a.webp', import.meta.url).href,
+    applicationB: new URL('../img/logo-projects/relaska/03-application-b.webp', import.meta.url).href,
+    applicationC: new URL('../img/logo-projects/relaska/04-application-c.webp', import.meta.url).href
   },
   ptm: {
-    hero: new URL('../img/logo-projects/ptm/01-hero.png', import.meta.url).href,
-    applicationA: new URL('../img/logo-projects/ptm/02-application-a.png', import.meta.url).href,
-    applicationB: new URL('../img/logo-projects/ptm/03-application-b.png', import.meta.url).href,
-    applicationC: new URL('../img/logo-projects/ptm/04-application-c.png', import.meta.url).href
+    hero: new URL('../img/logo-projects/ptm/01-hero.webp', import.meta.url).href,
+    applicationA: new URL('../img/logo-projects/ptm/02-application-a.webp', import.meta.url).href,
+    applicationB: new URL('../img/logo-projects/ptm/03-application-b.webp', import.meta.url).href,
+    applicationC: new URL('../img/logo-projects/ptm/04-application-c.webp', import.meta.url).href
   }
 };
 
