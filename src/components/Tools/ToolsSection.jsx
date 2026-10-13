@@ -724,23 +724,48 @@ export default function ToolsSection() {
   }, [assemblyReady]);
 
   /*
-   * Tool chip tilt — docked cards lean toward the cursor on hover.
+   * Tool chip hover — docked cards lift diagonally (each chip gets its
+   * own random lift direction) and lean toward the cursor in 3D.
    * Purely decorative: skipped on touch / reduced motion, and never
    * while dragging (the drag ghost owns the pointer then).
    *
    * NOTE: the cards live in a body-level portal, so the listener is
    * attached to document — a section-level listener would never see
    * their pointer events bubble past it.
+   *
+   * NOTE 2: the hover guard must be (hover: none) only. Gating on
+   * (pointer: coarse) kills the effect on touchscreen laptops, which
+   * report BOTH a fine pointer (mouse) and a coarse one (touch).
    */
   useEffect(() => {
     if (!assemblyReady) return undefined;
 
     if (
-      window.matchMedia('(hover: none), (pointer: coarse)').matches ||
+      window.matchMedia('(hover: none)').matches ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) {
       return undefined;
     }
+
+    /*
+     * Per-chip random diagonal lift, assigned once so every chip keeps
+     * its own personality: angle across the upper half (-160°..-20°),
+     * so the lift always goes up, but never straight up for two chips
+     * in a row the same way.
+     */
+    const liftFor = new WeakMap();
+
+    document
+      .querySelectorAll('.workbench-tool-actor .tool-card')
+      .forEach(card => {
+        const angle = (-160 + Math.random() * 140) * (Math.PI / 180);
+        const dist = 8 + Math.random() * 6;
+
+        liftFor.set(card, {
+          x: Math.cos(angle) * dist,
+          y: Math.sin(angle) * dist
+        });
+      });
 
     let current = null;
     let raf = null;
@@ -772,6 +797,7 @@ export default function ToolsSection() {
       if (raf) return;
 
       const { clientX, clientY } = event;
+      const lift = liftFor.get(card) || { x: 0, y: -10 };
 
       raf = requestAnimationFrame(() => {
         raf = null;
@@ -788,6 +814,7 @@ export default function ToolsSection() {
 
         card.style.transform =
           `perspective(700px) ` +
+          `translate3d(${lift.x.toFixed(1)}px, ${lift.y.toFixed(1)}px, 0) ` +
           `rotateX(${(-py * 10).toFixed(2)}deg) ` +
           `rotateY(${(px * 12).toFixed(2)}deg)`;
       });
