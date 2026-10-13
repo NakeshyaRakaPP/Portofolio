@@ -626,3 +626,49 @@
         display: none;
     }
 }
+
+/* =========================================================
+   STEP TITLE ROLL — TextRoll triggered by card hover,
+   rolled layer in amber gradient (NativeWind-style).
+   ========================================================= */
+
+/* Gradient per letter — background-clip:text on the layer breaks
+   when the letters are transformed children, so each letter carries
+   its own gradient clipped to its own glyph (rock solid). */
+.about-scroll-step .text-roll-step-title .text-roll-layer--alt .text-roll-letter {
+    background-image: linear-gradient(100deg, #ffc233, #ff8a00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.about-scroll-step:hover .text-roll-step-title .text-roll-letter {
+    transform: translateY(-112%);
+}
+
+.about-scroll-step:hover .text-roll-step-title .text-roll-layer--alt .text-roll-letter {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   STEP CARD HOVER EXTRAS — gold bar glows, giant number warms.
+   ========================================================= */
+
+.about-scroll-step-content::before {
+    transition:
+        width .35s cubic-bezier(.175, .885, .32, 1.275),
+        box-shadow .35s ease;
+}
+
+.about-scroll-step:hover .about-scroll-step-content::before {
+    width: 4px;
+    box-shadow: 0 0 28px rgba(255, 184, 0, .6);
+}
+
+.about-scroll-step-number {
+    transition: -webkit-text-stroke-color .4s ease;
+}
+
+.about-scroll-step:hover .about-scroll-step-number {
+    -webkit-text-stroke-color: rgba(255, 184, 0, .22);
+}

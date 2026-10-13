@@ -1,10 +1,59 @@
+import { useEffect, useRef } from 'react';
 import LogoCoverflow from './LogoCoverflow';
 import { logoProjects, softwareProjects } from '../../data/projects';
 import SceneChrome from '../common/SceneChrome';
+import Magnetic from '../common/Magnetic';
 
 export default function Projects() {
+  const sectionRef = useRef(null);
+
+  /* Card spotlight — an amber radial glow follows the cursor
+     inside each project card, driven by CSS variables. */
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return undefined;
+
+    if (
+      !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    ) {
+      return undefined;
+    }
+
+    const handlePointerMove = event => {
+      const card = event.target.closest('.project-card');
+
+      if (!card || !section.contains(card)) return;
+
+      const rect = card.getBoundingClientRect();
+
+      card.style.setProperty(
+        '--spot-x',
+        `${event.clientX - rect.left}px`
+      );
+
+      card.style.setProperty(
+        '--spot-y',
+        `${event.clientY - rect.top}px`
+      );
+    };
+
+    section.addEventListener(
+      'pointermove',
+      handlePointerMove,
+      { passive: true }
+    );
+
+    return () => {
+      section.removeEventListener(
+        'pointermove',
+        handlePointerMove
+      );
+    };
+  }, []);
+
   return (
-    <section id="works" className="works-section scene-section scene-projects">
+    <section id="works" ref={sectionRef} className="works-section scene-section scene-projects">
       <SceneChrome
         index="03"
         label="SELECTED WORK"
@@ -69,9 +118,9 @@ export default function Projects() {
                     </div>
                     <h5 className="project-card-title">{project.title}</h5>
                     <p className="project-card-desc">{project.description}</p>
-                    <span className="project-card-btn">
+                    <Magnetic as="span" className="project-card-btn">
                       View Case Study <i className="bi bi-arrow-up-right" aria-hidden="true" />
-                    </span>
+                    </Magnetic>
                   </div>
                 </a>
               </div>

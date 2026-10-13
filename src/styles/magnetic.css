@@ -1,0 +1,15 @@
+/* =========================================================
+   MAGNETIC — transform is driven by GSAP, so the CSS
+   transform transition is dropped here to avoid fighting it.
+   Every other transition (color, filter, shadow…) keeps working.
+   ========================================================= */
+
+.magnetic {
+    transition-property:
+        filter,
+        color,
+        background-color,
+        border-color,
+        box-shadow,
+        opacity !important;
+}

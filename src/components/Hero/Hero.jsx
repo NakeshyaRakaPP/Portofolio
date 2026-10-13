@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 import { assets } from '../../data/assets';
+import TextRoll from '../common/TextRoll';
+import Magnetic from '../common/Magnetic';
 
 const ROLES = [
   'SYSTEM ANALYST',
@@ -117,8 +119,8 @@ export default function Hero() {
 
         <div className="hero-title-wrap" data-parallax="0.022" data-parallax-scroll="0.1">
           <h1 className="hero-title-big reveal in-zoom" data-delay="0">
-            <span className="hero-title-solid">SYSTEM</span>
-            <span className="hero-title-outline">THINKER</span>
+            <span className="hero-title-solid"><TextRoll>SYSTEM</TextRoll></span>
+            <span className="hero-title-outline"><TextRoll>THINKER</TextRoll></span>
           </h1>
         </div>
 
@@ -129,10 +131,10 @@ export default function Hero() {
 
           <SlideToWork />
 
-          <a className="hero-cv-link" href="./cv-raka.pdf" download>
+          <Magnetic className="hero-cv-link" href="./cv-raka.pdf" download>
             <span>DOWNLOAD CV</span>
             <i className="bi bi-arrow-down-right" aria-hidden="true" />
-          </a>
+          </Magnetic>
         </div>
 
         <div className="hero-profile-zone reveal in-up" data-delay="160">

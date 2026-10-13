@@ -688,3 +688,12 @@
     .hero-cv-link,
     .status-badge.hero-status { transition: none; }
 }
+
+/* =========================================================
+   HERO TITLE ROLL — the outline word rolls into solid amber.
+   ========================================================= */
+
+.hero-title-outline .text-roll-layer--alt {
+    color: var(--accent-color);
+    -webkit-text-stroke-width: 0;
+}

@@ -587,37 +587,81 @@ export default function ToolsSection() {
       cursor
     ) {
       return new Promise(resolve => {
-        const cardRect =
-          sourceCard.getBoundingClientRect();
+        /*
+         * The cursor is fixed-positioned at body level (above the card
+         * actor layer), so it uses viewport coordinates. Re-anchor it
+         * to its current target whenever the view shifts mid-demo —
+         * this keeps it glued to the card / dropzone even while the
+         * user scrolls, instead of landing on a stale position.
+         */
+        let target = null;
 
-        const dropRect =
-          dropzone.getBoundingClientRect();
+        const placeCursor = () => {
+          if (!target) return;
 
-        const startX =
-          cardRect.left +
-          cardRect.width * 0.72;
+          const rect =
+            target.element.getBoundingClientRect();
 
-        const startY =
-          cardRect.top +
-          cardRect.height * 0.62;
+          cursor.style.transform = `
+            translate3d(
+              ${rect.left + rect.width * target.fx}px,
+              ${rect.top + rect.height * target.fy}px,
+              0
+            )
+          `;
+        };
 
-        const endX =
-          dropRect.left +
-          dropRect.width * 0.5;
+        const handleViewShift = () => {
+          placeCursor();
+        };
 
-        const endY =
-          dropRect.top +
-          dropRect.height * 0.5;
+        window.addEventListener(
+          'scroll',
+          handleViewShift,
+          { passive: true }
+        );
+
+        window.addEventListener(
+          'resize',
+          handleViewShift
+        );
+
+        const finish = () => {
+          window.removeEventListener(
+            'scroll',
+            handleViewShift
+          );
+
+          window.removeEventListener(
+            'resize',
+            handleViewShift
+          );
+
+          sourceCard.classList.remove(
+            'is-demo-hovered'
+          );
+
+          dropzone.classList.remove(
+            'is-hovered'
+          );
+
+          cursor.classList.remove(
+            'is-visible'
+          );
+
+          resolve();
+        };
+
+        // Leg 1: sit on the source card (sticks to it if scrolled).
+        target = {
+          element: sourceCard,
+          fx: 0.72,
+          fy: 0.62
+        };
 
         cursor.style.transition = 'none';
 
-        cursor.style.transform = `
-          translate3d(
-            ${startX}px,
-            ${startY}px,
-            0
-          )
-        `;
+        placeCursor();
 
         cursor.classList.add('is-visible');
 
@@ -625,8 +669,7 @@ export default function ToolsSection() {
         // visibly react before the pointer starts travelling.
         window.setTimeout(() => {
           if (!readyRef.current) {
-            cursor.classList.remove('is-visible');
-            resolve();
+            finish();
             return;
           }
 
@@ -634,43 +677,40 @@ export default function ToolsSection() {
         }, 100);
 
         // Leave the source card, then travel toward the dropzone.
+        // Retargeting mid-flight reuses the active CSS transition,
+        // so the cursor chases a scrolled dropzone smoothly.
         window.setTimeout(() => {
           if (!readyRef.current) {
-            sourceCard.classList.remove('is-demo-hovered');
-            cursor.classList.remove('is-visible');
-            resolve();
+            finish();
             return;
           }
 
           sourceCard.classList.remove('is-demo-hovered');
+
+          target = {
+            element: dropzone,
+            fx: 0.5,
+            fy: 0.5
+          };
 
           cursor.style.transition = `
             transform 1.1s
             cubic-bezier(.22, 1, .36, 1)
           `;
 
-          cursor.style.transform = `
-            translate3d(
-              ${endX}px,
-              ${endY}px,
-              0
-            )
-          `;
+          placeCursor();
 
           // The dropzone only reacts once the cursor has actually arrived.
           window.setTimeout(() => {
             if (!readyRef.current) {
-              cursor.classList.remove('is-visible');
-              resolve();
+              finish();
               return;
             }
 
             dropzone.classList.add('is-hovered');
 
             window.setTimeout(() => {
-              dropzone.classList.remove('is-hovered');
-              cursor.classList.remove('is-visible');
-              resolve();
+              finish();
             }, 700);
           }, 1100);
         }, 650);
@@ -680,6 +720,111 @@ export default function ToolsSection() {
     return () => {
       cancelled = true;
       observer.disconnect();
+    };
+  }, [assemblyReady]);
+
+  /*
+   * Tool chip tilt — docked cards lean toward the cursor on hover.
+   * Purely decorative: skipped on touch / reduced motion, and never
+   * while dragging (the drag ghost owns the pointer then).
+   *
+   * NOTE: the cards live in a body-level portal, so the listener is
+   * attached to document — a section-level listener would never see
+   * their pointer events bubble past it.
+   */
+  useEffect(() => {
+    if (!assemblyReady) return undefined;
+
+    if (
+      window.matchMedia('(hover: none), (pointer: coarse)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return undefined;
+    }
+
+    let current = null;
+    let raf = null;
+
+    const reset = () => {
+      if (current) {
+        current.style.transform = '';
+        current = null;
+      }
+    };
+
+    const handlePointerMove = event => {
+      /* A pressed pointer means a drag is in progress — stay out. */
+      if (event.buttons !== 0) {
+        if (!raf) reset();
+        return;
+      }
+
+      const card = event.target.closest('.tool-card');
+
+      if (
+        !card ||
+        !card.closest('.workbench-tool-actor.is-docked')
+      ) {
+        if (!raf) reset();
+        return;
+      }
+
+      if (raf) return;
+
+      const { clientX, clientY } = event;
+
+      raf = requestAnimationFrame(() => {
+        raf = null;
+
+        const rect = card.getBoundingClientRect();
+        const px = (clientX - rect.left) / rect.width - 0.5;
+        const py = (clientY - rect.top) / rect.height - 0.5;
+
+        if (current && current !== card) {
+          current.style.transform = '';
+        }
+
+        current = card;
+
+        card.style.transform =
+          `perspective(700px) ` +
+          `rotateX(${(-py * 10).toFixed(2)}deg) ` +
+          `rotateY(${(px * 12).toFixed(2)}deg)`;
+      });
+    };
+
+    const handlePointerLeave = () => {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+
+      reset();
+    };
+
+    document.addEventListener(
+      'pointermove',
+      handlePointerMove,
+      { passive: true }
+    );
+
+    document.documentElement.addEventListener(
+      'mouseleave',
+      handlePointerLeave
+    );
+
+    return () => {
+      document.removeEventListener(
+        'pointermove',
+        handlePointerMove
+      );
+
+      document.documentElement.removeEventListener(
+        'mouseleave',
+        handlePointerLeave
+      );
+
+      if (raf) cancelAnimationFrame(raf);
     };
   }, [assemblyReady]);
 

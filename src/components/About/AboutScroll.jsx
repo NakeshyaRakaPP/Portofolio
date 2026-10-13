@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import SceneChrome from '../common/SceneChrome';
-import TextRoll from './TextRoll';
+import TextRoll from '../common/TextRoll';
+import Magnetic from '../common/Magnetic';
 import '../../styles/about-scroll.css';
 
 const ABOUT_STEPS = [
@@ -313,17 +314,17 @@ export default function AboutScroll() {
                     <span>{step.tag}</span>
                   </div>
 
-                  <h3>{step.title}</h3>
+                  <h3><TextRoll className="text-roll-step-title">{step.title}</TextRoll></h3>
                   <p>{step.text}</p>
 
                   {step.cta && (
-                    <a
-                      className="about-scroll-step-cta"
+                    <Magnetic
                       href={step.cta.href}
+                      className="about-scroll-step-cta"
                     >
                       {step.cta.label}
                       <i className="bi bi-arrow-down-right" aria-hidden="true" />
-                    </a>
+                    </Magnetic>
                   )}
                 </div>
               </article>
